@@ -6646,7 +6646,7 @@
 									"containerExtending": false,
 									"left": 466,
 									"top": 1124,
-									"width": 32,
+									"width": 33.0458984375,
 									"height": 13,
 									"autoResize": false,
 									"alpha": 0.46909618843272094,
@@ -8127,7 +8127,7 @@
 									"containerExtending": false,
 									"left": 292,
 									"top": 884,
-									"width": 32,
+									"width": 33.0458984375,
 									"height": 13,
 									"autoResize": false,
 									"alpha": 1.5707963267948966,
@@ -21683,6 +21683,7 @@
 									"isDerived": false
 								}
 							],
+							"documentation": "DonationCenter is an abstract class. It represents a physical location and keeps track of all the blood it has in storage.",
 							"visibility": "public",
 							"attributes": [
 								{
@@ -21692,6 +21693,7 @@
 										"$ref": "AAAAAAFiAa1OQeU6tvk="
 									},
 									"name": "bloodStorage",
+									"documentation": "An array of <Blood>\nThis is the storage to which Assistants may add new Blood from donors, draw from stocks to fulfill requests or inspect what blood there is in storage.\n\nDoctors may only inspect the storage.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -21713,6 +21715,7 @@
 										"$ref": "AAAAAAFiAa1OQeU6tvk="
 									},
 									"name": "location",
+									"documentation": "The physical location in the world of the Donation Center.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -21735,6 +21738,7 @@
 										"$ref": "AAAAAAFiAa1OQeU6tvk="
 									},
 									"name": "getBloodStorage",
+									"documentation": "Returns all the items in the bloodStorage field.",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -21769,6 +21773,7 @@
 										"$ref": "AAAAAAFiAa1OQeU6tvk="
 									},
 									"name": "addBlood",
+									"documentation": "The addBlood method takes a variable of type Blood and appends it to the bloodStorage.",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -21818,6 +21823,7 @@
 										"$ref": "AAAAAAFiAa1OQeU6tvk="
 									},
 									"name": "removeBloodFromStorage",
+									"documentation": "After blood has been sent to the doctor it should be removed from the storage.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -21977,6 +21983,7 @@
 									"visibility": "public"
 								}
 							],
+							"documentation": "The DonationCenterDonors class extends DonationCenter.\n\nIt keeps track of all approved donors in the donorList.\nIt also stores would-be-donors in the donorBuffer along with their request sheets.",
 							"visibility": "public",
 							"attributes": [
 								{
@@ -21986,6 +21993,7 @@
 										"$ref": "AAAAAAFiFgxg8GfD98g="
 									},
 									"name": "donorsList",
+									"documentation": "The list of approved donors",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22007,6 +22015,7 @@
 										"$ref": "AAAAAAFiFgxg8GfD98g="
 									},
 									"name": "pendingDonorRequests",
+									"documentation": "The request forms of the pending donors.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22026,6 +22035,7 @@
 										"$ref": "AAAAAAFiFgxg8GfD98g="
 									},
 									"name": "donorBuffer",
+									"documentation": "The list of pending donors to be approved.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22049,6 +22059,7 @@
 										"$ref": "AAAAAAFiFgxg8GfD98g="
 									},
 									"name": "getDonorsList",
+									"documentation": "Retrieves the list of all approved donors.",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22083,6 +22094,7 @@
 										"$ref": "AAAAAAFiFgxg8GfD98g="
 									},
 									"name": "validateForm",
+									"documentation": "Private method.\nChecks whether the form was filled correctly.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22132,6 +22144,7 @@
 										"$ref": "AAAAAAFiFgxg8GfD98g="
 									},
 									"name": "addDonorToDonorList",
+									"documentation": "After a donor has been manually approved by an assistant, he/she should be added to the donorList.",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22181,6 +22194,7 @@
 										"$ref": "AAAAAAFiFgxg8GfD98g="
 									},
 									"name": "deleteIdleDonors",
+									"documentation": "Private method.\nDonors that have not been active (have not donated) within the last X months should be classified as Idle and should be deleted from the donorList.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22212,6 +22226,7 @@
 										"$ref": "AAAAAAFiFgxg8GfD98g="
 									},
 									"name": "notifyDonor",
+									"documentation": "Private method.\nWhenever a donor's blood is used he/she should be notified.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22261,6 +22276,7 @@
 										"$ref": "AAAAAAFiFgxg8GfD98g="
 									},
 									"name": "searchNearestDonors",
+									"documentation": "Retrieves a list of donors sorted by how close they are to the donation center.",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22295,6 +22311,7 @@
 										"$ref": "AAAAAAFiFgxg8GfD98g="
 									},
 									"name": "getPendingDonors",
+									"documentation": "Retrieves a list of all Donors that have applied and have not yet been processed.",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22329,6 +22346,7 @@
 										"$ref": "AAAAAAFiFgxg8GfD98g="
 									},
 									"name": "setDonorBlood",
+									"documentation": "Assigns a Blood type item to a certain donor specified by his CNP.",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22550,6 +22568,7 @@
 									"visibility": "public"
 								}
 							],
+							"documentation": "The DonationCenterDoctors class extends DonationCenter.\n\nIt keeps track of all authorised doctors and all requests submitted by them that have not yet been fulfilled.",
 							"visibility": "public",
 							"attributes": [
 								{
@@ -22559,6 +22578,7 @@
 										"$ref": "AAAAAAFiFg2VenG1WQc="
 									},
 									"name": "pendingDoctorRequests",
+									"documentation": "An array containing all requests submitted by the doctors.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22578,6 +22598,7 @@
 										"$ref": "AAAAAAFiFg2VenG1WQc="
 									},
 									"name": "doctorBuffer",
+									"documentation": "(?)",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22599,6 +22620,7 @@
 										"$ref": "AAAAAAFiFg2VenG1WQc="
 									},
 									"name": "sendBloodToDoctor",
+									"documentation": "This method is called when an assistant fulfills a request. The BloodComponent is sent to the doctor along with a message(?)",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22678,6 +22700,7 @@
 										"$ref": "AAAAAAFiFg2VenG1WQc="
 									},
 									"name": "processDoctorsRequest",
+									"documentation": "After a manual review of the request by an assistant, that assistant should process it (i.e. send blood to the doctor)",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22709,6 +22732,7 @@
 										"$ref": "AAAAAAFiFg2VenG1WQc="
 									},
 									"name": "getPendingDoctors",
+									"documentation": "Retrieves the list of doctors that have submitted a request and have not yet been approved.",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22911,6 +22935,7 @@
 									"visibility": "public"
 								}
 							],
+							"documentation": "A Graphical user interface that is used  by assistants to oversee the donation center.",
 							"visibility": "public",
 							"attributes": [
 								{
@@ -22920,6 +22945,7 @@
 										"$ref": "AAAAAAFiBurhDYVorms="
 									},
 									"name": "donationCenterDoc",
+									"documentation": "An instance of DonationCenterDoctors",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22940,6 +22966,7 @@
 										"$ref": "AAAAAAFiBurhDYVorms="
 									},
 									"name": "donationCenterDon",
+									"documentation": "An instance of DonationCenterDonors",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22962,6 +22989,7 @@
 										"$ref": "AAAAAAFiBurhDYVorms="
 									},
 									"name": "getBloodStorage",
+									"documentation": "Returns all the Blood in the storage so that the user may inspect the items.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -22996,6 +23024,7 @@
 										"$ref": "AAAAAAFiBurhDYVorms="
 									},
 									"name": "getDonorsList",
+									"documentation": "Retrieves the list of active donors so that the user may inspect it.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -23030,6 +23059,7 @@
 										"$ref": "AAAAAAFiBurhDYVorms="
 									},
 									"name": "getPendingDonors",
+									"documentation": "Retrieves all donors that are waiting to be approved.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -23064,6 +23094,7 @@
 										"$ref": "AAAAAAFiBurhDYVorms="
 									},
 									"name": "getPendingDoctors",
+									"documentation": "Retrieves the list of Doctors that have filed a request for Blood.",
 									"visibility": "private",
 									"isStatic": false,
 									"isLeaf": false,
@@ -23148,6 +23179,7 @@
 										"$ref": "AAAAAAFiBurhDYVorms="
 									},
 									"name": "run",
+									"documentation": "This method triggers the execution of the GUI and the start of the program.",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
