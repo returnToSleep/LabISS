@@ -1,74 +1,36 @@
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Model;
 
-namespace Model{
-    /**
-     * This class derives from the BloodComponent class.  It has two variables special to it: type: String and rH: Boolean.
-     */
-    public class RedBloodCells : BloodComponent {
-
-        /**
-         * This class derives from the BloodComponent class.  It has two variables special to it: type: String and rH: Boolean.
-         */
-        public RedBloodCells() {
+namespace Model
+{
+    public class RedBloodCells : BloodComponent
+    {
+        public RedBloodCells(DateTime donationDate, float amount, string donorEmail, string status, string type, bool rH) : base(donationDate, amount, donorEmail, status)
+        {
+            this.type = type;
+            this.rH = rH;
         }
 
-        /**
-         * The type variable is a String and represents the type of the plasma component.
-         */
-        private String type;
+        protected string type;
+        protected bool rH;
 
-        /**
-         * The rH variable stores the type of rH, positive or negative.
-         */
-        private Boolean rH;
+        public string getType() { return this.type; }
+        public bool getRH() { return this.rH; }
+        public void setType(string type) { this.type = type; }
+        public void setRH(bool rH) { this.rH = rH; }
 
-
-        /**
-         * Returns the expiration date of this component. It does this by calculating the lifespan of the component and the date in witch it was taken.
-         * @return
-         */
-        public DateTime getExpirationDate() {
-            // TODO implement here
-            return null;
+        public override DateTime getExpirationDate()
+        {
+            return donationDate.AddDays(42);
         }
 
-        /**
-         * Returns the value of the rH variable.
-         * @return
-         */
-        public Boolean getRH() {
-            // TODO implement here
-            return null;
+        public override string ToString()
+        {
+            return "Red Blood Cells:\nType: " + type + "\nrH: " + rH + "\n" + base.ToString();
         }
-
-        /**
-         * Sets the value of the rH variable to newRH.
-         * @param newRh
-         */
-        public void setRH(Boolean newRh) {
-            // TODO implement here
-        }
-
-        /**
-         * Returns the value of the type variable.
-         * @return
-         */
-        public String getType() {
-            // TODO implement here
-            return null;
-        }
-
-        /**
-         * Sets the value of the type variable to newType.
-         * @param newType
-         */
-        public void setType(String newType) {
-            // TODO implement here
-        }
-
     }
 }

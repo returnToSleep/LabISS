@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Model;
+using DonationCenterAplication;
 
 namespace UI{
     /**
@@ -19,7 +21,7 @@ namespace UI{
         /**
          * An instance of DonationCenterDoctors
          */
-        private DonationCenterDoctors donationCenterDoc;
+        public DonationCenterDoctors donationCenterDoc;
 
         /**
          * An instance of DonationCenterDonors

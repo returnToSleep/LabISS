@@ -7,7 +7,7 @@ using System.Text;
 /**
  * 
  */
-public class Main {
+public class Source {
 
     /**
      * 

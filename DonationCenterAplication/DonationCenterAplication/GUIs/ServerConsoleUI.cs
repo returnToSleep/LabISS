@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DonationCenterAplication;
 
 namespace UI{
     /**
@@ -19,7 +20,7 @@ namespace UI{
         /**
          * 
          */
-        public void ServerController;
+        private ServerController serverController;
 
 
         /**
@@ -27,7 +28,7 @@ namespace UI{
          */
         public void run() {
             // TODO implement here
-            return null;
+            throw new NotImplementedException();
         }
 
     }

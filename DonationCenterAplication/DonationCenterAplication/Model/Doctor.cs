@@ -13,23 +13,27 @@ namespace Model{
         /**
          * The Doctor class holds the name, speciality, hospital, request list of a doctor.
          */
-        public Doctor() {
+        public Doctor(string name, string speciality, string hospital, Location location) {
+            this.name = name;
+            this.speciality = speciality;
+            this.hospital = hospital;
+            this.location = location;
         }
 
         /**
          * The name of the doctor.
          */
-        private String name;
+        private string name;
 
         /**
          * The speciality of a doctor.
          */
-        private String speciality;
+        private string speciality;
 
         /**
          * The hospital at which the doctor works at.
          */
-        private String hospital;
+        private string hospital;
 
         /**
          * The location of a doctor.
@@ -41,9 +45,8 @@ namespace Model{
          * Returns the name of a doctor.
          * @return
          */
-        public String getName() {
-            // TODO implement here
-            return null;
+        public string getName() {
+            return this.name;
         }
 
         /**
@@ -51,44 +54,45 @@ namespace Model{
          * @param val 
          * @return
          */
-        public void setName(String val) {
-            // TODO implement here
-            return null;
+        public void setName(string val) {
+            this.name = val;
         }
 
         /**
          * Returns the specialty of a doctor.
          * @return
          */
-        public String getSpeciality() {
-            // TODO implement here
-            return null;
+        public string getSpeciality() {
+            return this.speciality;
         }
 
         /**
          * Sets a new specialty to a doctor.
          * @param val
          */
-        public void setSpeciality(String val) {
-            // TODO implement here
+        public void setSpeciality(string val) {
+            this.speciality = val;
         }
 
         /**
          * Returns the hospital at which the doctor works at.
          * @return
          */
-        public String getHospital() {
-            // TODO implement here
-            return null;
+        public string getHospital() {
+            return this.hospital;
         }
 
         /**
          * Sets a new hospital to a doctor.
          * @param val
          */
-        public void setHospital(String val) {
-            // TODO implement here
+        public void setHospital(string val) {
+            this.hospital = val;
         }
 
+        public override string ToString()
+        {
+            return "Doctor: " + name + "\nSpeciality: " + speciality + "\nWorking at: " + hospital + "\nLocation: " + location;
+        }
     }
 }

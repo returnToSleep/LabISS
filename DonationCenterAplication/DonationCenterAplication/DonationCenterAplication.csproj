@@ -46,16 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DonationCenter.cs" />
     <Compile Include="Model\Blood.cs" />
     <Compile Include="Model\BloodComponent.cs" />
-    <Compile Include="Model\Date.cs" />
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Controller\DoctorController.cs" />
     <Compile Include="GUIs\DoctorGUI.cs" />
+    <Compile Include="Model\RedBloodCells.cs" />
     <Compile Include="Repos\DoctorRepository.cs" />
-    <Compile Include="DonationCenter.cs" />
-    <Compile Include="DonationCenterDoctors.cs" />
-    <Compile Include="DonationCenterDonors.cs" />
     <Compile Include="GUIs\DonationCenterGUI.cs" />
     <Compile Include="Repos\DonationCenterRepository.cs" />
     <Compile Include="Model\Donor.cs" />
@@ -75,11 +73,11 @@
     <Compile Include="Model\Plasma.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repos\RedBloodCells.cs" />
     <Compile Include="Repos\Repository.cs" />
     <Compile Include="GUIs\ServerConsoleUI.cs" />
     <Compile Include="Controller\ServerController.cs" />
     <Compile Include="Model\Trombocytes.cs" />
+    <Compile Include="ServerController.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

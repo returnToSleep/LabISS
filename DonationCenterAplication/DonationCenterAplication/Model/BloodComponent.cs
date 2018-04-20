@@ -8,14 +8,14 @@ namespace Model{
     /**
      * The BloodComponent is an abstract class from witch all components like Plasma, Trombocytes and RedBloodCells derive from. It has three protected values: donationDate, amount and donorEmail.
      */
-    public abstract class BloodComponent : Plasma {
-
-        /**
-         * The BloodComponent is an abstract class from witch all components like Plasma, Trombocytes and RedBloodCells derive from. It has three protected values: donationDate, amount and donorEmail.
-         */
-        public BloodComponent() {
+    public abstract class BloodComponent{
+        public BloodComponent(DateTime donationDate, float amount, string donorEmail, string status)
+        {
+            this.donationDate = donationDate;
+            this.amount = amount;
+            this.donorEmail = donorEmail;
+            this.status = status;
         }
-
         /**
          * The donationDate variable stores inside the date in wich the given component was extracted from the donor.
          */
@@ -27,14 +27,14 @@ namespace Model{
         protected float amount;
 
         /**
-         * The donorEmail String stores inside the email of the donor from witch this component was taken.
+         * The donorEmail string stores inside the email of the donor from witch this component was taken.
          */
-        protected String donorEmail;
+        protected string donorEmail;
 
         /**
          * 
          */
-        protected String status;
+        protected string status;
 
 
 
@@ -43,8 +43,7 @@ namespace Model{
          * @return
          */
         public DateTime getDonationDate() {
-            // TODO implement here
-            return null;
+            return this.donationDate;
         }
 
         /**
@@ -52,9 +51,8 @@ namespace Model{
          * @param val 
          * @return
          */
-        public void setDonationDate(Date val) {
-            // TODO implement here
-            return;
+        public void setDonationDate(DateTime val) {
+            this.donationDate = val;
         }
 
         /**
@@ -62,8 +60,7 @@ namespace Model{
          * @return
          */
         public float getAmount() {
-            // TODO implement here
-            return 0.0f;
+            return this.amount;
         }
 
         /**
@@ -72,29 +69,32 @@ namespace Model{
          * @return
          */
         public void setAmount(float val) {
-            // TODO implement here
-            return;
+            this.amount = val;
         }
 
         /**
          * This method is abstract, in this class it should not have any implementation.
          * @return
          */
-        protected abstract DateTime getExpirationDate();
+        public abstract DateTime getExpirationDate();
 
         /**
          * Returns the value of the donorEmail variable.
          */
-        public void getDonorEmail() { 
-            // TODO implement here
+        public string getDonorEmail() {
+            return this.donorEmail;
         }
 
         /**
          * Sets the value of donorEmail to email.
          */
-        public void setDonorEmail(String email){
-            // TODO implement here
+        public void setDonorEmail(string email){
+            this.donorEmail = email;
         }
 
+        public override string ToString()
+        {
+            return "Donated on:\t" + donationDate + "\nAmount:\t" + amount + "\nDonor Email:\t" + donorEmail;
+        }
     }
 }

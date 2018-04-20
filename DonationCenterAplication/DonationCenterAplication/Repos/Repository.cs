@@ -8,36 +8,36 @@ namespace Server{
     /**
      * 
      */
-    public interface Repository {
+    public interface Repository<T> {
 
 
         /**
          * @return
          */
-        public T findOne();
+        T findOne();
 
         /**
          * @return
          */
-        public T findAll();
-
-        /**
-         * @param T elem 
-         * @return
-         */
-        public void save(void T elem);
+        T findAll();
 
         /**
          * @param T elem 
          * @return
          */
-        public void delete(void T elem);
+        void save(T elem);
 
         /**
          * @param T elem 
          * @return
          */
-        public void update(void T elem);
+        void delete(T elem);
+
+        /**
+         * @param T elem 
+         * @return
+         */
+        void update(T elem);
 
     }
 }

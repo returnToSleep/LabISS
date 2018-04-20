@@ -13,18 +13,25 @@ namespace Model{
         /**
          * The Donor class has all the information needet related to a donor such as: Name, CNP, birthday, address, residence, blood, donationDate, email.
          */
-        public Donor() {
+        public Donor(string name, string cnp, DateTime birthdate, Location address, Location residence, Blood blood, string email) {
+            this.name = name;
+            this.cnp = cnp;
+            this.birthdate = birthdate;
+            this.address = address;
+            this.residence = residence;
+            this.blood = blood;
+            this.email = email;
         }
 
         /**
          * The name variable stores the name of the donor.
          */
-        private String name;
+        private string name;
 
         /**
          * The cnp variable stores the CNP of the donor as a string
          */
-        private String cnp;
+        private string cnp;
 
         /**
          * The birthdate variable stores the date in which the donor was born.
@@ -54,7 +61,7 @@ namespace Model{
         /**
          * The email variable stores the email address of the donor.
          */
-        private String email;
+        private string email;
 
 
 
@@ -63,9 +70,8 @@ namespace Model{
          * Returns the value of the name variable.
          * @return
          */
-        public String getName() {
-            // TODO implement here
-            return null;
+        public string getName() {
+            return this.name;
         }
 
         /**
@@ -73,18 +79,16 @@ namespace Model{
          * @param newVal 
          * @return
          */
-        public void setName(String newVal) {
-            // TODO implement here
-            return null;
+        public void setName(string name) {
+            this.name = name;
         }
 
         /**
          * Returns the value of the cnp variable.
          * @return
          */
-        public String getCnp() {
-            // TODO implement here
-            return null;
+        public string getCnp() {
+            return cnp;
         }
 
         /**
@@ -92,18 +96,16 @@ namespace Model{
          * @param newVal 
          * @return
          */
-        public void setCnp(String newVal) {
-            // TODO implement here
-            return null;
+        public void setCnp(string cnp) {
+            this.cnp = cnp;
         }
 
         /**
          * Returns the value of the birthdate variable.
          * @return
          */
-        public Date getBirthday() {
-            // TODO implement here
-            return null;
+        public DateTime getBirthday() {
+            return this.birthdate;
         }
 
         /**
@@ -112,8 +114,7 @@ namespace Model{
          * @return
          */
         public void setBirthday(DateTime newVal) {
-            // TODO implement here
-            return null;
+            this.birthdate = newVal;
         }
 
         /**
@@ -121,8 +122,7 @@ namespace Model{
          * @return
          */
         public Location getAddress() {
-            // TODO implement here
-            return null;
+            return this.address;
         }
 
         /**
@@ -131,8 +131,7 @@ namespace Model{
          * @return
          */
         public void setAddress(Location newVal) {
-            // TODO implement here
-            return null;
+            this.address = newVal;
         }
 
         /**
@@ -140,8 +139,7 @@ namespace Model{
          * @return
          */
         public Location getResidence() {
-            // TODO implement here
-            return null;
+            return this.residence;
         }
 
         /**
@@ -150,8 +148,7 @@ namespace Model{
          * @return
          */
         public void setResidence(Location newVal) {
-            // TODO implement here
-            return null;
+            this.residence = newVal;
         }
 
         /**
@@ -159,8 +156,7 @@ namespace Model{
          * @return
          */
         public Blood getBlood() {
-            // TODO implement here
-            return null;
+            return this.blood;
         }
 
         /**
@@ -168,9 +164,8 @@ namespace Model{
          * @param newVal 
          * @return
          */
-        public void setBlood(Blood newVal) {
-            // TODO implement here
-            return null;
+        public void setBlood(Blood blood) {
+            this.blood = blood;
         }
 
         /**
@@ -178,8 +173,7 @@ namespace Model{
          * @return
          */
         public DateTime getDonationDate() {
-            // TODO implement here
-            return null;
+            return donationDate;
         }
 
         /**
@@ -187,38 +181,16 @@ namespace Model{
          * @param newVal 
          * @return
          */
-        public void setDonationDate(DateTime newVal) {
-            // TODO implement here
-            return null;
-        }
-
-        /**
-         * Saves the data of the donor in a given file
-         * @param file 
-         * @return
-         */
-        private void saveToFile(String file) {
-            // TODO implement here
-            return null;
-        }
-
-        /**
-         * Loads from a given file the information about a donor.
-         * @param file 
-         * @return
-         */
-        private void loadFromFile(String file) {
-            // TODO implement here
-            return null;
+        public void setDonationDate(DateTime donationDate) {
+            this.donationDate = donationDate;
         }
 
         /**
          * Returns the value of the email variable.
          * @return
          */
-        public String getEmail() {
-            // TODO implement here
-            return null;
+        public string getEmail() {
+            return email;
         }
 
         /**
@@ -226,10 +198,14 @@ namespace Model{
          * @param email 
          * @return
          */
-        public void setEmail(String email) {
-            // TODO implement here
-            return null;
+        public void setEmail(string email) {
+            this.email = email;
         }
 
+        public override string ToString()
+        {
+            return "Donor:\nName: " + name + "\t--\tCNP: " + cnp + "\nAge: " + DateTime.Now.Subtract(birthdate) + "\nAddress: " + address
+                + "\nResidence: " + residence + "\nEmail: " + email + "\n" + blood;
+        }
     }
 }

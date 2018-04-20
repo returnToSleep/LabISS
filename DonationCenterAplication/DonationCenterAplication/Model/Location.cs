@@ -13,32 +13,34 @@ namespace Model{
         /**
          * The Location class holds all the details of a location.
          */
-        public Location() {
+        public Location(string address, string country, string city) {
+            this.address = address;
+            this.country = country;
+            this.city = city;
         }
 
         /**
          * The Address as a string.
          */
-        private String address;
+        private string address;
 
         /**
          * The Country as a string.
          */
-        private String country;
+        private string country;
 
         /**
          * The City as a string.
          */
-        private String city;
+        private string city;
 
 
         /**
          * Returns the address.
          * @return
          */
-        public String getAddress() {
-            // TODO implement here
-            return null;
+        public string getAddress() {
+            return this.address;
         }
 
         /**
@@ -46,18 +48,16 @@ namespace Model{
          * @param val 
          * @return
          */
-        public void setAddress(String val) {
-            // TODO implement here
-            return null;
+        public void setAddress(string val) {
+            this.address = val;
         }
 
         /**
          * Returns the country.
          * @return
          */
-        public String getCountry() {
-            // TODO implement here
-            return null;
+        public string getCountry() {
+            return this.country;
         }
 
         /**
@@ -65,18 +65,16 @@ namespace Model{
          * @param val 
          * @return
          */
-        public void setCountry(String val) {
-            // TODO implement here
-            return null;
+        public void setCountry(string val) {
+            this.country = val;
         }
 
         /**
          * Returns the city.
          * @return
          */
-        public String getCity() {
-            // TODO implement here
-            return null;
+        public string getCity() {
+            return city;
         }
 
         /**
@@ -84,10 +82,13 @@ namespace Model{
          * @param val 
          * @return
          */
-        public void setCity(String val) {
-            // TODO implement here
-            return null;
+        public void setCity(string val) {
+            this.city = val;
         }
 
+        public override string ToString()
+        {
+            return address + "city, " + city + ", country " + country;
+        }
     }
 }

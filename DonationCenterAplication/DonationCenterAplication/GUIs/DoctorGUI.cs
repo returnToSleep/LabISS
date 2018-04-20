@@ -1,8 +1,8 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Controller;
 
 namespace UI{
     /**
@@ -29,7 +29,7 @@ namespace UI{
          */
         private void sendRequest() {
             // TODO implement here
-            return null;
+            throw new NotImplementedException();
         }
 
         /**
@@ -38,7 +38,7 @@ namespace UI{
          */
         private void viewRequests() {
             // TODO implement here
-            return null;
+            throw new NotImplementedException();
         }
 
         /**
@@ -47,8 +47,12 @@ namespace UI{
          */
         private void reviewBloodStocks() {
             // TODO implement here
-            return null;
+            throw new NotImplementedException();
         }
 
+        public void run()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,8 +1,9 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Model;
+using Server;
 
 namespace Server{
     /**
@@ -19,27 +20,27 @@ namespace Server{
         /**
          * 
          */
-        private Location{} donationCenterLocationIpMap;
+        private Location donationCenterLocationIpMap;
 
         /**
          * 
          */
-        private Location{} doctorLocationMap;
+        private Location doctorLocationMap;
 
         /**
          * 
          */
-        private Repository DonorRepository;
+        private Repository<Donor> DonorRepository;
 
         /**
          * 
          */
-        private Repository DoctorRepository;
+        private Repository<Doctor> DoctorRepository;
 
         /**
          * 
          */
-        private Repository DonationCenterRepositorty;
+        private Repository<DonationCenter> DonationCenterRepositorty;
 
 
         /**
@@ -47,7 +48,8 @@ namespace Server{
          */
         private bool validateForm() {
             // TODO implement here
-            return null;
+            throw new NotImplementedException();
+            return true;
         }
 
         /**
@@ -75,7 +77,7 @@ namespace Server{
          */
         private void changeDonorStatus(int donorId, String newVal) {
             // TODO implement here
-            return null;
+            throw new NotImplementedException();
         }
 
         /**
@@ -85,7 +87,7 @@ namespace Server{
          */
         public void chamgeBloodStatus(int bloodId, String newVal) {
             // TODO implement here
-            return null;
+            throw new NotImplementedException();
         }
 
     }

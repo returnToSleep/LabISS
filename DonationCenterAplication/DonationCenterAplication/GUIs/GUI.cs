@@ -13,7 +13,7 @@ namespace UI{
         /**
          * 
          */
-        public void run();
+        void run();
 
     }
 }
