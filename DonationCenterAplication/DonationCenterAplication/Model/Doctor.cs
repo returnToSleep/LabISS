@@ -1,4 +1,9 @@
 
+using Model;
+using NHibernate.Dialect;
+using NHibernate.Driver;
+using NHibernate.Mapping.ByCode;
+using NHibernate.Mapping.ByCode.Conformist;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +18,9 @@ namespace Model{
         /**
          * The Doctor class holds the name, speciality, hospital, request list of a doctor.
          */
+        
+        public Doctor() { }
+
         public Doctor(string name, string speciality, string hospital, Location location) {
             this.name = name;
             this.speciality = speciality;
@@ -20,79 +28,46 @@ namespace Model{
             this.location = location;
         }
 
+        public virtual int id { get; set; }
+
         /**
          * The name of the doctor.
          */
-        private string name;
+        public virtual string name { get; set; }
 
         /**
          * The speciality of a doctor.
          */
-        private string speciality;
+        public virtual string speciality { get; set; }
 
         /**
          * The hospital at which the doctor works at.
          */
-        private string hospital;
+        public virtual string hospital { get; set; }
 
         /**
          * The location of a doctor.
          */
-        private Location location;
+        public virtual Location location { get; set; }
 
-
-        /**
-         * Returns the name of a doctor.
-         * @return
-         */
-        public string getName() {
-            return this.name;
-        }
-
-        /**
-         * Sets a new name to a doctor.
-         * @param val 
-         * @return
-         */
-        public void setName(string val) {
-            this.name = val;
-        }
-
-        /**
-         * Returns the specialty of a doctor.
-         * @return
-         */
-        public string getSpeciality() {
-            return this.speciality;
-        }
-
-        /**
-         * Sets a new specialty to a doctor.
-         * @param val
-         */
-        public void setSpeciality(string val) {
-            this.speciality = val;
-        }
-
-        /**
-         * Returns the hospital at which the doctor works at.
-         * @return
-         */
-        public string getHospital() {
-            return this.hospital;
-        }
-
-        /**
-         * Sets a new hospital to a doctor.
-         * @param val
-         */
-        public void setHospital(string val) {
-            this.hospital = val;
-        }
+        
 
         public override string ToString()
         {
             return "Doctor: " + name + "\nSpeciality: " + speciality + "\nWorking at: " + hospital + "\nLocation: " + location;
         }
+    }
+}
+
+
+
+public class DoctorMap : ClassMapping<Doctor>
+{
+    public DoctorMap()
+    {
+        Id(x => x.id);
+        Property(x => x.name);
+        Property(x => x.speciality);
+        Property(x => x.hospital);
     }
 }

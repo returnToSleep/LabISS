@@ -11,19 +11,6 @@ namespace Model{
     public class Donor {
 
         /**
-         * The Donor class has all the information needet related to a donor such as: Name, CNP, birthday, address, residence, blood, donationDate, email.
-         */
-        public Donor(string name, string cnp, DateTime birthdate, Location address, Location residence, Blood blood, string email) {
-            this.name = name;
-            this.cnp = cnp;
-            this.birthdate = birthdate;
-            this.address = address;
-            this.residence = residence;
-            this.blood = blood;
-            this.email = email;
-        }
-
-        /**
          * The name variable stores the name of the donor.
          */
         private string name;
@@ -63,6 +50,24 @@ namespace Model{
          */
         private string email;
 
+        /**
+         * Status of donor, either pending or donated 
+         */
+        private string status;
+
+        /**
+         * The Donor class has all the information needet related to a donor such as: Name, CNP, birthday, address, residence, blood, donationDate, email.
+         */
+        public Donor(string name, string cnp, DateTime birthdate, Location address, Location residence, Blood blood, string email) {
+            this.name = name;
+            this.cnp = cnp;
+            this.birthdate = birthdate;
+            this.address = address;
+            this.residence = residence;
+            this.blood = blood;
+            this.email = email;
+            this.status = "pending";
+        }
 
 
 
@@ -201,6 +206,18 @@ namespace Model{
         public void setEmail(string email) {
             this.email = email;
         }
+
+        public string getStatus(){
+            return this.status;
+        }
+
+
+        public void setStatus(string status)
+        {
+            this.status = status;
+        }
+
+
 
         public override string ToString()
         {

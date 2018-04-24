@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Model;
 using Server;
+using DonationCenterAplication;
 
 namespace Server{
     /**
@@ -49,7 +50,6 @@ namespace Server{
         private bool validateForm() {
             // TODO implement here
             throw new NotImplementedException();
-            return true;
         }
 
         /**

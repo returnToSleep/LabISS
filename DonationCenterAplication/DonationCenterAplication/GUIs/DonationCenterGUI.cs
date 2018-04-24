@@ -74,7 +74,7 @@ namespace UI{
          */
         private void addDonorToDonorList(Donor val) {
             // TODO implement here
-            return null;
+            return;
         }
 
         /**
@@ -83,7 +83,7 @@ namespace UI{
          */
         public void run() {
             // TODO implement here
-            return null;
+            return;
         }
 
     }

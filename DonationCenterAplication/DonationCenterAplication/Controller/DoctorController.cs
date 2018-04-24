@@ -1,4 +1,5 @@
 
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace Controller{
          */
         public void makeRequest(Location val) {
             // TODO implement here
-            return null;
+            return;
         }
 
         /**
@@ -36,7 +37,7 @@ namespace Controller{
          */
         public void notifyDonors() {
             // TODO implement here
-            return null;
+            return;
         }
 
         /**
@@ -45,7 +46,7 @@ namespace Controller{
          */
         public void reviewBloodStocks(Location val) {
             // TODO implement here
-            return null;
+            return;
         }
 
         /**

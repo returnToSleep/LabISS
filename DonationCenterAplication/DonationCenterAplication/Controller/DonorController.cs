@@ -37,7 +37,7 @@ namespace Controller{
          */
         public void setDonor(Donor newVal) {
             // TODO implement here
-            return null;
+            return;
         }
 
         /**
@@ -53,7 +53,7 @@ namespace Controller{
          */
         public void setDonor(String name, String cnp, DateTime birtdhDate, Location address, Location residence, Blood blood, DateTime donationDate, String email) {
             // TODO implement here
-            return null;
+            return;
         }
 
         /**
@@ -62,7 +62,7 @@ namespace Controller{
          */
         public void makeDonationDonationRequest() {
             // TODO implement here
-            return null;
+            return;
         }
 
         /**
