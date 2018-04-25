@@ -41,7 +41,7 @@ namespace Server{
         /**
          * 
          */
-        private Repository<DonationCenter> DonationCenterRepositorty;
+        //private Repository<DonationCenter> DonationCenterRepositorty;
 
 
         /**

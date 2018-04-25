@@ -7,11 +7,35 @@ using Model;
 
 namespace DonationCenterAplication
 {
-    public class DonationCenter
+    public class MyService : MarshalByRefObject
     {
-        Location location;/*
-        public abstract Blood[] getBloodStorage();
-        public abstract void addBlood(Blood blood);
-        public abstract void removeBloodFromStorage(string blood);*/
+
+        public RepositoryBase repo;
+
+        public MyService()
+        {
+            this.repo = new RepositoryBase();
+        }
+
+        public T GetFromDatabase<T>(object objId)
+        {
+            return this.repo.FindOne<T>(objId);
+        }
+
+        public List<T> GetAllFromDatabase<T>()
+        {
+            return this.repo.FindAll<T>();
+        }
+
+        public void RemoveFromDatabase<T>(object objId)
+        {
+            this.repo.Delete<T>(objId);
+        }
+
+        public void AddToDatabase(object obj)
+        {
+            this.repo.Save(obj);
+        }
+
     }
 }

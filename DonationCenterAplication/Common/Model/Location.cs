@@ -8,7 +8,11 @@ namespace Model{
     /**
      * The Location class holds all the details of a location.
      */
+     [Serializable]
     public class Location {
+
+
+        public Location() { }
 
         /**
          * The Location class holds all the details of a location.

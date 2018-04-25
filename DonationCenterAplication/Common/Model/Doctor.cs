@@ -13,6 +13,7 @@ namespace Model{
     /**
      * The Doctor class holds the name, speciality, hospital, request list of a doctor.
      */
+    [Serializable]
     public class Doctor {
 
         /**
@@ -60,14 +61,3 @@ namespace Model{
 }
 
 
-
-public class DoctorMap : ClassMapping<Doctor>
-{
-    public DoctorMap()
-    {
-        Id(x => x.id);
-        Property(x => x.name);
-        Property(x => x.speciality);
-        Property(x => x.hospital);
-    }
-}

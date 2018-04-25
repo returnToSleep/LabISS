@@ -1,50 +1,38 @@
 
 using DonationCenterAplication.ORM;
+using DonationCenterAplication.Remoting;
 using Model;
+using Spring.Context;
+using Spring.Context.Support;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Tcp;
 using System.Text;
 
 /**
  * 
  */
-public class Source {
+public class Source
+{
 
     /**
      * 
      */
     static void Main()
     {
-        RepositoryBase r = new RepositoryBase();
 
-        Location l = new Location("asdf", "asdf", "asdf");
-        Doctor d = new Doctor("asdf", "Asdf", "asdf", l);
-        d.id = 2;
+     
 
-        try
-        {
-            r.BeginTransaction();
-           
-            r.Save(d);
-            r.CommitTransaction();
+        TcpServerChannel channel = new TcpServerChannel(9999);
+        ChannelServices.RegisterChannel(channel, false);
+        RemotingConfiguration.RegisterWellKnownServiceType(typeof(ServerService),
+            "IService", WellKnownObjectMode.Singleton);
 
-            d = r.FindOne<Doctor>(1);
-            Console.Write(d);
+        Console.WriteLine("Listening for requests from the Client! Press Enter to exit...");
+        Console.ReadLine();
 
-            r.Delete<Doctor>(2);
-
-            List<Doctor> dL = r.FindAll<Doctor>();
-
-            dL.ForEach(i => Console.Write(i));
-
-        }
-        catch(Exception e)
-        {
-            Console.Write("\n\n\n\n\n\n\nException");
-            Console.Write(e.Message);
-            r.RollbackTransaction();
-        }
     }
-
 }

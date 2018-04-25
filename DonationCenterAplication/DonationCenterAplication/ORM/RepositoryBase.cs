@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+[Serializable]
 public class RepositoryBase : IRepository, IDisposable
 {
     protected ISession _session = null;
@@ -78,11 +79,11 @@ public class RepositoryBase : IRepository, IDisposable
     }
     
 
-    public List<object> getAll(Type objType)
+    private List<object> getAll(Type objType)
     {
         string nameRaw = objType.ToString();
         string name = nameRaw.Split('.')[nameRaw.Split(' ').Length];
-
+        
         return (List<object>)_session.CreateSQLQuery("select * from " + name)
             .AddEntity(objType)
             .List<object>();
