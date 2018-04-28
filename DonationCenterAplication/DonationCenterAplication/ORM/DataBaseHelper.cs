@@ -28,7 +28,7 @@ namespace DonationCenterAplication.ORM
 
                     cfg.DataBaseIntegration(x => {
                         x.ConnectionString = "Data Source=CTRLSOFT-FM1A7D\\MYSQL;Initial Catalog=Test;Integrated Security=True";
-
+                        //x.ConnectionString = "Data Source=den1.mssql5.gear.host; Initial Catalog = blooddonation1; User Id = blooddonation1; Password = Qz7VGZX2!4!m";
 
                        x.Driver<SqlClientDriver>();
                                             x.Dialect<MsSql2012Dialect>();
@@ -52,9 +52,13 @@ namespace DonationCenterAplication.ORM
                 return _sessionFactory;
             }
         }
+        
         public static ISession OpenSession()
         {
             return SessionFactory.OpenSession();
         }
+
+       
+
     }
 }

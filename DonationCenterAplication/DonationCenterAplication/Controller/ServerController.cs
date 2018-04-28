@@ -31,13 +31,7 @@ namespace Server{
         /**
          * 
          */
-        private Repository<Donor> DonorRepository;
-
-        /**
-         * 
-         */
-        private Repository<Doctor> DoctorRepository;
-
+      
         /**
          * 
          */
@@ -65,10 +59,7 @@ namespace Server{
          * @param donationCenterId 
          * @return
          */
-        private Blood getBloodStocks(int donationCenterId) {
-            // TODO implement here
-            return null;
-        }
+      
 
         /**
          * @param donorId 

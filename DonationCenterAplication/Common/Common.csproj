@@ -64,15 +64,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IService.cs" />
-    <Compile Include="Model\Blood.cs" />
-    <Compile Include="Model\BloodComponent.cs" />
+    <Compile Include="Model\Blood\BloodComponent.cs" />
+    <Compile Include="Model\DoctorRequest.cs" />
+    <Compile Include="Model\LogInfo.cs" />
+    <Compile Include="Remoting\IService.cs" />
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\Donor.cs" />
     <Compile Include="Model\Location.cs" />
-    <Compile Include="Model\Plasma.cs" />
-    <Compile Include="Model\RedBloodCells.cs" />
-    <Compile Include="Model\Trombocytes.cs" />
+    <Compile Include="Model\Blood\Plasma.cs" />
+    <Compile Include="Model\Blood\RedBloodCells.cs" />
+    <Compile Include="Model\Blood\Trombocytes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

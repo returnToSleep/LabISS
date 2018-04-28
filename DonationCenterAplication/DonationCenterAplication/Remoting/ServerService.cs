@@ -17,25 +17,36 @@ namespace DonationCenterAplication.Remoting
             this.repo = new RepositoryBase();
         }
 
-        public void addToDatabase(object obj)
+        public void AddToDatabase(object obj)
         {
             
             this.repo.Save(obj);
         }
 
-        public void deleteFromDatabase<T>(object objId)
+        public void UpdateOneFromDatabase(object obj)
+        {
+            this.repo.Update(obj);
+        }
+
+        public void DeleteFromDatabase<T>(object objId)
         {
             this.repo.Delete<T>(objId);
         }
 
-        public List<T> getAllFromDatabase<T>()
+        public List<T> GetAllFromDatabase<T>() where T: class 
         {
             return this.repo.FindAll<T>();
         }
 
-        public T getOneFromDatabase<T>(object objId)
+        public T GetOneFromDatabase<T>(object objId)
         {
             return this.repo.FindOne<T>(objId);
         }
+
+        public void Refresh(object obj)
+        {
+            this.repo.Refresh(obj);
+        }
+
     }
 }

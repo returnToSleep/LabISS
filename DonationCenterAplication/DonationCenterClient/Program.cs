@@ -23,25 +23,39 @@ namespace DonationCenterClient
             /*
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new Form1());
+                Application.Run(new Client());
             */
 
 
             /*
              * Makes connection to server  
              */
+            Console.ReadLine();
 
             ChannelServices.RegisterChannel(new TcpClientChannel(), false);
             IService service = (IService)(Activator.GetObject(typeof(IService),
                 "tcp://localhost:9999/IService"
                 ));
 
-           
-            
-            Console.Write(service.getOneFromDatabase<Doctor>(1).ToString());
+            try
+            {
 
+                Location l = new Location("testAddress", 10.10, 10.10);
+
+                Doctor d = new Doctor("test", "test", "test", l);
+
+                service.addToDatabase(d);
+                
+                Doctor d1 = service.getAllFromDatabase<Doctor>()[0];
+                Console.Write(d1.location.ToString());
+
+            }
+            catch (TypeUnloadedException e)
+            {
+                Console.Write("Could not connect to server");
+            }
             Console.Read();
-       
+            
         }
       
     }

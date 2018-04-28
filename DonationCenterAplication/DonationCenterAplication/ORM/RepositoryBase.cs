@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Serializable]
-public class RepositoryBase : IRepository, IDisposable
+public class RepositoryBase: IRepository, IDisposable
 {
     protected ISession _session = null;
     protected ITransaction _transaction = null;
@@ -22,7 +22,6 @@ public class RepositoryBase : IRepository, IDisposable
 
 
     #region Transaction and Session Management Methods
-
 
     public void BeginTransaction()
     {
@@ -59,8 +58,14 @@ public class RepositoryBase : IRepository, IDisposable
 
     public virtual void Save(object obj)
     {
-        _session.SaveOrUpdate(obj);
+        _session.Save(obj);
       
+    }
+
+    public virtual void Update(object obj)
+    {
+        _session.Update(obj);
+
     }
 
     public virtual void Delete<T>(object objId)
@@ -78,24 +83,15 @@ public class RepositoryBase : IRepository, IDisposable
         return (T)_session.Load(typeof(T), objId);
     }
     
-
-    private List<object> getAll(Type objType)
+    public virtual void Refresh(object obj)
     {
-        string nameRaw = objType.ToString();
-        string name = nameRaw.Split('.')[nameRaw.Split(' ').Length];
-        
-        return (List<object>)_session.CreateSQLQuery("select * from " + name)
-            .AddEntity(objType)
-            .List<object>();
+        _session.Refresh(obj);
     }
+    
 
-
-    public virtual List<T> FindAll<T>()
+    public virtual List<T> FindAll<T>() where T:class 
     {
-        return this.getAll(typeof(T))
-                .Select(i => (T)i)
-                .ToList<T>();
-        
+        return (List<T>)_session.QueryOver<T>().List();
     }
 
     #endregion

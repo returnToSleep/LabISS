@@ -15,6 +15,25 @@ namespace DonationCenterAplication.ORM
          */
         void Save(object obj);
 
+
+
+
+
+        /*
+         * Updates an object based on "obj.id"
+         * Ex:
+         *      Donor d = new Donor(...);
+         *      d.id = 1;
+         *     
+         *      Save(d);
+         *      
+         *      d.name = "whatever";
+         *      Update(d);
+         * 
+         */
+
+        void Update(object obj);
+
         /*
         * Deletes elem 
         * Ex:
@@ -30,11 +49,21 @@ namespace DonationCenterAplication.ORM
         T FindOne<T>(object objId);
 
         /*
+         * Refreseg object
+         * Ex:
+         *    DonationCenter d = repo.FindOne<DonationCenter>(1);
+         *    ...
+         *    Refresh(d)
+         */ 
+
+        void Refresh(object obj);
+
+        /*
          * Returns a list of type T
          * Ex:
          *    List<Doctor> = repo.FindAll<Doctor>();
          * 
         */
-        List<T> FindAll<T>();
+        List<T> FindAll<T>() where T: class;
     }
 }
