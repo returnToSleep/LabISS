@@ -64,6 +64,6 @@ namespace DonationCenterAplication.ORM
          *    List<Doctor> = repo.FindAll<Doctor>();
          * 
         */
-        List<T> FindAll<T>() where T: class;
+        IList<T> FindAll<T>() where T: class;
     }
 }

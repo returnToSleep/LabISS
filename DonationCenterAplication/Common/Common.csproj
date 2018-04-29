@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Model\Blood\BloodComponent.cs" />
     <Compile Include="Model\DoctorRequest.cs" />
+    <Compile Include="Model\DonationCenter.cs" />
     <Compile Include="Model\LogInfo.cs" />
     <Compile Include="Remoting\IService.cs" />
     <Compile Include="Model\Doctor.cs" />

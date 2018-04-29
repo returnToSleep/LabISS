@@ -1,4 +1,5 @@
 
+using Common.Model;
 using Model;
 using NHibernate.Dialect;
 using NHibernate.Driver;
@@ -19,43 +20,28 @@ namespace Model{
         /**
          * The Doctor class holds the name, speciality, hospital, request list of a doctor.
          */
-        
+
+        //The id is in format latitude,logitude 
+        public virtual string id { get; set; }
+        public virtual string name { get; set; }
+        public virtual string speciality { get; set; } 
+        public virtual string hospital { get; set; }
+        public virtual IList<DoctorRequest> requests { get; set; }
+
+
         public Doctor() { }
 
-        public Doctor(string name, string speciality, string hospital, Location location) {
+        public Doctor(string id, string name, string speciality, string hospital) {
+            this.id = id;
             this.name = name;
             this.speciality = speciality;
             this.hospital = hospital;
-            this.location = location;
         }
 
-        public virtual int id { get; set; }
-
-        /**
-         * The name of the doctor.
-         */
-        public virtual string name { get; set; }
-
-        /**
-         * The speciality of a doctor.
-         */
-        public virtual string speciality { get; set; }
-
-        /**
-         * The hospital at which the doctor works at.
-         */
-        public virtual string hospital { get; set; }
-
-        /**
-         * The location of a doctor.
-         */
-        public virtual Location location { get; set; }
-
-        
 
         public override string ToString()
         {
-            return "Doctor: " + name + "\nSpeciality: " + speciality + "\nWorking at: " + hospital + "\nLocation: " + location;
+            return "Doctor: " + name + "\nSpeciality: " + speciality + "\nWorking at: " + hospital;
         }
     }
 }

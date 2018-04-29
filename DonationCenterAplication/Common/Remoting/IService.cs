@@ -14,7 +14,7 @@ namespace DonationCenterAplication.Remoting
 
         void DeleteFromDatabase<T>(object objId);
 
-        List<T> GetAllFromDatabase<T>() where T: class;
+        IList<T> GetAllFromDatabase<T>() where T: class;
 
         T GetOneFromDatabase<T>(object objId);
 

@@ -20,11 +20,11 @@ namespace Model{
         
         //Status of donor, either pending or donated 
         public virtual bool isPending { get; set; }
-        public virtual int donationCenter_id { get; set; }
+        public virtual string donationCenter_id { get; set; }
 
         public Donor() { }
 
-        public Donor(string cnp, int donationCenter_id, string name,  DateTime birthdate, string address, Location location, string email) {
+        public Donor(string cnp, string donationCenter_id, string name,  DateTime birthdate, string address, Location location, string email) {
             this.name = name;
             this.cnp = cnp;
             this.birthdate = birthdate;

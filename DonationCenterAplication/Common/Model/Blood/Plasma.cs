@@ -15,7 +15,7 @@ namespace Model{
       
         public Plasma() { }
 
-        public Plasma(int id, string antibody, int donationCenter_id, string donor_cnp, float ammount, DateTime donationDate) : base(id, donationCenter_id, donor_cnp, ammount, donationDate)
+        public Plasma(int id, string antibody, string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate) : base(id, donationCenter_id, donor_cnp, ammount, donationDate)
         {
             this.antibody = antibody;
         }

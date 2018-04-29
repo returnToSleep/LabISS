@@ -28,7 +28,35 @@ namespace Model{
             this.longitude = longitude;
         }
 
-     
+        public Location(double latitude, double longitude)
+        {
+            this.latitude = latitude;
+            this.longitude = longitude;
+        }
+
+
+        public override bool Equals(object obj)
+        {
+            Location l;
+
+            try
+            {
+                l = (Location)obj;
+            }
+            catch (InvalidCastException)
+            {
+                return false;
+            }
+
+            return l.latitude == latitude && l.longitude == longitude;
+
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
 
         public override string ToString()
         {

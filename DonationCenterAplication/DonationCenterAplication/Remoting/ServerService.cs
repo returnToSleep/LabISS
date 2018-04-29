@@ -33,7 +33,7 @@ namespace DonationCenterAplication.Remoting
             this.repo.Delete<T>(objId);
         }
 
-        public List<T> GetAllFromDatabase<T>() where T: class 
+        public IList<T> GetAllFromDatabase<T>() where T: class 
         {
             return this.repo.FindAll<T>();
         }

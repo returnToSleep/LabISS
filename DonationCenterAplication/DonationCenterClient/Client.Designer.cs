@@ -30,6 +30,10 @@
         {
             this.gmap = new GMap.NET.WindowsForms.GMapControl();
             this.ZOOOOOM = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // gmap
@@ -57,6 +61,7 @@
             this.gmap.Size = new System.Drawing.Size(872, 523);
             this.gmap.TabIndex = 2;
             this.gmap.Zoom = 0D;
+            this.gmap.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.gmap_OnMarkerClick);
             // 
             // ZOOOOOM
             // 
@@ -68,23 +73,60 @@
             this.ZOOOOOM.UseVisualStyleBackColor = true;
             this.ZOOOOOM.Click += new System.EventHandler(this.ZOOOOOM_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(890, 86);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 22);
+            this.textBox1.TabIndex = 4;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(890, 114);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 22);
+            this.textBox2.TabIndex = 5;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(0, 0);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 22);
+            this.textBox3.TabIndex = 6;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(890, 198);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(100, 22);
+            this.textBox4.TabIndex = 7;
+            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(998, 547);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.ZOOOOOM);
             this.Controls.Add(this.gmap);
             this.Name = "Client";
             this.Text = "Client";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private GMap.NET.WindowsForms.GMapControl gmap;
         private System.Windows.Forms.Button ZOOOOOM;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }
 

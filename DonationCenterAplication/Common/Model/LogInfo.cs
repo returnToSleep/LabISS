@@ -16,12 +16,43 @@ namespace Common.Model
 
         public LogInfo() { }
 
+
+        /*SHOULD BE USED ONLY WHEN GETTING OBJECT FROM DATABASE
+        * EX:
+        *   service.GetOneFromDatabase<LogInfo>(new LogInfo(username, pass));
+        */
+        public LogInfo(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
+        }
+
         public LogInfo(string username, string password, int id, string type)
         {
             this.username = username;
             this.password = password;
             this.id = id;
             this.type = type;
+        }
+
+        public override bool Equals(object other)
+        {
+            LogInfo o;
+            try
+            {
+               o = (LogInfo)other;
+            }catch (InvalidCastException)
+            {
+                return false;
+            }
+
+            return this.username == o.username && this.password == o.password;
+        }
+        
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         public override string ToString()

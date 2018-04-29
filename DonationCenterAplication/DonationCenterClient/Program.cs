@@ -1,4 +1,5 @@
-﻿using DonationCenterAplication.Remoting;
+﻿using Common.Model;
+using DonationCenterAplication.Remoting;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -20,16 +21,16 @@ namespace DonationCenterClient
         static void Main()
         {
 
-            /*
+            
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new Client());
-            */
+            
 
 
             /*
              * Makes connection to server  
-             */
+             
             Console.ReadLine();
 
             ChannelServices.RegisterChannel(new TcpClientChannel(), false);
@@ -40,14 +41,9 @@ namespace DonationCenterClient
             try
             {
 
-                Location l = new Location("testAddress", 10.10, 10.10);
+                service.AddToDatabase(new Doctor("10,10", "ok", "ok", "ok"));
 
-                Doctor d = new Doctor("test", "test", "test", l);
-
-                service.addToDatabase(d);
-                
-                Doctor d1 = service.getAllFromDatabase<Doctor>()[0];
-                Console.Write(d1.location.ToString());
+                Console.Write(service.GetOneFromDatabase<Doctor>("10,10").ToString()); 
 
             }
             catch (TypeUnloadedException e)
@@ -55,7 +51,7 @@ namespace DonationCenterClient
                 Console.Write("Could not connect to server");
             }
             Console.Read();
-            
+           */
         }
       
     }

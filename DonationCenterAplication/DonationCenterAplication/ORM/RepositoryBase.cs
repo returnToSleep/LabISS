@@ -89,9 +89,9 @@ public class RepositoryBase: IRepository, IDisposable
     }
     
 
-    public virtual List<T> FindAll<T>() where T:class 
+    public virtual IList<T> FindAll<T>() where T:class 
     {
-        return (List<T>)_session.QueryOver<T>().List();
+        return _session.QueryOver<T>().List();
     }
 
     #endregion

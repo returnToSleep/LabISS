@@ -8,7 +8,7 @@ namespace Common.Model
 {
     public class BloodComponent
     {
-        public virtual int donationCenter_id { get; set; }
+        public virtual string donationCenter_id { get; set; }
         public virtual string donor_cnp { get; set; }
         public virtual float ammount { get; set; }
         public virtual int id { get; set; }
@@ -16,10 +16,10 @@ namespace Common.Model
 
         protected BloodComponent() { }
 
-        public BloodComponent(int id, int donationCenter_id, string donor_cnp, float ammount, DateTime donationDate)
+        public BloodComponent(int id, string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate)
         {
             this.id = id;
-            this.donationCenter_id = id;
+            this.donationCenter_id = donationCenter_id;
             this.donor_cnp = donor_cnp;
             this.ammount = ammount;
             this.donationDate = donationDate;

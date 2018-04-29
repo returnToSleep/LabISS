@@ -16,7 +16,7 @@ namespace Model
        
         public RedBloodCell() { }
 
-        public RedBloodCell(int id, string antiget, bool rh, int donationCenter_id, string donor_cnp, float ammount, DateTime donationDate) : base (id ,donationCenter_id, donor_cnp, ammount, donationDate)
+        public RedBloodCell(int id, string antiget, bool rh, string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate) : base (id ,donationCenter_id, donor_cnp, ammount, donationDate)
         {
             this.antigen = antigen;
             this.rh = rh;
