@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Model{
+namespace Common.Model{
     /**
      * The Location class holds all the details of a location.
      */
