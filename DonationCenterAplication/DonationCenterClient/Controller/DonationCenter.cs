@@ -3,8 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Model;
+using Common.Model;
+using DonationCenterAplication.Remoting;
 
-namespace Controller{
+
+
+namespace Controller
+{
     /**
      * DonationCenter is an abstract class. It represents a physical location and keeps track of all the blood it has in storage.
      */
@@ -14,19 +20,24 @@ namespace Controller{
          * DonationCenter is an abstract class. It represents a physical location and keeps track of all the blood it has in storage.
          */
         public DonationCenter() {
+            service = (IService)(Activator.GetObject(typeof(IService),
+                "tcp://localhost:9999/IService"
+                ));
         }
 
         /**
          * The physical location in the world of the Donation Center.
          */
-        private Location location;
+        protected Location location;
+
+        protected IService service;
 
 
         /**
          * Returns all the items in the bloodStorage field.
          * @return
          */
-        public HashSet<Blood> getBloodStorage() {
+        public HashSet<BloodComponent> getBloodStorage() {
             // TODO implement here
             return null;
         }
@@ -36,9 +47,8 @@ namespace Controller{
          * @param val 
          * @return
          */
-        public void addBlood(Blood val) {
+        public void addBlood(BloodComponent val) {
             // TODO implement here
-            return null;
         }
 
         /**
@@ -48,7 +58,6 @@ namespace Controller{
          */
         private void removeBloodFromStorage(String val) {
             // TODO implement here
-            return null;
         }
 
     }

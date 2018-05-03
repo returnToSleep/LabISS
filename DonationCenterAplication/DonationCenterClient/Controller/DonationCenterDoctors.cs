@@ -1,9 +1,10 @@
 
-using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Common.Model;
+using Model;
 
 namespace Controller{
     /**
@@ -11,7 +12,7 @@ namespace Controller{
      * 
      * It keeps track of all authorised doctors and all requests submitted by them that have not yet been fulfilled.
      */
-    public class DonationCenterDoctors{
+    public class DonationCenterDoctors : DonationCenter{
 
         /**
          * The DonationCenterDoctors class extends DonationCenter.
@@ -33,7 +34,6 @@ namespace Controller{
          */
         public void sendBloodToDoctor(Doctor d, String request, BloodComponent b) {
             // TODO implement here
-            return null;
         }
 
         /**
@@ -42,7 +42,6 @@ namespace Controller{
          */
         public void processDoctorsRequest() {
             // TODO implement here
-            return null;
         }
 
         /**
@@ -53,6 +52,15 @@ namespace Controller{
             // TODO implement here
             return null;
         }
+
+        private PriorityQueue<DoctorRequest> sortRequests()
+        {
+            PriorityQueue<DoctorRequest> priorityQueueRequests = new PriorityQueue<DoctorRequest>();
+            IList<DoctorRequest> doctorRequest = this.service.GetAllFromDatabase<DoctorRequest>();
+            doctorRequest.ToList().ForEach(request => priorityQueueRequests.Enqueue(request));
+            return priorityQueueRequests;
+        }
+        
 
     }
 }

@@ -9,7 +9,7 @@ namespace Common.Model
 {
    
     [Serializable]
-    public class DoctorRequest
+    public class DoctorRequest : IComparable<DoctorRequest>
     {
         public virtual int id { get; set; }
         public virtual string doctor_id { get; set; }
@@ -32,6 +32,13 @@ namespace Common.Model
         public override string ToString()
         {
             return "\nDoctor id: " + doctor_id + "\nDonation center id: " + donationCenter_id + "\nPriority: " + priority + "\nPatient: " + patientName + "\n" + requestString;
+        }
+
+        public int CompareTo(DoctorRequest other)
+        {
+            if (this.priority < other.priority) return -1;
+            else if (this.priority > other.priority) return 1;
+            else return 0;
         }
 
     }

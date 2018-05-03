@@ -68,6 +68,7 @@
     <Compile Include="Model\DoctorRequest.cs" />
     <Compile Include="Model\DonationCenter.cs" />
     <Compile Include="Model\LogInfo.cs" />
+    <Compile Include="Model\PriorityQueue.cs" />
     <Compile Include="Remoting\IService.cs" />
     <Compile Include="Model\Doctor.cs" />
     <Compile Include="Model\Donor.cs" />

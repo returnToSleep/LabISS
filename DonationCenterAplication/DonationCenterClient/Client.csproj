@@ -110,6 +110,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\DoctorController.cs" />
+    <Compile Include="Controller\DonationCenter.cs" />
+    <Compile Include="Controller\DonationCenterDoctors.cs" />
     <Compile Include="Controller\DonorController.cs" />
     <Compile Include="Client.cs">
       <SubType>Form</SubType>
