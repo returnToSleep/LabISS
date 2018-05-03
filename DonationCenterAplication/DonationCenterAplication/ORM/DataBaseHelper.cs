@@ -27,10 +27,11 @@ namespace DonationCenterAplication.ORM
                     var cfg = new Configuration();
 
                     cfg.DataBaseIntegration(x => {
-                        x.ConnectionString = "Data Source=CTRLSOFT-FM1A7D\\MYSQL;Initial Catalog=Test;Integrated Security=True";
+                        x.ConnectionString = "Data Source=den1.mssql2.gear.host;Initial Catalog=blooddonation1;User ID=blooddonation1;Password=Cy1e1bU~?v30";
+                        //x.ConnectionString = "Data Source=DESKTOP-ILR06L3;Initial Catalog=Test;Integrated Security=True";
                         //x.ConnectionString = "Data Source=den1.mssql5.gear.host; Initial Catalog = blooddonation1; User Id = blooddonation1; Password = Qz7VGZX2!4!m";
 
-                       x.Driver<SqlClientDriver>();
+                        x.Driver<SqlClientDriver>();
                                             x.Dialect<MsSql2012Dialect>();
                                             x.LogSqlInConsole = true;
                                         });

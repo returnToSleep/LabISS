@@ -5,6 +5,7 @@ using System.Text;
 using Model;
 using Server;
 using DonationCenterAplication;
+using Common.Model;
 
 namespace Server{
     /**

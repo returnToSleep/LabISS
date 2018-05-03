@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Model{
+namespace Common.Model{
     /**
      * The Doctor class holds the name, speciality, hospital, request list of a doctor.
      */
