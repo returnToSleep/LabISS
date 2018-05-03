@@ -27,14 +27,7 @@ namespace DonationCenterAplication.ORM
                     var cfg = new Configuration();
 
                     cfg.DataBaseIntegration(x => {
-<<<<<<< HEAD
-                        //x.ConnectionString = "Data Source=DESKTOP-GGU6TGE;Initial Catalog=Test;Integrated Security=True";
                         x.ConnectionString = "Data Source=den1.mssql2.gear.host;Initial Catalog=blooddonation1;User ID=blooddonation1;Password=Cy1e1bU~?v30";
-=======
-                        x.ConnectionString = "Data Source=den1.mssql2.gear.host;Initial Catalog=blooddonation1;User ID=blooddonation1;Password=Cy1e1bU~?v30";
-                        //x.ConnectionString = "Data Source=DESKTOP-ILR06L3;Initial Catalog=Test;Integrated Security=True";
->>>>>>> 9e29bcf6ea181a347f7701c91b6ae1f85b2528a1
-                        //x.ConnectionString = "Data Source=den1.mssql5.gear.host; Initial Catalog = blooddonation1; User Id = blooddonation1; Password = Qz7VGZX2!4!m";
 
                         x.Driver<SqlClientDriver>();
                                             x.Dialect<MsSql2012Dialect>();
