@@ -134,6 +134,12 @@
     <Compile Include="Forms\Doctor CRUD.Designer.cs">
       <DependentUpon>Doctor CRUD.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DonationCenterCRUD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DonationCenterCRUD.Designer.cs">
+      <DependentUpon>DonationCenterCRUD.cs</DependentUpon>
+    </Compile>
     <Compile Include="ORM\RepositoryBase.cs" />
     <Compile Include="ORM\DataBaseHelper.cs" />
     <Compile Include="ORM\IRepository.cs" />
@@ -152,6 +158,9 @@
     <Compile Include="Controller\ServerController.cs" />
     <EmbeddedResource Include="Forms\Doctor CRUD.resx">
       <DependentUpon>Doctor CRUD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DonationCenterCRUD.resx">
+      <DependentUpon>DonationCenterCRUD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

@@ -23,6 +23,12 @@ namespace DonationCenterAplication
             Form form = new DoctorCRUD();
             form.ShowDialog();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form form = new DonationCenterCRUD();
+            form.ShowDialog();
+        }
     }
     
 }
