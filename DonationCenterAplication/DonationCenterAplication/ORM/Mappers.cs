@@ -64,7 +64,9 @@ namespace DonationCenterServer.ORM
         public DonationCenterMap()
         {
             Id(x => x.id);
-            
+
+            Property(x => x.name);
+
             Bag(x => x.requests, map =>
             {
 

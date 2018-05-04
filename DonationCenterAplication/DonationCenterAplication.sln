@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "DonationCenterAplication\Server.csproj", "{0809B48F-5179-46F4-BFA7-193FDE6B6354}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "DonationCenterClient\Client.csproj", "{31B93C45-18B5-4A95-9F66-1633ADADDF9B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0809B48F-5179-46F4-BFA7-193FDE6B6354} = {0809B48F-5179-46F4-BFA7-193FDE6B6354}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{9FE311F9-01D1-4E9C-B7CC-DEE133863426}"
 EndProject
