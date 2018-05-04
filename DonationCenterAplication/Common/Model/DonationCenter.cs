@@ -13,11 +13,11 @@ namespace Common.Model
         //the id is in latitude,logitude format
         public virtual string id { get; set; }
         public virtual string name { get; set; }
-        public virtual List<DoctorRequest> requests { get; set; }
-        public virtual List<Donor> donors { get; set; }
-        public virtual List<RedBloodCell> redBloodCellList { get; set; }
-        public virtual List<Trombocyte> trombocyteList { get; set; }
-        public virtual List<Plasma> plasmaList { get; set; }
+        public virtual IList<DoctorRequest> requests { get; set; }
+        public virtual IList<Donor> donors { get; set; }
+        public virtual IList<RedBloodCell> redBloodCellList { get; set; }
+        public virtual IList<Trombocyte> trombocyteList { get; set; }
+        public virtual IList<Plasma> plasmaList { get; set; }
 
         public DonationCenter() { }
         public DonationCenter(string id, string name)

@@ -17,6 +17,7 @@ namespace Common.Model{
         public virtual Location location{ get; set; }
         public virtual IList<Donation> donationHistory { get; set; }
         public virtual string email { get; set; }
+        public virtual string medicalHistory { get; set; }
         
         //Status of donor, either pending or donated 
         public virtual bool isPending { get; set; }
@@ -24,7 +25,7 @@ namespace Common.Model{
 
         public Donor() { }
 
-        public Donor(string cnp, string donationCenter_id, string name,  DateTime birthdate, string address, Location location, string email) {
+        public Donor(string cnp, string donationCenter_id, string name,  DateTime birthdate, string address, Location location, string email, string medicalHistory) {
             this.name = name;
             this.cnp = cnp;
             this.birthdate = birthdate;
@@ -33,6 +34,7 @@ namespace Common.Model{
             this.email = email;
             this.isPending = true;
             this.donationCenter_id = donationCenter_id;
+            this.medicalHistory = medicalHistory;
         }
 
 
@@ -40,7 +42,7 @@ namespace Common.Model{
         {
 
             return "Donor:\nName: " + name + "\t--\tCNP: " + cnp + "\nAge: " + DateTime.Now.Subtract(birthdate) + "\nAddress: " + address
-                + "\nResidence: " + location + "\nEmail: " + email + "\n";
+                + "\nResidence: " + location + "\nEmail: " + email + "\nMedicalHistory: " + medicalHistory + "\n";
         }
     }
 }

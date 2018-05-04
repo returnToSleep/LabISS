@@ -15,7 +15,11 @@ namespace DonationCenterServer.ORM
     {
         public DoctorMap()
         {
-            Id(x => x.id);
+            Id(x => x.id, m => {
+                m.UnsavedValue(0);
+                m.Generator(Generators.Native);
+            });
+
             Property(x => x.name);
             Property(x => x.speciality);
             Property(x => x.hospital);
@@ -64,7 +68,9 @@ namespace DonationCenterServer.ORM
         public DonationCenterMap()
         {
             Id(x => x.id);
-            
+
+            Property(x => x.name);
+
             Bag(x => x.requests, map =>
             {
 
@@ -149,6 +155,7 @@ namespace DonationCenterServer.ORM
             Property(x => x.email);
             Property(x => x.isPending);
             Property(x => x.donationCenter_id);
+            Property(x => x.medicalHistory);
 
             Component(x => x.location, c =>
             {
