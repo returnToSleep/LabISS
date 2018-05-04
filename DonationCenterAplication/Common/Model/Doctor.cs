@@ -38,6 +38,13 @@ namespace Common.Model{
             this.hospital = hospital;
         }
 
+        public Doctor(string name, string speciality, string hospital)
+        {
+            this.name = name;
+            this.speciality = speciality;
+            this.hospital = hospital;
+        }
+
 
         public override string ToString()
         {

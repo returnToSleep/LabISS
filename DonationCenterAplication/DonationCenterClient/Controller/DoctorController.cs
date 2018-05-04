@@ -1,10 +1,15 @@
 
+using Common.Model;
+using DonationCenterAplication.Remoting;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Server.Remoting;
+using System.Reflection;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Tcp;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Controller{
     /**
@@ -16,11 +21,14 @@ namespace Controller{
         /**
          * 
          */
-
-        private ServerService service;
+        public IService service;
+        
 
         public DoctorController() {
-            this.service = new ServerService();
+            ChannelServices.RegisterChannel(new TcpClientChannel(), false);
+            service = (IService)(Activator.GetObject(typeof(IService),
+                "tcp://localhost:9999/IService"
+                ));
         }
 
         /**
@@ -35,7 +43,7 @@ namespace Controller{
          */
         public void makeRequest(Location val, int priority, string patientName, string requestString) {
             //get donation center id from location TODO
-            DoctorRequest req = new DoctorRequest(doctor.id, donationCeter_id, priority, patientName, requestString);
+            DoctorRequest req = new DoctorRequest(doctor.id, val.longitude.ToString() + ',' + val.latitude.ToString(), priority, patientName, requestString);
             this.service.AddToDatabase(req);
         }
 
@@ -51,10 +59,11 @@ namespace Controller{
          * @param val 
          * @return
          */
-        public Tuple<IList<Plasma>, IList<Trombocytes>, IList<RedBloodCells>> reviewBloodStocks(Location val) {
-            var tuple = Tuple.Create(IList < Plasma > this.service.GetAllFromDatabase<Plasma>(),
-                IList < Trombocytes > this.service.GetAllFromDatabase<Trombocytes>(),
-                IList < RedBloodCells > this.service.GetAllFromDatabase<RedBloodCells>());
+        public Tuple<IList<Plasma>, IList<Trombocyte>, IList<RedBloodCell>> reviewBloodStocks(Location val) {
+            DonationCenter dc = this.service.GetOneFromDatabase<DonationCenter>(val.longitude.ToString() + ',' + val.latitude.ToString());
+            var tuple = Tuple.Create(dc.plasmalist),
+                this.service.GetOneFromDatabase<Trombocyte>(val.longitude.ToString() + ',' + val.latitude.ToString()),
+                this.service.GetOneFromDatabase<RedBloodCell>(val.longitude.ToString() + ',' + val.latitude.ToString()));
             return tuple;
         }
 

@@ -68,16 +68,7 @@ namespace DonationCenterServer.Forms
             bool ok = true;
             #region Validation
             float dummy;
-            if (!float.TryParse(locXTextbox.Text, out dummy))
-            {
-                locXTextbox.BackColor = Color.Red;
-                ok = false;
-            }
-            if (!float.TryParse(locYTextbox.Text, out dummy))
-            {
-                locYTextbox.BackColor = Color.Red;
-                ok = false;
-            }
+          
 
             if (string.IsNullOrEmpty(nameTextbox.Text))
             {
@@ -101,7 +92,6 @@ namespace DonationCenterServer.Forms
             if (ok)
             {
                 return new Doctor(
-                    locXTextbox.Text + "," + locYTextbox.Text,
                     nameTextbox.Text,
                     specialityTextbox.Text,
                     comboBox1.Text);
@@ -114,9 +104,8 @@ namespace DonationCenterServer.Forms
         {
             RepositoryBase repo = new RepositoryBase();
             Doctor doc = repo.FindOne<Doctor>(docID);
-            var locs = doc.id.Split(',');
-            locXTextbox.Text = locs[0];
-            locYTextbox.Text = locs[1];
+
+            locXTextbox.Text = doc.id;
             nameTextbox.Text = doc.name;
             specialityTextbox.Text = doc.speciality;
             comboBox1.Text = doc.hospital;
@@ -126,7 +115,6 @@ namespace DonationCenterServer.Forms
         {
             #region Clear textboxes
             locXTextbox.Clear();
-            locYTextbox.Clear();
             nameTextbox.Clear();
             specialityTextbox.Clear();
             comboBox1.Text = "";
@@ -199,6 +187,11 @@ namespace DonationCenterServer.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             clearTextBoxes();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
