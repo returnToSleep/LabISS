@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Model;
 using DonationCenterAplication;
+using Common.Model;
 
 namespace UI{
     /**

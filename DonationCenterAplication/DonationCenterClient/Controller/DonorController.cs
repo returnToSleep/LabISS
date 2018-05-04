@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Model;
+using Common.Model;
+using DonationCenterAplication.Remoting;
 
 namespace Controller{
     /**
@@ -20,55 +22,28 @@ namespace Controller{
         /**
          * 
          */
-        private Donor donor;
+        private Donor donor { get; set; }
+        private IService service { get; set; }
 
-
-        /**
-         * @return
-         */
-        public Donor getDonor() {
-            // TODO implement here
-            return null;
+        public DonorController(IService service, Donor donor)
+        {
+            this.service = service;
+            this.donor = donor;
         }
 
-        /**
-         * @param newVal 
-         * @return
-         */
-        public void setDonor(Donor newVal) {
-            // TODO implement here
-            return;
+        public DonorController(IService service)
+        {
+            this.service = service;
         }
 
-        /**
-         * @param name 
-         * @param cnp 
-         * @param birtdhDate 
-         * @param address 
-         * @param residence 
-         * @param blood 
-         * @param donationDate 
-         * @param email 
-         * @return
-         */
-       
+        
+        private bool ValidateDonor()
+        {
+            return false;
+        }  
 
-        /**
-         * Sends donor info to server
-         * @return
-         */
-        public void makeDonationDonationRequest() {
-            // TODO implement here
-            return;
-        }
+            
 
-        /**
-         * @return
-         */
-        public Location getBloodLocation() {
-            // TODO implement here
-            return null;
-        }
 
     }
 }

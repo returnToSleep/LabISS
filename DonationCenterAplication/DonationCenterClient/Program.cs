@@ -26,12 +26,13 @@ namespace DonationCenterClient
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new Client());
-            
+            */
 
 
-            
+            /*
              * Makes connection to server  
              */
+             /*
             Console.ReadLine();
 
             ChannelServices.RegisterChannel(new TcpClientChannel(), false);
@@ -39,6 +40,7 @@ namespace DonationCenterClient
                 "tcp://localhost:9999/IService"
                 ));
 
+            
            
 
             try
@@ -47,14 +49,14 @@ namespace DonationCenterClient
                 //service.AddToDatabase(d);
                 //service.Refresh();
                 //service.DeleteFromDatabase<Doctor>("10");
-                //Console.Write(service.GetOneFromDatabase<Doctor>("10,10").ToString());
+                Console.Write(service.GetOneFromDatabase<Doctor>("10,10").ToString());
             }
             catch (TypeUnloadedException e)
             {
                 Console.Write("Could not connect to server");
             }
             Console.Read();
-           
+           */
         }
       
     }

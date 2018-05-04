@@ -19,7 +19,7 @@ namespace UI{
         /**
          * Represents an instance of a doctor.
          */
-        private DoctorController doctor;
+        //private DoctorController doctor;
 
 
 

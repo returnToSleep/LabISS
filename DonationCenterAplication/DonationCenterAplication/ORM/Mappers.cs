@@ -165,8 +165,17 @@ namespace DonationCenterServer.ORM
             });
 
 
-
+            Bag(x => x.donationHistory, map =>
+            {
+                map.Table("Donation");
+                map.Key(k => k.Column(col => col.Name("donor_Cnp")));
+                map.Lazy(CollectionLazy.NoLazy);
+            },
+           action => action.OneToMany());
         }
+
+
+    }
     }
     #endregion
     
@@ -218,4 +227,20 @@ namespace DonationCenterServer.ORM
     }
     #endregion
 
+    #region Donation
+        
+    public class DonationMap : ClassMapping<Donation>
+    {
+        public DonationMap()
+        {
+            Id(x => x.id);
+            Property(x => x.donor_Cnp);
+            Property(x => x.age);
+            Property(x => x.weight);
+            Property(x => x.bloodPressure);
+            Property(x => x.donationDate);
+        }
+    }
+    #endregion
 }
+

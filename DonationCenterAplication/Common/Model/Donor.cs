@@ -15,7 +15,7 @@ namespace Common.Model{
         public virtual DateTime birthdate { get; set; }
         public virtual string address{ get; set; }
         public virtual Location location{ get; set; }
-        public virtual DateTime donationDate{ get; set; }
+        public virtual IList<Donation> donationHistory { get; set; }
         public virtual string email { get; set; }
         
         //Status of donor, either pending or donated 
