@@ -34,11 +34,22 @@ namespace Client.Controller
    */
         public void refreshBloodStock()
         {
-            dc.redBloodCellList.RemoveAll(item => item.getExpirationDate() > DateTime.Now);
-            dc.trombocyteList.RemoveAll(item => item.getExpirationDate() > DateTime.Now);
-            dc.plasmaList.RemoveAll(item => item.getExpirationDate() > DateTime.Now);
+
+            dc.redBloodCellList = removeFromList(dc.redBloodCellList);
+            dc.trombocyteList = removeFromList(dc.trombocyteList);
+            dc.plasmaList = removeFromList(dc.plasmaList);
             this.service.UpdateOneFromDatabase(dc);
             this.service.Refresh(dc);
+        }
+
+        /**
+         * Function that removes the expired blood components
+         * Returns the list without the expired blood components
+         */
+        IList<T> removeFromList<T>(IList<T> l) where T : BloodComponent
+        {
+            var removedList = l.Where(x => x.getExpirationDate() <= DateTime.Now).ToList();
+            return removedList;
         }
 
         /**
@@ -52,6 +63,10 @@ namespace Client.Controller
             this.service.Refresh(bc);
         }
 
+        /**
+         * Evaluates a donor, if the donor passes the test( the bool is true), updates it's status from pending to donated and sends him a mail,
+         * otherwise removes the donor from the list and sends him a mail.
+         */
         public void evaluateDonor(bool b, Donor d)
         {
             if (b)
