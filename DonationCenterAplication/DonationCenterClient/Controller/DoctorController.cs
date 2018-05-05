@@ -11,7 +11,9 @@ using System.Runtime.Remoting.Channels.Tcp;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Controller {
+
+namespace Controller
+{
     /**
      * 
      */
@@ -19,87 +21,80 @@ namespace Controller {
     public class DoctorController
     {
 
-        #region Fields
-        public IService service;
-        private Doctor doctor;
-        #endregion
+        /**
+         * 
+         */
 
-        #region Constructor
-        public DoctorController(IService service, Doctor doctor)
+        private IService service;
+
+        public DoctorController()
         {
-            this.service = service;
-            this.doctor = doctor;
+            ChannelServices.RegisterChannel(new TcpClientChannel(), false);
+            service = (IService)(Activator.GetObject(typeof(IService),
+                "tcp://localhost:9999/IService"
+                ));
         }
-        #endregion
 
-        #region Blood Requesting
+        /**
+         * 
+         */
+        private Doctor doctor;
 
+
+        /**
+         * @param val 
+         * @return
+         */
         public void makeRequest(Location val, int priority, string patientName, string requestString)
         {
-            DoctorRequest req = new DoctorRequest(doctor.id, val.longitude.ToString() + ',' + val.latitude.ToString(), priority, patientName, requestString);
+            DoctorRequest req = new DoctorRequest(doctor.id, val.latitude.ToString() + ',' + val.longitude.ToString(), priority, patientName, requestString);
             this.service.AddToDatabase(req);
         }
-        
-        private void acceptBlood(DoctorRequest request)
-        {
-            string[] splitRequest = request.requestString.Split(',');
 
-            BloodComponent bc = null;
-
-            if (splitRequest[0].Equals("Plasma"))
-            {
-                bc = this.doctor.plasmaList
-                    .First(x => x.antibody == splitRequest[1] && x.ammount == Double.Parse(splitRequest[2]));
-
-            }
-
-            if (splitRequest[1].Equals("Red"))
-            {
-                bc = this.doctor.redBloodCellList
-                    .First(x => x.antigen == splitRequest[1] && x.rh == bool.Parse(splitRequest[2]) && x.ammount == Double.Parse(splitRequest[3]));
-
-            }
-
-            if (splitRequest[1].Equals("Tromb"))
-            {
-                bc = this.doctor.redBloodCellList
-                    .First(x =>  x.ammount == Double.Parse(splitRequest[1]));
-
-            }
-
-            this.service.DeleteFromDatabase(bc);
-            this.service.DeleteFromDatabase(request);
-
-            //TODO notify donor
-        }
-
-
-        public void refuseBlood<T>(T bloodComponent) where T : BloodComponent
-        {
-            bloodComponent.doctor_id = null;
-            this.service.UpdateOneFromDatabase(bloodComponent);
-        }
-        
         /**
          * @return
          */
-        public void notifyDonor()
+        public void notifyDonors()
         {
             // TODO implement here
             return;
         }
-        #endregion
 
-        #region Stock Investing
         /**
-         * Location is the location of a donation center, selected from the map
+         * @param val 
+         * @return
          */
         public Tuple<IList<Plasma>, IList<Trombocyte>, IList<RedBloodCell>> reviewBloodStocks(Location val)
         {
-            DonationCenter dc = this.service.GetOneFromDatabase<DonationCenter>(val.longitude.ToString() + ',' + val.latitude.ToString());
-            return Tuple.Create(dc.plasmaList, dc.trombocyteList, dc.redBloodCellList);
+            var tuple = Tuple.Create( this.service.GetAllFromDatabase<Plasma>(),
+                this.service.GetAllFromDatabase<Trombocyte>(),
+                this.service.GetAllFromDatabase<RedBloodCell>());
+            return tuple;
         }
-        #endregion
-    }
 
+        /**
+         * @param name
+         */
+        public void setDoctorName(String name)
+        {
+            doctor.name = name;
+        }
+
+        /**
+         * @param newVal
+         */
+        public void setDoctorSpeciality(String newVal)
+        {
+            doctor.speciality = newVal;
+        }
+
+        /**
+         * @param newVal
+         */
+        public void setHospita(String newVal)
+        {
+            doctor.hospital = newVal;
+        }
+
+    }
 }
