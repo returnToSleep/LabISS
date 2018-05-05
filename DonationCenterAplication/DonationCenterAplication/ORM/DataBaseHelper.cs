@@ -27,7 +27,7 @@ namespace DonationCenterAplication.ORM
                     var cfg = new Configuration();
 
                     cfg.DataBaseIntegration(x => {
-                        x.ConnectionString = "Data Source=CTRLSOFT-FM1A7D\\MYSQL Initial Catalog=Test; Integrated Security = True";
+                        x.ConnectionString = "Data Source = CTRLSOFT-FM1A7D\\MYSQL; Initial Catalog = Blood; Integrated Security = True";
 
                         x.Driver<SqlClientDriver>();
                                             x.Dialect<MsSql2012Dialect>();

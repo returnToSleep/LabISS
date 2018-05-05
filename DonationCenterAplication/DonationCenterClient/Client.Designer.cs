@@ -46,8 +46,8 @@
             this.gmap.LevelsKeepInMemmory = 5;
             this.gmap.Location = new System.Drawing.Point(12, 12);
             this.gmap.MarkersEnabled = true;
-            this.gmap.MaxZoom = 18;
-            this.gmap.MinZoom = 2;
+            this.gmap.MaxZoom = 16;
+            this.gmap.MinZoom = 16;
             this.gmap.MouseWheelZoomEnabled = true;
             this.gmap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             this.gmap.Name = "gmap";
@@ -60,9 +60,8 @@
             this.gmap.ShowTileGridLines = false;
             this.gmap.Size = new System.Drawing.Size(872, 523);
             this.gmap.TabIndex = 2;
-            this.gmap.Zoom = 0D;
-            this.gmap.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.gmap_OnMarkerClick);
-            // 
+            this.gmap.Zoom = 3D;
+             // 
             // ZOOOOOM
             // 
             this.ZOOOOOM.Location = new System.Drawing.Point(900, 29);

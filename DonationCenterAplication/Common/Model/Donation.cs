@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Model
 {
+    [Serializable]
     public class Donation
     {
         public virtual int id { get; set; }
@@ -15,6 +16,8 @@ namespace Common.Model
         public virtual int pulse { get; set; }
         public virtual int bloodPressure { get; set; }
         public virtual DateTime donationDate { get; set; }
+
+        public Donation() { }
 
         public Donation(string donorCnp, int age, int weight, int pulse, int bloodPressure, DateTime donationDate)
         {

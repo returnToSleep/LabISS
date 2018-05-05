@@ -8,6 +8,7 @@ namespace Model{
     /**
      * This class derives from the BloodComponent class.  It has one specific variable named type to it.
      */
+    [Serializable]
     public class Plasma : BloodComponent{
         
      
@@ -15,7 +16,7 @@ namespace Model{
       
         public Plasma() { }
 
-        public Plasma(int id, string antibody, string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate) : base(id, donationCenter_id, donor_cnp, ammount, donationDate)
+        public Plasma(string antibody, string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate) : base(donationCenter_id, donor_cnp, ammount, donationDate)
         {
             this.antibody = antibody;
         }

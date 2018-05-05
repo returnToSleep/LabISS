@@ -8,113 +8,87 @@ using System.Linq;
 namespace Repository
 {
     [Serializable]
-    public class RepositoryBase : IRepository, IDisposable
+    public class RepositoryBase : IRepository
     {
-        protected ISession _session = null;
-        protected ITransaction _transaction = null;
-        public RepositoryBase()
-        {
-            _session = DataBaseHelper.OpenSession();
-        }
-        public RepositoryBase(ISession session)
-        {
-            _session = session;
-        }
-
-
-
-        #region Transaction and Session Management Methods
-
-        public void BeginTransaction()
-        {
-            _transaction = _session.BeginTransaction();
-        }
-        public void CommitTransaction()
-        {
-            // _transaction will be replaced with a new transaction            // by NHibernate, but we will close to keep a consistent state.
-            _transaction.Commit();
-            CloseTransaction();
-        }
-        public void RollbackTransaction()
-        {
-            // _session must be closed and disposed after a transaction            // rollback to keep a consistent state.
-            _transaction.Rollback();
-            CloseTransaction();
-            CloseSession();
-        }
-        private void CloseTransaction()
-        {
-            _transaction.Dispose();
-            _transaction = null;
-        }
-        private void CloseSession()
-        {
-            _session.Close();
-            _session.Dispose();
-            _session = null;
-        }
-        #endregion
-
-
+        public RepositoryBase() { }
+   
         #region IRepository Members
 
         public virtual void Save(object obj)
         {
-            _session.Save(obj);
+
+            using (ISession session = DataBaseHelper.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Save(obj);
+                    session.Flush();
+                    transaction.Commit();
+                }
+            }
 
         }
 
         public virtual void Update(object obj)
         {
-            _session.Update(obj);
+            using (ISession session = DataBaseHelper.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Update(obj);
+                    session.Flush();
+                    transaction.Commit();
+                }
+            }
 
         }
 
-        public virtual void Delete<T>(object objId)
+        public virtual void Delete(object obj)
         {
-            var queryString = string.Format("delete {0} where id = :id",
-                                            typeof(T));
-            _session.CreateQuery(queryString)
-                   .SetParameter("id", objId)
-                   .ExecuteUpdate();
+            
+            
+            using (ISession session = DataBaseHelper.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Delete(obj);
+                    session.Flush();
+                    transaction.Commit();
+                }
+            }
+
 
         }
 
         public virtual T FindOne<T>(object objId)
         {
-            return (T)_session.Load(typeof(T), objId);
+            using (ISession session = DataBaseHelper.OpenSession())
+            {
+                 return (T)session.Load(typeof(T), objId);
+            }
+         
         }
 
         public virtual void Refresh(object obj)
         {
-            _session.Refresh(obj);
+            using (ISession session = DataBaseHelper.OpenSession())
+            {
+                session.Refresh(obj);
+            }
         }
 
 
         public virtual IList<T> FindAll<T>() where T : class
         {
-            return _session.QueryOver<T>().List();
+            using (ISession session = DataBaseHelper.OpenSession())
+            {
+                return session.QueryOver<T>().List();
+            }
         }
 
         #endregion
 
 
-        #region IDisposable Members
-        public void Dispose()
-        {
-            if (_transaction != null)
-            {
-                // Commit transaction by default, unless user explicitly rolls it back.
-                // To rollback transaction by default, unless user explicitly commits,                // comment out the line below.
-                CommitTransaction();
-            }
-            if (_session != null)
-            {
-                _session.Flush(); // commit session transactions
-                CloseSession();
-            }
-        }
-        #endregion
     }
 }
 

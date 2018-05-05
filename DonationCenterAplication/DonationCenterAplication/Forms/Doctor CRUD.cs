@@ -41,7 +41,7 @@ namespace DonationCenterServer.Forms
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                repo.Delete<Doctor>(item.Tag);
+                repo.Delete(item.Tag);
                 update(new RepositoryBase());
             }
         }
@@ -53,9 +53,7 @@ namespace DonationCenterServer.Forms
             if (doc != null)
             {
                 RepositoryBase repo = new RepositoryBase();
-                repo.BeginTransaction();
                 repo.Save(doc);
-                repo.CommitTransaction();
                 update(repo);
             }
         }
@@ -105,7 +103,7 @@ namespace DonationCenterServer.Forms
             RepositoryBase repo = new RepositoryBase();
             Doctor doc = repo.FindOne<Doctor>(docID);
 
-            locXTextbox.Text = doc.id;
+            locXTextbox.Text = doc.id.ToString();
             nameTextbox.Text = doc.name;
             specialityTextbox.Text = doc.speciality;
             comboBox1.Text = doc.hospital;
@@ -176,7 +174,7 @@ namespace DonationCenterServer.Forms
                 ContextMenu cm = new ContextMenu();
                 cm.MenuItems.Add(item);
                 box.ContextMenu = cm;
-                box.Click += new EventHandler(delegate (Object o, EventArgs a) { box.Focus(); box.BackColor = Color.AliceBlue; fill(doc.id); });
+                box.Click += new EventHandler(delegate (Object o, EventArgs a) { box.Focus(); box.BackColor = Color.AliceBlue; fill(doc.id.ToString()); });
                 //box.GotFocus += new EventHandler(delegate (Object o, EventArgs a) { });
                 box.LostFocus += new EventHandler(delegate (Object o, EventArgs a) { box.BackColor = Color.Empty; });
                 #endregion

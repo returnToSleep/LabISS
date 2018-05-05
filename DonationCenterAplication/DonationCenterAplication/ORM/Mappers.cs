@@ -34,6 +34,43 @@ namespace DonationCenterServer.ORM
             },
             action => action.OneToMany());
 
+            Component(x => x.location, c =>
+            {
+                // mappings for component's parts
+                
+                c.Property(x => x.latitude);
+                c.Property(x => x.longitude);
+                c.Class<Location>();
+
+                c.Insert(true);
+                c.Update(true);
+                c.OptimisticLock(true);
+                c.Lazy(false);
+            });
+
+            Bag(x => x.trombocyteList, map =>
+            {
+                map.Table("Trombocyte");
+                map.Key(k => k.Column(col => col.Name("doctor_id")));
+                map.Lazy(CollectionLazy.NoLazy);
+            },
+         action => action.OneToMany());
+
+            Bag(x => x.redBloodCellList, map =>
+            {
+                map.Table("RedBloodCell");
+                map.Key(k => k.Column(col => col.Name("doctor_id")));
+                map.Lazy(CollectionLazy.NoLazy);
+            },
+          action => action.OneToMany());
+
+            Bag(x => x.plasmaList, map =>
+            {
+                map.Table("Plasma");
+                map.Key(k => k.Column(col => col.Name("doctor_id")));
+                map.Lazy(CollectionLazy.NoLazy);
+            },
+            action => action.OneToMany());
 
         }
     }
@@ -50,13 +87,17 @@ namespace DonationCenterServer.ORM
             Property(x => x.donationCenter_id);
             
             Property(x => x.priority);
-            Property(x => x.patientName);
+            Property(x => x.patientCnp);
             Property(x => x.requestString);
 
             Id(x => x.id, m => {
                 m.UnsavedValue(0);
                 m.Generator(Generators.Native);
             });
+
+            Property(x => x.doctor_name);
+            Property(x => x.hospital);
+
         }
     }
     #endregion
@@ -67,8 +108,8 @@ namespace DonationCenterServer.ORM
     {
         public DonationCenterMap()
         {
-            Id(x => x.id);
-
+            Lazy(false);
+            Id(x => x.id);      
             Property(x => x.name);
 
             Bag(x => x.requests, map =>
@@ -98,7 +139,7 @@ namespace DonationCenterServer.ORM
             },
            action => action.OneToMany());
 
-            Bag(x => x.redBloodCellList, map =>
+            Bag(x => x.plasmaList, map =>
             {
 
                 map.Table("Plasma");
@@ -107,7 +148,7 @@ namespace DonationCenterServer.ORM
             },
           action => action.OneToMany());
 
-            Bag(x => x.redBloodCellList, map =>
+            Bag(x => x.trombocyteList, map =>
             {
 
                 map.Table("Trombocyte");
@@ -151,16 +192,14 @@ namespace DonationCenterServer.ORM
             Property(x => x.name);
             Id(x => x.cnp);
             Property(x => x.birthdate);
-            Property (x => x.address);
             Property(x => x.email);
             Property(x => x.isPending);
             Property(x => x.donationCenter_id);
-            Property(x => x.medicalHistory);
+            
 
             Component(x => x.location, c =>
             {
                 // mappings for component's parts
-                c.Property(x => x.addressString);
                 c.Property(x => x.latitude);
                 c.Property(x => x.longitude);
                 c.Class<Location>();
@@ -179,11 +218,35 @@ namespace DonationCenterServer.ORM
                 map.Lazy(CollectionLazy.NoLazy);
             },
            action => action.OneToMany());
+
+          Bag(x => x.trombocyteList, map =>
+            {
+                map.Table("Trombocyte");
+                map.Key(k => k.Column(col => col.Name("donor_Cnp")));
+                map.Lazy(CollectionLazy.NoLazy);
+            },
+          action => action.OneToMany());
+
+            Bag(x => x.redBloodCellList, map =>
+            {
+                map.Table("RedBloodCell");
+                map.Key(k => k.Column(col => col.Name("donor_Cnp")));
+                map.Lazy(CollectionLazy.NoLazy);
+            },
+          action => action.OneToMany());
+
+          Bag(x => x.plasmaList, map =>
+            {
+                map.Table("Plasma");
+                map.Key(k => k.Column(col => col.Name("donor_Cnp")));
+                map.Lazy(CollectionLazy.NoLazy);
+            },
+          action => action.OneToMany());
         }
 
 
     }
-    }
+
     #endregion
     
     #region RedBloodCellMap
@@ -197,8 +260,12 @@ namespace DonationCenterServer.ORM
             Property(x => x.donationCenter_id);
             Property(x => x.donor_cnp);
             Property(x => x.ammount);
-            Id(x => x.id);
+            Id(x => x.id, m => {
+                m.UnsavedValue(0);
+                m.Generator(Generators.Native);
+            });
             Property(x => x.donationDate);
+            Property(x => x.doctor_id);
         }
     }
     #endregion
@@ -209,11 +276,15 @@ namespace DonationCenterServer.ORM
     {
         public TrobocyteMap()
         {
-            Id(x => x.id);
+            Id(x => x.id, m => {
+                m.UnsavedValue(0);
+                m.Generator(Generators.Native);
+            });
             Property(x => x.donationCenter_id);
             Property(x => x.donor_cnp);
             Property(x => x.ammount);
             Property(x => x.donationDate);
+            Property(x => x.doctor_id);
         }
     }
     #endregion
@@ -224,22 +295,28 @@ namespace DonationCenterServer.ORM
     {
         public PlasmaMap()
         {
-            Id(x => x.id);
+            Id(x => x.id, m => {
+                m.UnsavedValue(0);
+                m.Generator(Generators.Native);
+            });
             Property(x => x.antibody);
             Property(x => x.donationCenter_id);
             Property(x => x.donor_cnp);
             Property(x => x.ammount);
             Property(x => x.donationDate);
+            Property(x => x.doctor_id);
         }
     }
     #endregion
 
     #region Donation
-        
+       
+    [Serializable]
     public class DonationMap : ClassMapping<Donation>
     {
         public DonationMap()
         {
+            Table("Donation");
             Id(x => x.id);
             Property(x => x.donor_Cnp);
             Property(x => x.age);

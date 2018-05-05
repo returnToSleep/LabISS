@@ -17,15 +17,15 @@ namespace Client.Controller
     {
 
 
-        IService service;
-        private DonationCenter dc;
+        public IService service { get; set; }
+        public DonationCenter donationCenter { get; }
         /**
          * Donation center constructor with args
          */
-        public DonationCenterController(IService serv, DonationCenter dc)
+        public DonationCenterController(IService serv, DonationCenter donationCenter)
         {
             this.service = serv;
-            this.dc = dc;
+            this.donationCenter = donationCenter;
         }
 
         /**
@@ -34,34 +34,55 @@ namespace Client.Controller
    */
         public void refreshBloodStock()
         {
-
-            dc.redBloodCellList = removeFromList(dc.redBloodCellList);
-            dc.trombocyteList = removeFromList(dc.trombocyteList);
-            dc.plasmaList = removeFromList(dc.plasmaList);
-            this.service.UpdateOneFromDatabase(dc);
-            this.service.Refresh(dc);
+            removeFromList(this.donationCenter.redBloodCellList);
+            removeFromList(this.donationCenter.trombocyteList);
+            removeFromList(this.donationCenter.plasmaList);
+            service.Refresh(donationCenter);
         }
 
         /**
          * Function that removes the expired blood components
-         * Returns the list without the expired blood components
          */
-        IList<T> removeFromList<T>(IList<T> l) where T : BloodComponent
+        private void removeFromList<T>(IList<T> l) where T : BloodComponent
         {
-            var removedList = l.Where(x => x.getExpirationDate() <= DateTime.Now).ToList();
-            return removedList;
+          
+            if ( l == null ){ return;  }
+            
+            foreach(T bloodCompoenent in l)
+            {
+                if (DateTime.Compare(bloodCompoenent.getExpirationDate(), DateTime.Now) <= 0)
+                {
+                    service.DeleteFromDatabase(bloodCompoenent);
+                }
+            }
+        
         }
+
+
+
+        public IList<Donor> getPendingDonors(){
+            return this.donationCenter.donors.Where(x => x.isPending == true).ToList();
+        }
+
+        public IList<Donor> getDonatedDonors()
+        {
+            return this.donationCenter.donors.Where(x => x.isPending == false).ToList();
+        }
+
+
 
         /**
          * Adds a certain blood component to the stock, the donation center id of the component is set to this center's id
-         * bc is the blood component ( plasma/ red cells / trobocytes) 
+         * bloodComponent is the blood component ( plasma/ red cells / trobocytes) 
          */
-        public void addBloodToStock<T>(T bc) where T : BloodComponent
+        public void addBloodToStock<T>(T bloodComponent) where T : BloodComponent
         {
-            bc.donationCenter_id = dc.id;
-            this.service.AddToDatabase(bc);
-            this.service.Refresh(bc);
+            bloodComponent.donationCenter_id = donationCenter.id;
+            this.service.AddToDatabase(bloodComponent);
+            this.service.Refresh(donationCenter);
         }
+
+
 
         /**
          * Evaluates a donor, if the donor passes the test( the bool is true), updates it's status from pending to donated and sends him a mail,
@@ -72,20 +93,97 @@ namespace Client.Controller
             if (b)
             {
                 d.isPending = false;
-                this.service.UpdateOneFromDatabase(dc);
-                this.service.Refresh(dc);
-                //TO DO : send mail
+                this.service.UpdateOneFromDatabase(d);
+                this.service.Refresh(donationCenter);
+                //TODO : send mail
             }
             else
             {
-                dc.donors.Remove(d);
-                this.service.UpdateOneFromDatabase(dc);
-                this.service.Refresh(dc);
-                //TO DO : send mail
+                this.service.DeleteFromDatabase(d);
+                this.service.Refresh(donationCenter);
+                //TODO : send mail
             }
 
         }
 
+        /*
+         * Creates a priority queue from the doctor requests, based on the request's importance 
+        */
+        private PriorityQueue<DoctorRequest> sortRequests()
+        {
+            PriorityQueue<DoctorRequest> priorityQueueRequests = new PriorityQueue<DoctorRequest>();
+            IList<DoctorRequest> doctorRequest = this.service.GetAllFromDatabase<DoctorRequest>();
+            doctorRequest.ToList().ForEach(request => priorityQueueRequests.Enqueue(request));
+            return priorityQueueRequests;
+        }
 
+
+
+
+        #region Blood dispatching
+        public List<T> getAvailableBloodForRequest<T>(DoctorRequest request) where T : BloodComponent
+        {
+            string[] splitRequest = request.requestString.Split(',');
+            
+
+            if (splitRequest[0].Equals("Plasma"))
+            {
+                return this.donationCenter.plasmaList
+                    .Where(x => x.antibody == splitRequest[1] && x.ammount >= Double.Parse(splitRequest[2]))
+                    .Cast<T>()
+                    .ToList();
+            }
+
+            if (splitRequest[1].Equals("Red"))
+            {
+                return this.donationCenter.redBloodCellList
+                    .Where(x => x.antigen == splitRequest[1] && x.rh == bool.Parse(splitRequest[2]) && x.ammount >= Double.Parse(splitRequest[3]))
+                    .Cast<T>()
+                    .ToList();
+
+            }
+
+            if (splitRequest[1].Equals("Tromb"))
+            {
+                return this.donationCenter.redBloodCellList
+                    .Where(x => x.ammount >= Double.Parse(splitRequest[1]))
+                    .Cast<T>()
+                    .ToList();
+            }
+
+            return null;
+
+        }
+     
+        /*
+         * Sends blood to doctor
+         * Marks the doctor_id field with the id of the doctor making the request
+         * All components with doctor_id != null are beeing delivered to a doctor
+         * 
+         * Creates a new BloodComponent with the amount requested, and reduces the ammount of the source
+
+         */
+        public void sendBlood<T>(BloodComponent bloodComponent, DoctorRequest request) where T : BloodComponent
+        {
+            string[] splitRequest = request.requestString.Split(',');
+            
+            T comp = (T)bloodComponent;
+            comp.doctor_id = request.doctor_id;
+
+            float ammount = float.Parse(splitRequest[3]);
+
+            bloodComponent.ammount -= ammount;
+
+            if (bloodComponent.ammount == 0)
+                this.service.DeleteFromDatabase(bloodComponent);
+            
+
+            comp.ammount = ammount;
+            this.service.UpdateOneFromDatabase(comp);
+            this.service.UpdateOneFromDatabase(bloodComponent);
+            this.service.Refresh(this.donationCenter);
+        }
     }
+    #endregion
+
 }

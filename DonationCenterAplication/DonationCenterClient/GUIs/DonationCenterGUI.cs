@@ -1,88 +1,86 @@
-
+﻿using Client.Controller;
+using Common.Model;
+using GMap.NET;
+using GMap.NET.MapProviders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
-using Model;
-using DonationCenterAplication;
-using Common.Model;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace UI{
-    /**
-     * A Graphical user interface that is used  by assistants to oversee the donation center.
-     */
-    public class DonationCenterGUI : GUI {
+namespace Client.GUIs
+{
+    public partial class DonationCenterGUI : Form
+    {
 
-        /**
-         * A Graphical user interface that is used  by assistants to oversee the donation center.
-         */
-        public DonationCenterGUI() {
+        DonationCenterController controller;
+
+        Dictionary<string, Donor> donorMap;
+        Dictionary<string, DoctorRequest> doctorRequestMap;
+
+        public DonationCenterGUI(DonationCenterController controller)
+        {
+            GMapProvider.WebProxy = WebRequest.GetSystemWebProxy();
+            GMapProvider.WebProxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+
+
+            //not use proxy
+            GMapProvider.WebProxy = null;
+
+            this.controller = controller;
+            this.donorMap = new Dictionary<string, Donor>();
+            InitializeComponent();
+
+            gMapDonors.Manager.Mode = AccessMode.ServerOnly;
+            gMapDonors.MapProvider = GMapProviders.OpenStreetMap;
+
         }
 
-        /**
-         * An instance of DonationCenterDoctors
-         */
-        public DonationCenterDoctors donationCenterDoc;
+        private void DonationCenterGUI_Load(object sender, EventArgs e)
+        {
+            #region Tab1 - Donors
+            foreach (Donor d in this.controller.getDonatedDonors())
+            {
+                donorMap.Add(d.ToString(), d);
+            }
 
-        /**
-         * An instance of DonationCenterDonors
-         */
-        private DonationCenterDonors donationCenterDon;
+            this.donorList.DataSource = this.controller.donationCenter.donors;
+            #endregion
+
+            #region Tab2 - Requests
+
+            foreach (DoctorRequest d in this.controller.donationCenter.requests)
+            {
+                doctorRequestMap.Add(d.ToString(), d);
+            }
+
+            this.doctorRequestList.DataSource = this.controller.donationCenter.requests;
+
+            #endregion
 
 
-
-
-        /**
-         * Returns all the Blood in the storage so that the user may inspect the items.
-         * @return
-         */
-      
-
-        /**
-         * Retrieves the list of active donors so that the user may inspect it.
-         * @return
-         */
-        private HashSet<Donor> getDonorsList() {
-            // TODO implement here
-            return null;
         }
 
-        /**
-         * Retrieves all donors that are waiting to be approved.
-         * @return
-         */
-        private HashSet<Donor> getPendingDonors() {
-            // TODO implement here
-            return null;
+        private void donorList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Location l = donorMap[this.donorList.SelectedItem.ToString()].location;
+            this.gMapDonors.Position = new PointLatLng(l.latitude, l.longitude);
+            this.gMapDonors.Zoom = 18;
         }
 
-        /**
-         * Retrieves the list of Doctors that have filed a request for Blood.
-         * @return
-         */
-        private HashSet<Doctor> getPendingDoctors() {
-            // TODO implement here
-            return null;
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            this.controller.service.Refresh(this.controller.donationCenter);
         }
 
-        /**
-         * Accepts or rejects donors
-         * @param val 
-         * @return
-         */
-        private void addDonorToDonorList(Donor val) {
-            // TODO implement here
-            return;
-        }
+        private void doctorRequestList_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
-        /**
-         * This method triggers the execution of the GUI and the start of the program.
-         * @return
-         */
-        public void run() {
-            // TODO implement here
-            return;
         }
-
     }
 }

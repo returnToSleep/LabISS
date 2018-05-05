@@ -8,6 +8,7 @@ using Common.Model;
 
 namespace Model
 {
+    [Serializable]
     public class RedBloodCell : BloodComponent
     {
 
@@ -16,7 +17,7 @@ namespace Model
        
         public RedBloodCell() { }
 
-        public RedBloodCell(int id, string antiget, bool rh, string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate) : base (id ,donationCenter_id, donor_cnp, ammount, donationDate)
+        public RedBloodCell(string antiget, bool rh, string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate) : base (donationCenter_id, donor_cnp, ammount, donationDate)
         {
             this.antigen = antigen;
             this.rh = rh;

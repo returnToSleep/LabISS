@@ -20,7 +20,6 @@ namespace DonationCenterAplication.Remoting
 
         public void AddToDatabase(object obj)
         {
-            
             this.repo.Save(obj);
         }
 
@@ -29,9 +28,9 @@ namespace DonationCenterAplication.Remoting
             this.repo.Update(obj);
         }
 
-        public void DeleteFromDatabase<T>(object objId)
+        public void DeleteFromDatabase(object obj)
         {
-            this.repo.Delete<T>(objId);
+            this.repo.Delete(obj);
         }
 
         public IList<T> GetAllFromDatabase<T>() where T: class 

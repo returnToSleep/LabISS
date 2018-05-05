@@ -37,9 +37,9 @@ namespace DonationCenterAplication.ORM
         /*
         * Deletes elem 
         * Ex:
-        *     Delete<Doctor>(1); 
+        *     Delete(doctor); 
         */
-        void Delete<T>(object objId);
+        void Delete(object obj);
 
         /*
          * Returns element with id: objId

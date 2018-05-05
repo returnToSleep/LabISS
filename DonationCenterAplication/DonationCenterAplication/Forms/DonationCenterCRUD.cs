@@ -36,7 +36,7 @@ namespace DonationCenterServer.Forms
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                repo.Delete<DonationCenter>(item.Tag);
+                repo.Delete(item.Tag);
                 update(new RepositoryBase());
             }
         }
@@ -48,9 +48,7 @@ namespace DonationCenterServer.Forms
             if (dc != null)
             {
                 RepositoryBase repo = new RepositoryBase();
-                repo.BeginTransaction();
                 repo.Save(dc);
-                repo.CommitTransaction();
                 update(repo);
             }
         }

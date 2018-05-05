@@ -78,6 +78,9 @@
       <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MultiLineListBox">
+      <HintPath>..\..\..\..\..\MultiLine\MultiLineListBox.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -125,8 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\DoctorController.cs" />
-    <Compile Include="Controller\DonationCenter.cs" />
-    <Compile Include="Controller\DonationCenterDoctors.cs" />
+    <Compile Include="Controller\DonationCenterController.cs" />
     <Compile Include="Controller\DonorController.cs" />
     <Compile Include="Client.cs">
       <SubType>Form</SubType>
@@ -137,14 +139,22 @@
     <Compile Include="GUIs\DoctorGUI.cs" />
     <Compile Include="GUIs\DonationCenterDoctors.cs" />
     <Compile Include="GUIs\DonationCenterDonors.cs" />
-    <Compile Include="GUIs\DonationCenterGUI.cs" />
     <Compile Include="GUIs\DonorGUI.cs" />
+    <Compile Include="GUIs\DonationCenterGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\DonationCenterGUI.Designer.cs">
+      <DependentUpon>DonationCenterGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUIs\GUI.cs" />
     <Compile Include="GUIs\MasterGUI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Client.resx">
       <DependentUpon>Client.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\DonationCenterGUI.resx">
+      <DependentUpon>DonationCenterGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
