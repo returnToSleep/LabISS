@@ -18,7 +18,7 @@ namespace Client.Controller
 
 
         public IService service { get; set; }
-        public DonationCenter donationCenter { get; }
+        public DonationCenter donationCenter { get; set;}
         /**
          * Donation center constructor with args
          */
@@ -70,6 +70,28 @@ namespace Client.Controller
         }
 
 
+        public double getDistanceFromDonationCenter(Donor donor)
+        {
+            double exp1 = donor.location.latitude - float.Parse(this.donationCenter.id.Split(',')[0]);
+            double exp2 = donor.location.longitude - float.Parse(this.donationCenter.id.Split(',')[1]);
+
+            return Math.Sqrt(Math.Pow(exp1, 2) - Math.Pow(exp2, 2));
+        }
+
+        public IList<Donor> getNearestDonors(IList<Donor> lst)
+        {
+
+            IList<Tuple<double, Donor>> distanceList = new List<Tuple<double, Donor>>(); 
+
+            foreach(Donor d in lst)
+            {
+                distanceList.Add(new Tuple<double, Donor>(getDistanceFromDonationCenter(d), d));
+            }
+
+            return distanceList.OrderBy(x => x.Item1)
+                .Select(x => x.Item2)
+                .ToList();
+        }
 
         /**
          * Adds a certain blood component to the stock, the donation center id of the component is set to this center's id
@@ -78,11 +100,26 @@ namespace Client.Controller
         public void addBloodToStock<T>(T bloodComponent) where T : BloodComponent
         {
             bloodComponent.donationCenter_id = donationCenter.id;
-            this.service.AddToDatabase(bloodComponent);
-            this.service.Refresh(donationCenter);
+            service.AddToDatabase(bloodComponent);
+            Refresh();
         }
 
+        public void addDonationToDonor(Donor donor, Donation donation, string bloodType)
+        {
+            donor.bloodType = bloodType.Split(' ')[0];
 
+            donor.rh = bloodType.Split(' ')[1] == "pozitiv";
+
+
+            service.UpdateOneFromDatabase(donor);
+            service.AddToDatabase(donation);
+        }
+
+        public void Refresh()
+        {
+            refreshBloodStock();
+            donationCenter = this.service.GetOneFromDatabase<DonationCenter>(this.donationCenter.id);
+        }
 
         /**
          * Evaluates a donor, if the donor passes the test( the bool is true), updates it's status from pending to donated and sends him a mail,
@@ -94,13 +131,13 @@ namespace Client.Controller
             {
                 d.isPending = false;
                 this.service.UpdateOneFromDatabase(d);
-                this.service.Refresh(donationCenter);
+                Refresh();
                 //TODO : send mail
             }
             else
             {
                 this.service.DeleteFromDatabase(d);
-                this.service.Refresh(donationCenter);
+                Refresh();
                 //TODO : send mail
             }
 
@@ -121,6 +158,90 @@ namespace Client.Controller
 
 
         #region Blood dispatching
+
+        public IList<Donor> getAvailableDonorsForRequest(DoctorRequest request)
+        {
+            string[] splitRequest = request.requestString.Split(',');
+
+            string bloodType = "AB";
+            bool rh = false;
+
+            #region Plasma
+            if (splitRequest[0].Equals("Plasma"))
+            {
+                if (splitRequest[1] == "A")
+                {
+                    bloodType = "B";
+                }
+
+                if (splitRequest[1] == "B")
+                {
+                    bloodType = "A";
+                }
+
+                if (splitRequest[1] == "AB")
+                {
+                    bloodType = "0";
+                }
+
+                if (splitRequest[1] == "0")
+                {
+                    bloodType = "A";
+                }
+
+                return getNearestDonors(getDonatedDonors()
+                    .Where(x => x.bloodType == bloodType)
+                    .Where(x => DateTime.Compare(x.getLastDonation().AddMonths(2), DateTime.Now) < 0)
+                    .ToList());
+
+            }
+            #endregion
+            #region Red
+            if (splitRequest[0].Equals("Red"))
+            {
+                if (splitRequest[1] == "A")
+                {
+                    bloodType = "B";
+                }
+
+                if (splitRequest[1] == "B")
+                {
+                    bloodType = "A";
+                }
+
+                if (splitRequest[1] == "AB")
+                {
+                    bloodType = "0";
+                }
+
+                if (splitRequest[1] == "0")
+                {
+                    bloodType = "A";
+                }
+
+                rh = bool.Parse(splitRequest[2]);
+
+                return getNearestDonors(getDonatedDonors()
+                    .Where(x => x.bloodType == bloodType && x.rh == rh)
+                    .Where(x => DateTime.Compare(x.getLastDonation().AddMonths(2), DateTime.Now) < 0)
+                    .ToList());
+
+            }
+            #endregion
+            #region Tromb
+            if(splitRequest[0] == "Tromb")
+            {
+                return getNearestDonors(getDonatedDonors()
+                    .Where(x => DateTime.Compare(x.getLastDonation().AddMonths(2), DateTime.Now) < 0)
+                    .ToList());
+            }
+            #endregion
+
+            return null;
+
+        }
+
+
         public List<T> getAvailableBloodForRequest<T>(DoctorRequest request) where T : BloodComponent
         {
             string[] splitRequest = request.requestString.Split(',');
@@ -129,24 +250,24 @@ namespace Client.Controller
             if (splitRequest[0].Equals("Plasma"))
             {
                 return this.donationCenter.plasmaList
-                    .Where(x => x.antibody == splitRequest[1] && x.ammount >= Double.Parse(splitRequest[2]))
+                    .Where(x => x.antibody == splitRequest[1] && x.ammount >= double.Parse(splitRequest[2]))
                     .Cast<T>()
                     .ToList();
             }
 
-            if (splitRequest[1].Equals("Red"))
+            if (splitRequest[0].Equals("Red"))
             {
                 return this.donationCenter.redBloodCellList
-                    .Where(x => x.antigen == splitRequest[1] && x.rh == bool.Parse(splitRequest[2]) && x.ammount >= Double.Parse(splitRequest[3]))
+                    .Where(x => x.antigen == splitRequest[1] && x.rh == bool.Parse(splitRequest[2]) && x.ammount >= double.Parse(splitRequest[3]))
                     .Cast<T>()
                     .ToList();
 
             }
 
-            if (splitRequest[1].Equals("Tromb"))
+            if (splitRequest[0].Equals("Tromb"))
             {
-                return this.donationCenter.redBloodCellList
-                    .Where(x => x.ammount >= Double.Parse(splitRequest[1]))
+                return this.donationCenter.trombocyteList
+                    .Where(x => x.ammount >= double.Parse(splitRequest[1]))
                     .Cast<T>()
                     .ToList();
             }
@@ -175,13 +296,13 @@ namespace Client.Controller
             bloodComponent.ammount -= ammount;
 
             if (bloodComponent.ammount == 0)
-                this.service.DeleteFromDatabase(bloodComponent);
-            
+                service.DeleteFromDatabase(bloodComponent);
+            else
+                service.UpdateOneFromDatabase(bloodComponent);
 
             comp.ammount = ammount;
-            this.service.UpdateOneFromDatabase(comp);
-            this.service.UpdateOneFromDatabase(bloodComponent);
-            this.service.Refresh(this.donationCenter);
+            service.UpdateOneFromDatabase(comp);
+            Refresh();
         }
     }
     #endregion

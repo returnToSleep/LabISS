@@ -97,6 +97,8 @@ namespace DonationCenterServer.ORM
 
             Property(x => x.doctor_name);
             Property(x => x.hospital);
+            
+            Property(x => x.isBeeingDelivered, map => map.Column("status"));
 
         }
     }
@@ -171,13 +173,12 @@ namespace DonationCenterServer.ORM
         public LogInfoMap()
         {
 
-            ComposedId(x =>
-            {
-                x.Property(y => y.username);
-                x.Property(y => y.password);
-            });
-            Property(x => x.id);
+            Id(x => x.username);
+            Property(x => x.password);
+            
+            Property(x => x.intId);
             Property(x => x.type);
+            Property(x => x.varId);
             Lazy(false);
         }
     }
@@ -211,38 +212,43 @@ namespace DonationCenterServer.ORM
             });
 
 
-            Bag(x => x.donationHistory, map =>
-            {
-                map.Table("Donation");
-                map.Key(k => k.Column(col => col.Name("donor_Cnp")));
-                map.Lazy(CollectionLazy.NoLazy);
-            },
-           action => action.OneToMany());
+                Bag(x => x.donationHistory, map =>
+                {
+                    map.Table("Donation");
+                    map.Key(k => k.Column(col => col.Name("donor_Cnp")));
+                    map.Lazy(CollectionLazy.NoLazy);
+                },
+               action => action.OneToMany());
 
-          Bag(x => x.trombocyteList, map =>
-            {
-                map.Table("Trombocyte");
-                map.Key(k => k.Column(col => col.Name("donor_Cnp")));
-                map.Lazy(CollectionLazy.NoLazy);
-            },
-          action => action.OneToMany());
+              Bag(x => x.trombocyteList, map =>
+                {
+                    map.Table("Trombocyte");
+                    map.Key(k => k.Column(col => col.Name("donor_Cnp")));
+                    map.Lazy(CollectionLazy.NoLazy);
+                },
+              action => action.OneToMany());
 
-            Bag(x => x.redBloodCellList, map =>
-            {
-                map.Table("RedBloodCell");
-                map.Key(k => k.Column(col => col.Name("donor_Cnp")));
-                map.Lazy(CollectionLazy.NoLazy);
-            },
-          action => action.OneToMany());
+                Bag(x => x.redBloodCellList, map =>
+                {
+                    map.Table("RedBloodCell");
+                    map.Key(k => k.Column(col => col.Name("donor_Cnp")));
+                    map.Lazy(CollectionLazy.NoLazy);
+                },
+              action => action.OneToMany());
 
-          Bag(x => x.plasmaList, map =>
-            {
-                map.Table("Plasma");
-                map.Key(k => k.Column(col => col.Name("donor_Cnp")));
-                map.Lazy(CollectionLazy.NoLazy);
-            },
-          action => action.OneToMany());
+              Bag(x => x.plasmaList, map =>
+                {
+                    map.Table("Plasma");
+                    map.Key(k => k.Column(col => col.Name("donor_Cnp")));
+                    map.Lazy(CollectionLazy.NoLazy);
+                },
+              action => action.OneToMany());
+
+            Property(x => x.bloodType);
+            Property(x => x.rh);
+         
         }
+
 
 
     }
@@ -266,6 +272,7 @@ namespace DonationCenterServer.ORM
             });
             Property(x => x.donationDate);
             Property(x => x.doctor_id);
+            Property(x => x.email);
         }
     }
     #endregion
@@ -285,6 +292,7 @@ namespace DonationCenterServer.ORM
             Property(x => x.ammount);
             Property(x => x.donationDate);
             Property(x => x.doctor_id);
+            Property(x => x.email);
         }
     }
     #endregion
@@ -305,6 +313,7 @@ namespace DonationCenterServer.ORM
             Property(x => x.ammount);
             Property(x => x.donationDate);
             Property(x => x.doctor_id);
+            Property(x => x.email);
         }
     }
     #endregion
@@ -317,10 +326,12 @@ namespace DonationCenterServer.ORM
         public DonationMap()
         {
             Table("Donation");
-            Id(x => x.id);
+            Id(x => x.id); Id(x => x.id, m => {
+                m.UnsavedValue(0);
+                m.Generator(Generators.Native);
+            });
             Property(x => x.donor_Cnp);
-            Property(x => x.age);
-            Property(x => x.weight);
+            Property(x => x.quantity);
             Property(x => x.bloodPressure);
             Property(x => x.donationDate);
         }

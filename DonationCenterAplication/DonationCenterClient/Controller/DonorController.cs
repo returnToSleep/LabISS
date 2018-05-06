@@ -65,11 +65,7 @@ namespace Controller{
             {
                 return false;
             }
-
-            if (donation.weight < 50)
-            {
-                return false;
-            }
+            
 
             return true;
 

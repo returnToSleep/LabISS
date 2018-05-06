@@ -17,7 +17,7 @@ namespace Model
        
         public RedBloodCell() { }
 
-        public RedBloodCell(string antiget, bool rh, string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate) : base (donationCenter_id, donor_cnp, ammount, donationDate)
+        public RedBloodCell(string antigen, bool rh, string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate, string email) : base (donationCenter_id, donor_cnp, ammount, donationDate, email)
         {
             this.antigen = antigen;
             this.rh = rh;
@@ -32,7 +32,12 @@ namespace Model
 
         public override string ToString()
         {
-            return "Red Blood Cells:\nAntigen: " + antigen + "\nrH: " + rh + "\nExpirationDate: " + this.getExpirationDate().ToString() + base.ToString();
+
+            string r;
+
+            r = (rh) ? "positiv" : "negativ";
+
+            return "Antigen: " + antigen + "\nrH: " + r + "\nData Expirarii: " + this.getExpirationDate().ToString() + "\nCantitate: " + ammount;
         }
     }
 }

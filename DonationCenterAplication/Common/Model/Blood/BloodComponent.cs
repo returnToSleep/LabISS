@@ -14,20 +14,21 @@ namespace Common.Model
         public virtual float ammount { get; set; }
         public virtual int id { get; set; }
         public virtual DateTime donationDate { get; set; }
+        public virtual string email { get; set; }
         
         //int? - nullable int
         public virtual int? doctor_id { get; set; }
 
         protected BloodComponent() { }
 
-        public BloodComponent(string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate)
+        public BloodComponent(string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate, string email)
         {
             this.donationCenter_id = donationCenter_id;
             this.donor_cnp = donor_cnp;
             this.ammount = ammount;
             this.donationDate = donationDate;
             this.doctor_id = null;
-  
+            this.email = email;
         }
 
         public virtual DateTime getExpirationDate()
@@ -35,10 +36,6 @@ namespace Common.Model
             return this.donationDate;
         }
 
-        public override string ToString()
-        {
-            return "\n" + this.id + "\n" + this.donationCenter_id + "\n" + this.donor_cnp + "\n" + this.ammount + "\n" + this.donationDate.ToString();
-        }
 
     }
 }

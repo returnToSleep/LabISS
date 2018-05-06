@@ -33,22 +33,25 @@
             this.donorList = new NishBox.MultiLineListBox();
             this.gMapDonors = new GMap.NET.WindowsForms.GMapControl();
             this.doctorPage = new System.Windows.Forms.TabPage();
+            this.potentialBloodLabel = new System.Windows.Forms.Label();
+            this.requestLabel = new System.Windows.Forms.Label();
             this.sendBloodButton = new System.Windows.Forms.Button();
-            this.availableBloodList = new System.Windows.Forms.ListBox();
-            this.doctorRequestList = new System.Windows.Forms.ListBox();
+            this.potentialBlood = new NishBox.MultiLineListBox();
+            this.doctorRequestList = new NishBox.MultiLineListBox();
             this.pendingPage = new System.Windows.Forms.TabPage();
+            this.pendingDonorList = new NishBox.MultiLineListBox();
             this.donorNotOkButton = new System.Windows.Forms.Button();
             this.donorOkButton = new System.Windows.Forms.Button();
-            this.gMapControl2 = new GMap.NET.WindowsForms.GMapControl();
-            this.pendingDonorList = new System.Windows.Forms.ListBox();
+            this.gMapPendingDonors = new GMap.NET.WindowsForms.GMapControl();
             this.bloodStockPage = new System.Windows.Forms.TabPage();
+            this.stockTrombList = new NishBox.MultiLineListBox();
+            this.stockPlasmaList = new NishBox.MultiLineListBox();
+            this.stockRedCellList = new NishBox.MultiLineListBox();
             this.trombLabel = new System.Windows.Forms.Label();
             this.plasmaLabel = new System.Windows.Forms.Label();
             this.redBloodLable = new System.Windows.Forms.Label();
-            this.stockTrombList = new System.Windows.Forms.ListBox();
-            this.stockPlasmaList = new System.Windows.Forms.ListBox();
-            this.stockRedList = new System.Windows.Forms.ListBox();
             this.refreshButton = new System.Windows.Forms.Button();
+            this.nameLabel = new System.Windows.Forms.Label();
             this.selectionTab.SuspendLayout();
             this.donorPage.SuspendLayout();
             this.doctorPage.SuspendLayout();
@@ -84,7 +87,7 @@
             // donorList
             // 
             this.donorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.donorList.Font = new System.Drawing.Font("Arial Unicode MS", 13F, System.Drawing.FontStyle.Bold);
+            this.donorList.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Bold);
             this.donorList.FormattingEnabled = true;
             this.donorList.Location = new System.Drawing.Point(6, 6);
             this.donorList.Name = "donorList";
@@ -103,8 +106,8 @@
             this.gMapDonors.LevelsKeepInMemmory = 5;
             this.gMapDonors.Location = new System.Drawing.Point(560, 12);
             this.gMapDonors.MarkersEnabled = true;
-            this.gMapDonors.MaxZoom = 17;
-            this.gMapDonors.MinZoom = 17;
+            this.gMapDonors.MaxZoom = 15;
+            this.gMapDonors.MinZoom = 15;
             this.gMapDonors.MouseWheelZoomEnabled = true;
             this.gMapDonors.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             this.gMapDonors.Name = "gMapDonors";
@@ -122,8 +125,10 @@
             // doctorPage
             // 
             this.doctorPage.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.doctorPage.Controls.Add(this.potentialBloodLabel);
+            this.doctorPage.Controls.Add(this.requestLabel);
             this.doctorPage.Controls.Add(this.sendBloodButton);
-            this.doctorPage.Controls.Add(this.availableBloodList);
+            this.doctorPage.Controls.Add(this.potentialBlood);
             this.doctorPage.Controls.Add(this.doctorRequestList);
             this.doctorPage.Location = new System.Drawing.Point(4, 27);
             this.doctorPage.Name = "doctorPage";
@@ -131,48 +136,83 @@
             this.doctorPage.Size = new System.Drawing.Size(1078, 574);
             this.doctorPage.TabIndex = 1;
             this.doctorPage.Text = "Cereri de la doctori";
+            this.doctorPage.Click += new System.EventHandler(this.doctorPage_Click);
+            // 
+            // potentialBloodLabel
+            // 
+            this.potentialBloodLabel.AutoSize = true;
+            this.potentialBloodLabel.Location = new System.Drawing.Point(549, 41);
+            this.potentialBloodLabel.Name = "potentialBloodLabel";
+            this.potentialBloodLabel.Size = new System.Drawing.Size(264, 19);
+            this.potentialBloodLabel.TabIndex = 4;
+            this.potentialBloodLabel.Text = "Componente care satisfac cererea ";
+            this.potentialBloodLabel.Click += new System.EventHandler(this.potentialBloodLabel_Click);
+            // 
+            // requestLabel
+            // 
+            this.requestLabel.AutoSize = true;
+            this.requestLabel.Location = new System.Drawing.Point(11, 41);
+            this.requestLabel.Name = "requestLabel";
+            this.requestLabel.Size = new System.Drawing.Size(150, 19);
+            this.requestLabel.TabIndex = 3;
+            this.requestLabel.Text = "Cereri de la doctori";
             // 
             // sendBloodButton
             // 
-            this.sendBloodButton.Location = new System.Drawing.Point(978, 6);
+            this.sendBloodButton.Location = new System.Drawing.Point(911, 6);
             this.sendBloodButton.Name = "sendBloodButton";
-            this.sendBloodButton.Size = new System.Drawing.Size(94, 41);
+            this.sendBloodButton.Size = new System.Drawing.Size(152, 55);
             this.sendBloodButton.TabIndex = 2;
             this.sendBloodButton.Text = "Trimitere";
             this.sendBloodButton.UseVisualStyleBackColor = true;
             // 
-            // availableBloodList
+            // potentialBlood
             // 
-            this.availableBloodList.FormattingEnabled = true;
-            this.availableBloodList.ItemHeight = 18;
-            this.availableBloodList.Location = new System.Drawing.Point(554, 50);
-            this.availableBloodList.Name = "availableBloodList";
-            this.availableBloodList.Size = new System.Drawing.Size(518, 544);
-            this.availableBloodList.TabIndex = 1;
+            this.potentialBlood.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.potentialBlood.FormattingEnabled = true;
+            this.potentialBlood.Location = new System.Drawing.Point(553, 67);
+            this.potentialBlood.Name = "potentialBlood";
+            this.potentialBlood.ScrollAlwaysVisible = true;
+            this.potentialBlood.Size = new System.Drawing.Size(510, 488);
+            this.potentialBlood.TabIndex = 1;
+            this.potentialBlood.SelectedIndexChanged += new System.EventHandler(this.multiLineListBox1_SelectedIndexChanged);
             // 
             // doctorRequestList
             // 
+            this.doctorRequestList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.doctorRequestList.FormattingEnabled = true;
-            this.doctorRequestList.ItemHeight = 18;
-            this.doctorRequestList.Location = new System.Drawing.Point(6, 50);
+            this.doctorRequestList.Location = new System.Drawing.Point(15, 63);
             this.doctorRequestList.Name = "doctorRequestList";
-            this.doctorRequestList.Size = new System.Drawing.Size(542, 544);
+            this.doctorRequestList.ScrollAlwaysVisible = true;
+            this.doctorRequestList.Size = new System.Drawing.Size(532, 493);
             this.doctorRequestList.TabIndex = 0;
-            this.doctorRequestList.SelectedIndexChanged += new System.EventHandler(this.doctorRequestList_SelectedIndexChanged);
+            this.doctorRequestList.SelectedIndexChanged += new System.EventHandler(this.doctorRequestList_SelectedIndexChanged_1);
             // 
             // pendingPage
             // 
-            this.pendingPage.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pendingPage.BackColor = System.Drawing.Color.Transparent;
+            this.pendingPage.Controls.Add(this.pendingDonorList);
             this.pendingPage.Controls.Add(this.donorNotOkButton);
             this.pendingPage.Controls.Add(this.donorOkButton);
-            this.pendingPage.Controls.Add(this.gMapControl2);
-            this.pendingPage.Controls.Add(this.pendingDonorList);
+            this.pendingPage.Controls.Add(this.gMapPendingDonors);
             this.pendingPage.Location = new System.Drawing.Point(4, 27);
             this.pendingPage.Name = "pendingPage";
             this.pendingPage.Padding = new System.Windows.Forms.Padding(3);
             this.pendingPage.Size = new System.Drawing.Size(1078, 574);
             this.pendingPage.TabIndex = 2;
             this.pendingPage.Text = "Persoane in asteptare";
+            // 
+            // pendingDonorList
+            // 
+            this.pendingDonorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.pendingDonorList.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Bold);
+            this.pendingDonorList.FormattingEnabled = true;
+            this.pendingDonorList.Location = new System.Drawing.Point(17, 42);
+            this.pendingDonorList.Name = "pendingDonorList";
+            this.pendingDonorList.ScrollAlwaysVisible = true;
+            this.pendingDonorList.Size = new System.Drawing.Size(491, 514);
+            this.pendingDonorList.TabIndex = 4;
+            this.pendingDonorList.SelectedIndexChanged += new System.EventHandler(this.pendingDonorList_SelectedIndexChanged);
             // 
             // donorNotOkButton
             // 
@@ -182,6 +222,7 @@
             this.donorNotOkButton.TabIndex = 3;
             this.donorNotOkButton.Text = "Neapt";
             this.donorNotOkButton.UseVisualStyleBackColor = true;
+            this.donorNotOkButton.Click += new System.EventHandler(this.donorNotOkButton_Click);
             // 
             // donorOkButton
             // 
@@ -191,51 +232,43 @@
             this.donorOkButton.TabIndex = 2;
             this.donorOkButton.Text = "Apt";
             this.donorOkButton.UseVisualStyleBackColor = true;
+            this.donorOkButton.Click += new System.EventHandler(this.donorOkButton_Click);
             // 
-            // gMapControl2
+            // gMapPendingDonors
             // 
-            this.gMapControl2.Bearing = 0F;
-            this.gMapControl2.CanDragMap = true;
-            this.gMapControl2.EmptyTileColor = System.Drawing.Color.Navy;
-            this.gMapControl2.GrayScaleMode = false;
-            this.gMapControl2.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.gMapControl2.LevelsKeepInMemmory = 5;
-            this.gMapControl2.Location = new System.Drawing.Point(514, 42);
-            this.gMapControl2.MarkersEnabled = true;
-            this.gMapControl2.MaxZoom = 2;
-            this.gMapControl2.MinZoom = 2;
-            this.gMapControl2.MouseWheelZoomEnabled = true;
-            this.gMapControl2.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.gMapControl2.Name = "gMapControl2";
-            this.gMapControl2.NegativeMode = false;
-            this.gMapControl2.PolygonsEnabled = true;
-            this.gMapControl2.RetryLoadTile = 0;
-            this.gMapControl2.RoutesEnabled = true;
-            this.gMapControl2.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.gMapControl2.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.gMapControl2.ShowTileGridLines = false;
-            this.gMapControl2.Size = new System.Drawing.Size(543, 544);
-            this.gMapControl2.TabIndex = 1;
-            this.gMapControl2.Zoom = 0D;
-            // 
-            // pendingDonorList
-            // 
-            this.pendingDonorList.FormattingEnabled = true;
-            this.pendingDonorList.ItemHeight = 18;
-            this.pendingDonorList.Location = new System.Drawing.Point(16, 42);
-            this.pendingDonorList.Name = "pendingDonorList";
-            this.pendingDonorList.Size = new System.Drawing.Size(492, 544);
-            this.pendingDonorList.TabIndex = 0;
+            this.gMapPendingDonors.Bearing = 0F;
+            this.gMapPendingDonors.CanDragMap = true;
+            this.gMapPendingDonors.EmptyTileColor = System.Drawing.Color.Navy;
+            this.gMapPendingDonors.GrayScaleMode = false;
+            this.gMapPendingDonors.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.gMapPendingDonors.LevelsKeepInMemmory = 5;
+            this.gMapPendingDonors.Location = new System.Drawing.Point(514, 42);
+            this.gMapPendingDonors.MarkersEnabled = true;
+            this.gMapPendingDonors.MaxZoom = 15;
+            this.gMapPendingDonors.MinZoom = 15;
+            this.gMapPendingDonors.MouseWheelZoomEnabled = true;
+            this.gMapPendingDonors.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.gMapPendingDonors.Name = "gMapPendingDonors";
+            this.gMapPendingDonors.NegativeMode = false;
+            this.gMapPendingDonors.PolygonsEnabled = true;
+            this.gMapPendingDonors.RetryLoadTile = 0;
+            this.gMapPendingDonors.RoutesEnabled = true;
+            this.gMapPendingDonors.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.gMapPendingDonors.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.gMapPendingDonors.ShowTileGridLines = false;
+            this.gMapPendingDonors.Size = new System.Drawing.Size(543, 514);
+            this.gMapPendingDonors.TabIndex = 1;
+            this.gMapPendingDonors.Zoom = 0D;
             // 
             // bloodStockPage
             // 
             this.bloodStockPage.BackColor = System.Drawing.Color.LightGray;
+            this.bloodStockPage.Controls.Add(this.stockTrombList);
+            this.bloodStockPage.Controls.Add(this.stockPlasmaList);
+            this.bloodStockPage.Controls.Add(this.stockRedCellList);
             this.bloodStockPage.Controls.Add(this.trombLabel);
             this.bloodStockPage.Controls.Add(this.plasmaLabel);
             this.bloodStockPage.Controls.Add(this.redBloodLable);
-            this.bloodStockPage.Controls.Add(this.stockTrombList);
-            this.bloodStockPage.Controls.Add(this.stockPlasmaList);
-            this.bloodStockPage.Controls.Add(this.stockRedList);
             this.bloodStockPage.Location = new System.Drawing.Point(4, 27);
             this.bloodStockPage.Name = "bloodStockPage";
             this.bloodStockPage.Padding = new System.Windows.Forms.Padding(3);
@@ -243,10 +276,40 @@
             this.bloodStockPage.TabIndex = 3;
             this.bloodStockPage.Text = "Stocuri";
             // 
+            // stockTrombList
+            // 
+            this.stockTrombList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.stockTrombList.FormattingEnabled = true;
+            this.stockTrombList.Location = new System.Drawing.Point(719, 41);
+            this.stockTrombList.Name = "stockTrombList";
+            this.stockTrombList.ScrollAlwaysVisible = true;
+            this.stockTrombList.Size = new System.Drawing.Size(329, 519);
+            this.stockTrombList.TabIndex = 8;
+            // 
+            // stockPlasmaList
+            // 
+            this.stockPlasmaList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.stockPlasmaList.FormattingEnabled = true;
+            this.stockPlasmaList.Location = new System.Drawing.Point(365, 35);
+            this.stockPlasmaList.Name = "stockPlasmaList";
+            this.stockPlasmaList.ScrollAlwaysVisible = true;
+            this.stockPlasmaList.Size = new System.Drawing.Size(348, 523);
+            this.stockPlasmaList.TabIndex = 7;
+            // 
+            // stockRedCellList
+            // 
+            this.stockRedCellList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.stockRedCellList.FormattingEnabled = true;
+            this.stockRedCellList.Location = new System.Drawing.Point(28, 35);
+            this.stockRedCellList.Name = "stockRedCellList";
+            this.stockRedCellList.ScrollAlwaysVisible = true;
+            this.stockRedCellList.Size = new System.Drawing.Size(331, 525);
+            this.stockRedCellList.TabIndex = 6;
+            // 
             // trombLabel
             // 
             this.trombLabel.AutoSize = true;
-            this.trombLabel.Location = new System.Drawing.Point(729, 13);
+            this.trombLabel.Location = new System.Drawing.Point(715, 13);
             this.trombLabel.Name = "trombLabel";
             this.trombLabel.Size = new System.Drawing.Size(90, 19);
             this.trombLabel.TabIndex = 5;
@@ -270,34 +333,6 @@
             this.redBloodLable.TabIndex = 3;
             this.redBloodLable.Text = "Celule rosii";
             // 
-            // stockTrombList
-            // 
-            this.stockTrombList.FormattingEnabled = true;
-            this.stockTrombList.ItemHeight = 18;
-            this.stockTrombList.Location = new System.Drawing.Point(729, 35);
-            this.stockTrombList.Name = "stockTrombList";
-            this.stockTrombList.Size = new System.Drawing.Size(324, 544);
-            this.stockTrombList.TabIndex = 2;
-            // 
-            // stockPlasmaList
-            // 
-            this.stockPlasmaList.FormattingEnabled = true;
-            this.stockPlasmaList.ItemHeight = 18;
-            this.stockPlasmaList.Location = new System.Drawing.Point(361, 35);
-            this.stockPlasmaList.Name = "stockPlasmaList";
-            this.stockPlasmaList.Size = new System.Drawing.Size(362, 544);
-            this.stockPlasmaList.TabIndex = 1;
-            // 
-            // stockRedList
-            // 
-            this.stockRedList.BackColor = System.Drawing.SystemColors.Window;
-            this.stockRedList.FormattingEnabled = true;
-            this.stockRedList.ItemHeight = 18;
-            this.stockRedList.Location = new System.Drawing.Point(28, 35);
-            this.stockRedList.Name = "stockRedList";
-            this.stockRedList.Size = new System.Drawing.Size(327, 544);
-            this.stockRedList.TabIndex = 0;
-            // 
             // refreshButton
             // 
             this.refreshButton.Location = new System.Drawing.Point(962, 12);
@@ -308,24 +343,37 @@
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
+            // nameLabel
+            // 
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.nameLabel.Location = new System.Drawing.Point(19, 9);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(196, 24);
+            this.nameLabel.TabIndex = 4;
+            this.nameLabel.Text = "Donation center name";
+            // 
             // DonationCenterGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1110, 656);
+            this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.selectionTab);
             this.Name = "DonationCenterGUI";
-            this.Text = "Form1";
+            this.Text = "Centru de donatie";
             this.Load += new System.EventHandler(this.DonationCenterGUI_Load);
             this.selectionTab.ResumeLayout(false);
             this.donorPage.ResumeLayout(false);
             this.doctorPage.ResumeLayout(false);
+            this.doctorPage.PerformLayout();
             this.pendingPage.ResumeLayout(false);
             this.bloodStockPage.ResumeLayout(false);
             this.bloodStockPage.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -335,16 +383,9 @@
         private System.Windows.Forms.TabPage donorPage;
         private GMap.NET.WindowsForms.GMapControl gMapDonors;
         private System.Windows.Forms.TabPage doctorPage;
-        private System.Windows.Forms.Button sendBloodButton;
-        private System.Windows.Forms.ListBox availableBloodList;
-        private System.Windows.Forms.ListBox doctorRequestList;
         private System.Windows.Forms.TabPage pendingPage;
         private System.Windows.Forms.TabPage bloodStockPage;
-        private System.Windows.Forms.ListBox stockTrombList;
-        private System.Windows.Forms.ListBox stockPlasmaList;
-        private System.Windows.Forms.ListBox stockRedList;
-        private GMap.NET.WindowsForms.GMapControl gMapControl2;
-        private System.Windows.Forms.ListBox pendingDonorList;
+        private GMap.NET.WindowsForms.GMapControl gMapPendingDonors;
         private System.Windows.Forms.Label redBloodLable;
         private System.Windows.Forms.Label trombLabel;
         private System.Windows.Forms.Label plasmaLabel;
@@ -352,5 +393,15 @@
         private System.Windows.Forms.Button donorOkButton;
         private System.Windows.Forms.Button refreshButton;
         private NishBox.MultiLineListBox donorList;
+        private System.Windows.Forms.Label nameLabel;
+        private NishBox.MultiLineListBox pendingDonorList;
+        private NishBox.MultiLineListBox potentialBlood;
+        private NishBox.MultiLineListBox doctorRequestList;
+        private System.Windows.Forms.Label potentialBloodLabel;
+        private System.Windows.Forms.Label requestLabel;
+        private System.Windows.Forms.Button sendBloodButton;
+        private NishBox.MultiLineListBox stockTrombList;
+        private NishBox.MultiLineListBox stockPlasmaList;
+        private NishBox.MultiLineListBox stockRedCellList;
     }
 }

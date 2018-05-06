@@ -11,23 +11,41 @@ namespace Common.Model
     {
         public virtual int id { get; set; }
         public virtual string donor_Cnp { get; set; }
-        public virtual int age { get; set; }
-        public virtual int weight { get; set; }
+        //Total quantity (plasma + red + tromb)
+        public virtual float quantity { get; set; }
         public virtual int pulse { get; set; }
         public virtual int bloodPressure { get; set; }
         public virtual DateTime donationDate { get; set; }
+        public virtual float plasmaQuantity { get; set; }
+        public virtual float trombQuantity { get; set; }
+        public virtual float redQuantity { get; set; }
 
         public Donation() { }
 
-        public Donation(string donorCnp, int age, int weight, int pulse, int bloodPressure, DateTime donationDate)
+        public Donation(string donorCnp, float quantity, int pulse, int bloodPressure, DateTime donationDate, float plasmaQuantity, float redQuantity, float trombQuantity)
         {
             this.donor_Cnp = donorCnp;
-            this.age = age;
-            this.weight = weight;
+            this.quantity = quantity;
             this.pulse = pulse;
             this.bloodPressure = bloodPressure;
             this.donationDate = donationDate;
+
+            this.plasmaQuantity = plasmaQuantity;
+            this.trombQuantity = trombQuantity;
+            this.redQuantity = redQuantity;
         }
+
+        public override string ToString()
+        {
+            return "Donatia din: " + donationDate.Date.ToString()
+                + "Cantitate recoltata: " + quantity.ToString() + " ml dintre care: \n"
+                + "    Celule rosii: " + redQuantity.ToString() + " ml\n"
+                + "    Trombocite: " + trombQuantity.ToString() + " ml\n"
+                + "    Plasma: " + trombQuantity.ToString() + " ml\n"
+                + "Presiunea sistolica: " + bloodPressure.ToString() + "mmHg\n"
+                + "Puls: " + pulse.ToString() + "bpm";
+        }
+
 
     }
 

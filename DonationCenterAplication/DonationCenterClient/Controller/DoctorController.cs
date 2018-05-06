@@ -56,6 +56,7 @@ namespace Controller
          */
         public void notifyDonors()
         {
+            // TODO send mail 
             // TODO implement here
             return;
         }
@@ -66,10 +67,10 @@ namespace Controller
          */
         public Tuple<IList<Plasma>, IList<Trombocyte>, IList<RedBloodCell>> reviewBloodStocks(Location val)
         {
-            var tuple = Tuple.Create( this.service.GetAllFromDatabase<Plasma>(),
+            return Tuple.Create( this.service.GetAllFromDatabase<Plasma>(),
                 this.service.GetAllFromDatabase<Trombocyte>(),
                 this.service.GetAllFromDatabase<RedBloodCell>());
-            return tuple;
+            
         }
 
         /**

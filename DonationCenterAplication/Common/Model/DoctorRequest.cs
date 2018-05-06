@@ -19,6 +19,8 @@ namespace Common.Model
         public virtual string requestString { get; set; }
         public virtual string doctor_name { get; set; }
         public virtual string hospital { get; set; }
+        //Is it beeing delivered?
+        public virtual bool isBeeingDelivered { get; set; }
 
         public DoctorRequest() { }
         public DoctorRequest(int? doctor_id, string donationCeter_id, int priority, string patientCnp, string requestString)
@@ -28,6 +30,7 @@ namespace Common.Model
             this.priority = priority;
             this.patientCnp = patientCnp;
             this.requestString = requestString;
+            this.isBeeingDelivered = false;
         }
 
 

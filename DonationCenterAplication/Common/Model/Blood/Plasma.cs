@@ -16,7 +16,7 @@ namespace Model{
       
         public Plasma() { }
 
-        public Plasma(string antibody, string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate) : base(donationCenter_id, donor_cnp, ammount, donationDate)
+        public Plasma(string antibody, string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate, string email) : base(donationCenter_id, donor_cnp, ammount, donationDate, email)
         {
             this.antibody = antibody;
         }
@@ -32,7 +32,7 @@ namespace Model{
 
         public override string ToString()
         {
-            return "Plasma:\nAntibody: " + antibody + "\nExpiration date: " + this.getExpirationDate().ToString() + base.ToString();
+            return "Anticorpi: " + antibody + "\nData expirarii: " + this.getExpirationDate().ToString() + "\nCantitate";
         }
     }
 }

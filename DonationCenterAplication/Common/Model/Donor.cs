@@ -26,6 +26,8 @@ namespace Common.Model{
         //Status of donor, either pending or donated 
         public virtual bool isPending { get; set; }
         public virtual string donationCenter_id { get; set; }
+        public virtual string bloodType { get; set; }
+        public virtual bool rh { get; set; }
 
         public Donor() { }
 
@@ -37,13 +39,34 @@ namespace Common.Model{
             this.email = email;
             this.isPending = true;
             this.donationCenter_id = donationCenter_id;
+            
         }
 
 
+        //Constructor for creataing a donor accout 
+        public Donor(string cnp, string name, DateTime birthdate, string address, Location location, string email)
+        {
+            this.name = name;
+            this.cnp = cnp;
+            this.birthdate = birthdate;
+            this.location = location;
+            this.email = email;
+            this.isPending = true;
+        }
+
+        public virtual DateTime getLastDonation()
+        {
+            return donationHistory
+                .Select(x => x.donationDate)
+                .Max();
+        }
+
         public override string ToString()
         {
+            string bt = (bloodType == null) ? "?" : bloodType;
+            string rhStr = (rh) ? " pozitiv" : " negativ";
 
-            return "Nume: " + name + "\nCNP: " + cnp + "\nData nasterii: " + birthdate.ToString()
+            return "Nume: " + name + "\nCNP: " + cnp + "\nGrupa sanguina: " + bt + rhStr + "\nData nasterii: " + birthdate.Date.ToString()
                 + "\nE-mail: " + email + "\n";
         }
     }
