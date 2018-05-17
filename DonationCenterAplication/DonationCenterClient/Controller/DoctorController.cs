@@ -47,8 +47,93 @@ namespace Controller
          */
         public void makeRequest(Location val, int priority, string patientName, string requestString)
         {
-            DoctorRequest req = new DoctorRequest(doctor.id, val.latitude.ToString() + ',' + val.longitude.ToString(), priority, patientName, requestString);
-            this.service.AddToDatabase(req);
+            bool foundRequest = false;
+            string donationCenterLocation = val.latitude.ToString() + ',' + val.longitude.ToString();
+            DoctorRequest req = new DoctorRequest
+            {
+                donationCenter_id = donationCenterLocation,
+                priority = priority,
+                doctor_name = doctor.name,
+                //patientCnp = should add
+                requestString = requestString,
+                doctor_id = doctor.id
+                //hospital = "hospital" should add
+
+            };
+            List<string> requestSplitted = requestString.Split(',').ToList<string>();
+
+            switch (requestSplitted[0])
+            {
+                case "Red":
+                    {
+                        foreach (var dbRequest in this.service.GetAllFromDatabase<DoctorRequest>())
+                        {
+                            if (dbRequest.donationCenter_id == donationCenterLocation && dbRequest.isBeeingDelivered == false)
+                            {
+                                List<string> dbRequestSplitted = dbRequest.requestString.Split(',').ToList<string>();
+                                if (dbRequestSplitted[0] == requestSplitted[0] && dbRequestSplitted[1] == requestSplitted[1] && dbRequestSplitted[2] == requestSplitted[2])
+                                {
+                                    string newRequestString = dbRequestSplitted[0] + ',' + dbRequestSplitted[1] + ',' + dbRequestSplitted[2] + ',';
+                                    double amount = Convert.ToDouble(dbRequestSplitted[3]);
+                                    amount += Convert.ToDouble(requestSplitted[3]);
+                                    newRequestString += amount.ToString();
+                                    dbRequest.requestString = newRequestString;
+                                    foundRequest = true;
+                                    this.service.UpdateOneFromDatabase(dbRequest);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                case "Plasma":
+                    {
+                        foreach (var dbRequest in this.service.GetAllFromDatabase<DoctorRequest>())
+                        {
+                            if (dbRequest.donationCenter_id == donationCenterLocation && dbRequest.isBeeingDelivered == false)
+                            {
+                                List<string> dbRequestSplitted = dbRequest.requestString.Split(',').ToList<string>();
+                                if (dbRequestSplitted[0] == requestSplitted[0] && dbRequestSplitted[1] == requestSplitted[1])
+                                {
+                                    string newRequestString = dbRequestSplitted[0] + ',' + dbRequestSplitted[1] + ',';
+                                    double amount = Convert.ToDouble(dbRequestSplitted[2]);
+                                    amount += Convert.ToDouble(requestSplitted[2]);
+                                    newRequestString += amount.ToString();
+                                    dbRequest.requestString = newRequestString;
+                                    foundRequest = true;
+                                    this.service.UpdateOneFromDatabase(dbRequest);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                case "Tromb":
+                    {
+
+                        foreach (var dbRequest in this.service.GetAllFromDatabase<DoctorRequest>())
+                        {
+                            if (dbRequest.donationCenter_id == donationCenterLocation && dbRequest.isBeeingDelivered == false)
+                            {
+                                List<string> dbRequestSplitted = dbRequest.requestString.Split(',').ToList<string>();
+                                if (dbRequestSplitted[0] == requestSplitted[0])
+                                {
+                                    string newRequestString = dbRequestSplitted[0] + ',';
+                                    double amount = Convert.ToDouble(dbRequestSplitted[1]);
+                                    amount += Convert.ToDouble(requestSplitted[1]);
+                                    newRequestString += amount.ToString();
+                                    dbRequest.requestString = newRequestString;
+                                    foundRequest = true;
+                                    this.service.UpdateOneFromDatabase(dbRequest);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                default:
+                    break;
+            }
+            if (foundRequest == false)
+                this.service.AddToDatabase(req);
+
         }
 
         /**
