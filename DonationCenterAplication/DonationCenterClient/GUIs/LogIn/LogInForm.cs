@@ -70,7 +70,7 @@ namespace Client.GUIs.LogIn
                 Doctor doctor = service.GetAllFromDatabase<Doctor>().Where(d => CloseEnoughForMe(d.location.latitude, location.latitude, 0.001) && CloseEnoughForMe(d.location.longitude, location.longitude, 0.0001)).FirstOrDefault();
                 if (doctor != null)
                 {
-                    DoctorController doctorController = new DoctorController(doctor);
+                    DoctorController doctorController = new DoctorController(service, doctor);
                     this.Hide();
                     new DoctorGUI(doctorController).ShowDialog();
                 }
