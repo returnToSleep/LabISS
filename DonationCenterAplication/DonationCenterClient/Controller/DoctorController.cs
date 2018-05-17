@@ -45,7 +45,7 @@ namespace Controller
          * @param val 
          * @return
          */
-        public void makeRequest(Location val, int priority, string patientName, string requestString)
+        public void makeRequest(Location val, int priority, string patientName, string patientCNP, string requestString)
         {
             bool foundRequest = false;
             string donationCenterLocation = val.latitude.ToString() + ',' + val.longitude.ToString();
@@ -54,10 +54,10 @@ namespace Controller
                 donationCenter_id = donationCenterLocation,
                 priority = priority,
                 doctor_name = doctor.name,
-                //patientCnp = should add
+                patientCnp = patientCNP,
                 requestString = requestString,
-                doctor_id = doctor.id
-                //hospital = "hospital" should add
+                doctor_id = doctor.id,
+                hospital = doctor.hospital
 
             };
             List<string> requestSplitted = requestString.Split(',').ToList<string>();
