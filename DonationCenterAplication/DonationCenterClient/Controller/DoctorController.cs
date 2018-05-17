@@ -21,24 +21,16 @@ namespace Controller
     public class DoctorController
     {
 
-        /**
-         * 
-         */
-
+ 
+        private Doctor doctor;
         private IService service;
 
-        public DoctorController()
+        public DoctorController(IService service, Doctor doctor)
         {
-            ChannelServices.RegisterChannel(new TcpClientChannel(), false);
-            service = (IService)(Activator.GetObject(typeof(IService),
-                "tcp://localhost:9999/IService"
-                ));
+            this.service = service;
+            this.doctor = doctor;
         }
 
-        /**
-         * 
-         */
-        private Doctor doctor;
 
 
         /**
