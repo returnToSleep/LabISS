@@ -12,7 +12,7 @@ namespace DonationCenterAplication.Remoting
 
         void UpdateOneFromDatabase(object obj);
 
-        void DeleteFromDatabase<T>(object objId);
+        void DeleteFromDatabase(object obj);
 
         IList<T> GetAllFromDatabase<T>() where T: class;
 

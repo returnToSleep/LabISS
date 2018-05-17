@@ -19,7 +19,7 @@ namespace Common.Model
         public virtual IList<Trombocyte> trombocyteList { get; set; }
         public virtual IList<Plasma> plasmaList { get; set; }
 
-        public DonationCenter() { }
+        public DonationCenter() {}
         public DonationCenter(string id, string name)
         {
             this.id = id;

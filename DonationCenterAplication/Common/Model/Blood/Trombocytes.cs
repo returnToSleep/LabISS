@@ -9,12 +9,13 @@ namespace Model{
     /**
      * This class derives from the BloodComponent class.  It has no specific values to it.
      */
+    [Serializable]
     public class Trombocyte : BloodComponent {
 
         /**
          * This class derives from the BloodComponent class.  It has no specific values to it.
          */
-        public Trombocyte(int id, string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate) : base(id, donationCenter_id, donor_cnp, ammount, donationDate) {}
+        public Trombocyte(string donationCenter_id, string donor_cnp, float ammount, DateTime donationDate, string email) : base(donationCenter_id, donor_cnp, ammount, donationDate, email) {}
 
         public Trombocyte() { }
         
@@ -29,7 +30,8 @@ namespace Model{
 
         public override string ToString()
         {
-            return "Trombocytes:\n" + base.ToString();
+            return "Data expirarii: " + getExpirationDate() + "\nCantitate: " + ammount;
+
         }
     }
 }

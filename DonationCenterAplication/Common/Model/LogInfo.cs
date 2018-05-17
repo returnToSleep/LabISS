@@ -11,27 +11,28 @@ namespace Common.Model
     {
         public virtual string username { get; set; }
         public virtual string password { get; set; }
-        public virtual int id { get; set; }
+        public virtual int? intId { get; set; }
         public virtual string type { get; set; }
+        public virtual string varId { get; set; }
 
         public LogInfo() { }
 
 
-        /*SHOULD BE USED ONLY WHEN GETTING OBJECT FROM DATABASE
-        * EX:
-        *   service.GetOneFromDatabase<LogInfo>(new LogInfo(username, pass));
-        */
-        public LogInfo(string username, string password)
-        {
-            this.username = username;
-            this.password = password;
-        }
-
+        //For donation doctors and donors
         public LogInfo(string username, string password, int id, string type)
         {
             this.username = username;
             this.password = password;
-            this.id = id;
+            this.intId = id;
+            this.type = type;
+        }
+
+        //For donation centers
+        public LogInfo(string username, string password, string id, string type)
+        {
+            this.username = username;
+            this.password = password;
+            this.varId = id;
             this.type = type;
         }
 
@@ -54,11 +55,7 @@ namespace Common.Model
         {
             return base.GetHashCode();
         }
-
-        public override string ToString()
-        {
-            return username + " " + password + " Type: " + type + " Id: " + id;
-        }
+        
 
     }
 }

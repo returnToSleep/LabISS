@@ -12,26 +12,32 @@ namespace Common.Model
     public class DoctorRequest : IComparable<DoctorRequest>
     {
         public virtual int id { get; set; }
-        public virtual string doctor_id { get; set; }
+        public virtual int? doctor_id { get; set; }
         public virtual string donationCenter_id { get; set; }
         public virtual int priority { get; set; }
-        public virtual string patientName { get; set; }
+        public virtual string patientCnp { get; set; }
         public virtual string requestString { get; set; }
+        public virtual string doctor_name { get; set; }
+        public virtual string hospital { get; set; }
+        //Is it beeing delivered?
+        public virtual bool isBeeingDelivered { get; set; }
 
         public DoctorRequest() { }
-        public DoctorRequest(string doctor_id, string donationCeter_id, int priority, string patientName, string requestString)
+        public DoctorRequest(int? doctor_id, string donationCeter_id, int priority, string patientCnp, string requestString)
         {
             this.doctor_id = doctor_id;
             this.donationCenter_id = donationCenter_id;
             this.priority = priority;
-            this.patientName = patientName;
+            this.patientCnp = patientCnp;
             this.requestString = requestString;
+            this.isBeeingDelivered = false;
         }
 
 
         public override string ToString()
         {
-            return "\nDoctor id: " + doctor_id + "\nDonation center id: " + donationCenter_id + "\nPriority: " + priority + "\nPatient: " + patientName + "\n" + requestString;
+            return "\nDoctor: " + doctor_name + "\nPatient cnp: " + patientCnp + "\n" + requestString + "\n" + hospital;
+
         }
 
         public virtual int CompareTo(DoctorRequest other)
