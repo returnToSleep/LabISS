@@ -137,7 +137,12 @@
       <DependentUpon>Client.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\LogInController.cs" />
-    <Compile Include="GUIs\DoctorGUI.cs" />
+    <Compile Include="GUIs\DoctorGUI\DoctorGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\DoctorGUI\DoctorGUI.Designer.cs">
+      <DependentUpon>DoctorGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUIs\DonationCenterDoctors.cs" />
     <Compile Include="GUIs\DonationCenterDonors.cs" />
     <Compile Include="GUIs\Dialog.cs">
@@ -186,6 +191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\Dialog.resx">
       <DependentUpon>Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\DoctorGUI\DoctorGUI.resx">
+      <DependentUpon>DoctorGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\DonationCenter\BloodInput.resx">
       <DependentUpon>BloodInput.cs</DependentUpon>
@@ -252,6 +260,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

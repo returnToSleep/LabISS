@@ -1,5 +1,4 @@
-﻿using Common.Model;
-using Controller;
+﻿using Controller;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -15,29 +14,14 @@ namespace Client.GUIs
 {
     public partial class DoctorGUI : Form
     {
-        DoctorController doctorController;
-        public DoctorGUI(DoctorController doctorController)
+        DoctorController controller;
+        public DoctorGUI(DoctorController controller)
         {
-
             InitializeComponent();
-            this.doctorController = doctorController;
+            this.controller = controller;
             RefreshLists();
         }
 
-        private void nameLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void refreshButton_Click(object sender, EventArgs e)
-        {
-            RefreshLists();
-        }
-
-        private void selectionTab_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void RefreshLists()
         {
@@ -46,20 +30,21 @@ namespace Client.GUIs
             stockPlasmaList.Items.Clear();
             stockTrombList.Items.Clear();
 
+            //controller.Refresh();
 
-            IList<Trombocyte> tlst = doctorController.doctor.trombocyteList;
+            IList<Trombocyte> tlst = controller.doctor.trombocyteList;
             foreach (Trombocyte t in tlst)
             {
                 stockTrombList.Items.Add(t);
             }
 
-            IList<Plasma> plaslst = doctorController.doctor.plasmaList;
+            IList<Plasma> plaslst = controller.doctor.plasmaList;
             foreach (Plasma p in plaslst)
             {
                 stockPlasmaList.Items.Add(p);
             }
 
-            IList<RedBloodCell> rlst = doctorController.doctor.redBloodCellList;
+            IList<RedBloodCell> rlst = controller.doctor.redBloodCellList;
             foreach (RedBloodCell r in rlst)
             {
                 stockRedCellList.Items.Add(r);
@@ -71,6 +56,11 @@ namespace Client.GUIs
         private void DoctorGUI_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            RefreshLists();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Client.Controller;
 using Common.Model;
+using Controller;
 using DonationCenterAplication.Remoting;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,11 @@ namespace Client.GUIs.LogIn
             
         }
 
+        static bool CloseEnoughForMe(double value1, double value2, double acceptableDifference)
+        {
+            return Math.Abs(value1 - value2) <= acceptableDifference;
+        }
+
         private void logInButton_Click(object sender, EventArgs e)
         {
             string users = userTextBox.Text;
@@ -55,7 +61,21 @@ namespace Client.GUIs.LogIn
 
             if (info.type.Equals("Doctor"))
             {
-                //TODO Doctor GUI
+                List<string> loc = info.varId.Split(',').ToList<string>();
+                Location location = new Location
+                {
+                    latitude=Convert.ToDouble(loc[0]),
+                    longitude=Convert.ToDouble(loc[1])
+                };
+                Doctor doctor = service.GetAllFromDatabase<Doctor>().Where(d => CloseEnoughForMe(d.location.latitude, location.latitude, 0.001) && CloseEnoughForMe(d.location.longitude, location.longitude, 0.0001)).FirstOrDefault();
+                if (doctor != null)
+                {
+                    DoctorController doctorController = new DoctorController(doctor);
+                    this.Hide();
+                    new DoctorGUI(doctorController).ShowDialog();
+                }
+                else
+                    MessageBox.Show("No such user");
             }
 
             if (info.type.Equals("Donation"))

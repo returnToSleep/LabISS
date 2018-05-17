@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.nameLabel = new System.Windows.Forms.Label();
-            this.refreshButton = new System.Windows.Forms.Button();
-            this.bloodStockPage = new System.Windows.Forms.TabPage();
             this.stockTrombList = new NishBox.MultiLineListBox();
             this.stockPlasmaList = new NishBox.MultiLineListBox();
+            this.stockRedCellList = new NishBox.MultiLineListBox();
             this.trombLabel = new System.Windows.Forms.Label();
             this.plasmaLabel = new System.Windows.Forms.Label();
             this.redBloodLable = new System.Windows.Forms.Label();
+            this.bloodStockPage = new System.Windows.Forms.TabPage();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.selectionTab = new System.Windows.Forms.TabControl();
-            this.stockRedCellList = new NishBox.MultiLineListBox();
             this.bloodStockPage.SuspendLayout();
             this.selectionTab.SuspendLayout();
             this.SuspendLayout();
@@ -52,41 +52,12 @@
             this.nameLabel.Size = new System.Drawing.Size(154, 18);
             this.nameLabel.TabIndex = 7;
             this.nameLabel.Text = "Donation center name";
-            this.nameLabel.Click += new System.EventHandler(this.nameLabel_Click);
-            // 
-            // refreshButton
-            // 
-            this.refreshButton.Location = new System.Drawing.Point(722, 11);
-            this.refreshButton.Margin = new System.Windows.Forms.Padding(2);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(97, 33);
-            this.refreshButton.TabIndex = 6;
-            this.refreshButton.Text = "Reinprospatare";
-            this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
-            // 
-            // bloodStockPage
-            // 
-            this.bloodStockPage.BackColor = System.Drawing.Color.LightGray;
-            this.bloodStockPage.Controls.Add(this.stockRedCellList);
-            this.bloodStockPage.Controls.Add(this.stockTrombList);
-            this.bloodStockPage.Controls.Add(this.stockPlasmaList);
-            this.bloodStockPage.Controls.Add(this.trombLabel);
-            this.bloodStockPage.Controls.Add(this.plasmaLabel);
-            this.bloodStockPage.Controls.Add(this.redBloodLable);
-            this.bloodStockPage.Location = new System.Drawing.Point(4, 22);
-            this.bloodStockPage.Margin = new System.Windows.Forms.Padding(2);
-            this.bloodStockPage.Name = "bloodStockPage";
-            this.bloodStockPage.Padding = new System.Windows.Forms.Padding(2);
-            this.bloodStockPage.Size = new System.Drawing.Size(806, 466);
-            this.bloodStockPage.TabIndex = 3;
-            this.bloodStockPage.Text = "Stocuri";
             // 
             // stockTrombList
             // 
             this.stockTrombList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.stockTrombList.FormattingEnabled = true;
-            this.stockTrombList.Location = new System.Drawing.Point(539, 28);
+            this.stockTrombList.Location = new System.Drawing.Point(540, 29);
             this.stockTrombList.Margin = new System.Windows.Forms.Padding(2);
             this.stockTrombList.Name = "stockTrombList";
             this.stockTrombList.ScrollAlwaysVisible = true;
@@ -103,6 +74,17 @@
             this.stockPlasmaList.ScrollAlwaysVisible = true;
             this.stockPlasmaList.Size = new System.Drawing.Size(262, 426);
             this.stockPlasmaList.TabIndex = 7;
+            // 
+            // stockRedCellList
+            // 
+            this.stockRedCellList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.stockRedCellList.FormattingEnabled = true;
+            this.stockRedCellList.Location = new System.Drawing.Point(21, 28);
+            this.stockRedCellList.Margin = new System.Windows.Forms.Padding(2);
+            this.stockRedCellList.Name = "stockRedCellList";
+            this.stockRedCellList.ScrollAlwaysVisible = true;
+            this.stockRedCellList.Size = new System.Drawing.Size(249, 427);
+            this.stockRedCellList.TabIndex = 6;
             // 
             // trombLabel
             // 
@@ -134,6 +116,34 @@
             this.redBloodLable.TabIndex = 3;
             this.redBloodLable.Text = "Celule rosii";
             // 
+            // bloodStockPage
+            // 
+            this.bloodStockPage.BackColor = System.Drawing.Color.LightGray;
+            this.bloodStockPage.Controls.Add(this.stockTrombList);
+            this.bloodStockPage.Controls.Add(this.stockPlasmaList);
+            this.bloodStockPage.Controls.Add(this.stockRedCellList);
+            this.bloodStockPage.Controls.Add(this.trombLabel);
+            this.bloodStockPage.Controls.Add(this.plasmaLabel);
+            this.bloodStockPage.Controls.Add(this.redBloodLable);
+            this.bloodStockPage.Location = new System.Drawing.Point(4, 22);
+            this.bloodStockPage.Margin = new System.Windows.Forms.Padding(2);
+            this.bloodStockPage.Name = "bloodStockPage";
+            this.bloodStockPage.Padding = new System.Windows.Forms.Padding(2);
+            this.bloodStockPage.Size = new System.Drawing.Size(806, 466);
+            this.bloodStockPage.TabIndex = 3;
+            this.bloodStockPage.Text = "Stocuri";
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.Location = new System.Drawing.Point(722, 11);
+            this.refreshButton.Margin = new System.Windows.Forms.Padding(2);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(97, 33);
+            this.refreshButton.TabIndex = 6;
+            this.refreshButton.Text = "Reinprospatare";
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            // 
             // selectionTab
             // 
             this.selectionTab.Controls.Add(this.bloodStockPage);
@@ -144,18 +154,6 @@
             this.selectionTab.SelectedIndex = 0;
             this.selectionTab.Size = new System.Drawing.Size(814, 492);
             this.selectionTab.TabIndex = 5;
-            this.selectionTab.SelectedIndexChanged += new System.EventHandler(this.selectionTab_SelectedIndexChanged);
-            // 
-            // stockRedCellList
-            // 
-            this.stockRedCellList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.stockRedCellList.FormattingEnabled = true;
-            this.stockRedCellList.Location = new System.Drawing.Point(21, 28);
-            this.stockRedCellList.Margin = new System.Windows.Forms.Padding(2);
-            this.stockRedCellList.Name = "stockRedCellList";
-            this.stockRedCellList.ScrollAlwaysVisible = true;
-            this.stockRedCellList.Size = new System.Drawing.Size(249, 427);
-            this.stockRedCellList.TabIndex = 9;
             // 
             // DoctorGUI
             // 
@@ -179,14 +177,14 @@
         #endregion
 
         private System.Windows.Forms.Label nameLabel;
-        private System.Windows.Forms.Button refreshButton;
-        private System.Windows.Forms.TabPage bloodStockPage;
         private NishBox.MultiLineListBox stockTrombList;
         private NishBox.MultiLineListBox stockPlasmaList;
+        private NishBox.MultiLineListBox stockRedCellList;
         private System.Windows.Forms.Label trombLabel;
         private System.Windows.Forms.Label plasmaLabel;
         private System.Windows.Forms.Label redBloodLable;
+        private System.Windows.Forms.TabPage bloodStockPage;
+        private System.Windows.Forms.Button refreshButton;
         private System.Windows.Forms.TabControl selectionTab;
-        private NishBox.MultiLineListBox stockRedCellList;
     }
 }
