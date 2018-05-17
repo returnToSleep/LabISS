@@ -21,50 +21,110 @@ namespace Controller
     public class DoctorController
     {
 
-        /**
-         * 
-         */
-
+        private Doctor doctor;
         private IService service;
 
-        public DoctorController()
+        public DoctorController(IService service, Doctor doctor)
         {
-            ChannelServices.RegisterChannel(new TcpClientChannel(), false);
-            service = (IService)(Activator.GetObject(typeof(IService),
-                "tcp://localhost:9999/IService"
-                ));
+            this.service = service;
+            this.doctor = doctor;
         }
 
-        /**
-         * 
-         */
-        private Doctor doctor;
 
-
-        /**
-         * @param val 
-         * @return
-         */
-        public void makeRequest(Location val, int priority, string patientName, string requestString)
+        #region Ladi
+        public void makeRequest(Location val, int priority, string patientName, string patientCNP, string requestString)
         {
-            DoctorRequest req = new DoctorRequest(doctor.id, val.latitude.ToString() + ',' + val.longitude.ToString(), priority, patientName, requestString);
-            this.service.AddToDatabase(req);
-        }
+            bool foundRequest = false;
+            string donationCenterLocation = val.latitude.ToString() + ',' + val.longitude.ToString();
+            DoctorRequest req = new DoctorRequest
+            {
+                donationCenter_id = donationCenterLocation,
+                priority = priority,
+                doctor_name = doctor.name,
+                patientCnp = patientCNP,
+                requestString = requestString,
+                doctor_id = doctor.id,
+                hospital = doctor.hospital
 
-        /**
-         * @return
-         */
-        public void notifyDonors()
-        {
-            // TODO send mail 
-            // TODO implement here
-            return;
-        }
+            };
+            List<string> requestSplitted = requestString.Split(',').ToList<string>();
 
-        /**
-         * @param val 
-         * @return
-         */
+            switch (requestSplitted[0])
+            {
+                case "Red":
+                    {
+                        foreach (var dbRequest in this.service.GetAllFromDatabase<DoctorRequest>())
+                        {
+                            if (dbRequest.donationCenter_id == donationCenterLocation && dbRequest.isBeeingDelivered == false)
+                            {
+                                List<string> dbRequestSplitted = dbRequest.requestString.Split(',').ToList<string>();
+                                if (dbRequestSplitted[0] == requestSplitted[0] && dbRequestSplitted[1] == requestSplitted[1] && dbRequestSplitted[2] == requestSplitted[2])
+                                {
+                                    string newRequestString = dbRequestSplitted[0] + ',' + dbRequestSplitted[1] + ',' + dbRequestSplitted[2] + ',';
+                                    double amount = Convert.ToDouble(dbRequestSplitted[3]);
+                                    amount += Convert.ToDouble(requestSplitted[3]);
+                                    newRequestString += amount.ToString();
+                                    dbRequest.requestString = newRequestString;
+                                    foundRequest = true;
+                                    this.service.UpdateOneFromDatabase(dbRequest);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                case "Plasma":
+                    {
+                        foreach (var dbRequest in this.service.GetAllFromDatabase<DoctorRequest>())
+                        {
+                            if (dbRequest.donationCenter_id == donationCenterLocation && dbRequest.isBeeingDelivered == false)
+                            {
+                                List<string> dbRequestSplitted = dbRequest.requestString.Split(',').ToList<string>();
+                                if (dbRequestSplitted[0] == requestSplitted[0] && dbRequestSplitted[1] == requestSplitted[1])
+                                {
+                                    string newRequestString = dbRequestSplitted[0] + ',' + dbRequestSplitted[1] + ',';
+                                    double amount = Convert.ToDouble(dbRequestSplitted[2]);
+                                    amount += Convert.ToDouble(requestSplitted[2]);
+                                    newRequestString += amount.ToString();
+                                    dbRequest.requestString = newRequestString;
+                                    foundRequest = true;
+                                    this.service.UpdateOneFromDatabase(dbRequest);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                case "Tromb":
+                    {
+
+                        foreach (var dbRequest in this.service.GetAllFromDatabase<DoctorRequest>())
+                        {
+                            if (dbRequest.donationCenter_id == donationCenterLocation && dbRequest.isBeeingDelivered == false)
+                            {
+                                List<string> dbRequestSplitted = dbRequest.requestString.Split(',').ToList<string>();
+                                if (dbRequestSplitted[0] == requestSplitted[0])
+                                {
+                                    string newRequestString = dbRequestSplitted[0] + ',';
+                                    double amount = Convert.ToDouble(dbRequestSplitted[1]);
+                                    amount += Convert.ToDouble(requestSplitted[1]);
+                                    newRequestString += amount.ToString();
+                                    dbRequest.requestString = newRequestString;
+                                    foundRequest = true;
+                                    this.service.UpdateOneFromDatabase(dbRequest);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                default:
+                    break;
+            }
+            if (foundRequest == false)
+                this.service.AddToDatabase(req);
+
+        }
+        #endregion
+
+        #region Biju
         public Tuple<IList<Plasma>, IList<Trombocyte>, IList<RedBloodCell>> reviewBloodStocks(Location val)
         {
             return Tuple.Create( this.service.GetAllFromDatabase<Plasma>(),
@@ -79,14 +139,14 @@ namespace Controller
             {
                 foreach(var bloodCell in this.doctor.redBloodCellList)
                 {
-                    if(bloodCell.antigen == reqInfo[1] && bloodCell.rh == reqInfo[2]
+                    if(bloodCell.antigen == reqInfo[1] && bloodCell.rh == bool.Parse(reqInfo[2]) 
                         && bloodCell.ammount == float.Parse(reqInfo[3]))
                     {
                         return bloodCell;
                     }
                 }
             }
-            else if(reqInfo[0] == "Tromb")
+            if(reqInfo[0] == "Tromb")
             {
                 foreach (var trombocyte in this.doctor.trombocyteList)
                 {
@@ -96,7 +156,7 @@ namespace Controller
                     }
                 }
             }
-            else
+            if (reqInfo[0] == "Plasma")
             {
                 foreach (var plasma in this.doctor.plasmaList)
                 {
@@ -106,25 +166,28 @@ namespace Controller
                     }
                 }
             }
+
+            return null;
         }
-        public T acceptBlood<T>(T component)
+
+
+        public void acceptBlood<T>(DoctorRequest request, T component, bool bloodIsOk) where T : BloodComponent
         {//TODO functie care sa dea valoare lui bloodisok din gui
             if (bloodIsOk)
             {
-                this.service.DeleteFromDatabase(component);
+                service.DeleteFromDatabase(component);
+                service.DeleteFromDatabase(request);
             }
             else
             {
                 component.doctor_id = null;
-                component.isBeeingDeliverd = false;
+                request.isBeeingDelivered = false;
             }
         }
+        #endregion
 
-
-        /**
-         * @param name
-         */
-        public void setDoctorName(String name)
+        #region setters
+        public void setDoctorName(string name)
         {
             doctor.name = name;
         }
@@ -132,7 +195,7 @@ namespace Controller
         /**
          * @param newVal
          */
-        public void setDoctorSpeciality(String newVal)
+        public void setDoctorSpeciality(string newVal)
         {
             doctor.speciality = newVal;
         }
@@ -140,10 +203,11 @@ namespace Controller
         /**
          * @param newVal
          */
-        public void setHospita(String newVal)
+        public void setHospita(string newVal)
         {
             doctor.hospital = newVal;
         }
+        #endregion
 
     }
 }
