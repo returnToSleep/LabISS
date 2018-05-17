@@ -21,7 +21,7 @@ namespace Controller
     public class DoctorController
     {
 
-        private Doctor doctor;
+        public Doctor doctor { get; set; }
         private IService service;
 
         public DoctorController(IService service, Doctor doctor)
