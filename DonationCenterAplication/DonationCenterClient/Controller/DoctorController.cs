@@ -21,58 +21,17 @@ namespace Controller
     public class DoctorController
     {
 
-        /**
-         * 
-         */
-
+        private Doctor doctor;
         private IService service;
 
-        public DoctorController(Doctor doctor)
+        public DoctorController(IService service, Doctor doctor)
         {
+            this.service = service;
             this.doctor = doctor;
         }
 
-        /**
-         * 
-         */
-        public Doctor doctor;
 
-        public void Refresh()
-        {
-            refreshBloodStock();
-            doctor = this.service.GetAllFromDatabase<Doctor>().Where(d => d.id == doctor.id).FirstOrDefault();
-        }
-
-        public void refreshBloodStock()
-        {
-            removeFromList(this.doctor.redBloodCellList);
-            removeFromList(this.doctor.trombocyteList);
-            removeFromList(this.doctor.plasmaList);
-            service.Refresh(doctor);
-        }
-
-        /**
-         * Function that removes the expired blood components
-         */
-        private void removeFromList<T>(IList<T> l) where T : BloodComponent
-        {
-
-            if (l == null) { return; }
-
-            foreach (T bloodCompoenent in l)
-            {
-                if (DateTime.Compare(bloodCompoenent.getExpirationDate(), DateTime.Now) <= 0)
-                {
-                    service.DeleteFromDatabase(bloodCompoenent);
-                }
-            }
-
-        }
-
-        /**
-         * @param val 
-         * @return
-         */
+        #region Ladi
         public void makeRequest(Location val, int priority, string patientName, string patientCNP, string requestString)
         {
             bool foundRequest = false;
@@ -163,21 +122,9 @@ namespace Controller
                 this.service.AddToDatabase(req);
 
         }
+        #endregion
 
-        /**
-         * @return
-         */
-        public void notifyDonors()
-        {
-            // TODO send mail 
-            // TODO implement here
-            return;
-        }
-
-        /**
-         * @param val 
-         * @return
-         */
+        #region Biju
         public Tuple<IList<Plasma>, IList<Trombocyte>, IList<RedBloodCell>> reviewBloodStocks(Location val)
         {
             return Tuple.Create( this.service.GetAllFromDatabase<Plasma>(),
@@ -192,14 +139,14 @@ namespace Controller
             {
                 foreach(var bloodCell in this.doctor.redBloodCellList)
                 {
-                    if(bloodCell.antigen == reqInfo[1] && bloodCell.rh == reqInfo[2]
+                    if(bloodCell.antigen == reqInfo[1] && bloodCell.rh == bool.Parse(reqInfo[2]) 
                         && bloodCell.ammount == float.Parse(reqInfo[3]))
                     {
                         return bloodCell;
                     }
                 }
             }
-            else if(reqInfo[0] == "Tromb")
+            if(reqInfo[0] == "Tromb")
             {
                 foreach (var trombocyte in this.doctor.trombocyteList)
                 {
@@ -209,7 +156,7 @@ namespace Controller
                     }
                 }
             }
-            else
+            if (reqInfo[0] == "Plasma")
             {
                 foreach (var plasma in this.doctor.plasmaList)
                 {
@@ -219,25 +166,28 @@ namespace Controller
                     }
                 }
             }
+
+            return null;
         }
-        public T acceptBlood<T>(T component)
+
+
+        public void acceptBlood<T>(DoctorRequest request, T component, bool bloodIsOk) where T : BloodComponent
         {//TODO functie care sa dea valoare lui bloodisok din gui
             if (bloodIsOk)
             {
-                this.service.DeleteFromDatabase(component);
+                service.DeleteFromDatabase(component);
+                service.DeleteFromDatabase(request);
             }
             else
             {
                 component.doctor_id = null;
-                component.isBeeingDeliverd = false;
+                request.isBeeingDelivered = false;
             }
         }
+        #endregion
 
-       
-        /**
-         * @param name
-         */
-        public void setDoctorName(String name)
+        #region setters
+        public void setDoctorName(string name)
         {
             doctor.name = name;
         }
@@ -245,7 +195,7 @@ namespace Controller
         /**
          * @param newVal
          */
-        public void setDoctorSpeciality(String newVal)
+        public void setDoctorSpeciality(string newVal)
         {
             doctor.speciality = newVal;
         }
@@ -253,10 +203,11 @@ namespace Controller
         /**
          * @param newVal
          */
-        public void setHospita(String newVal)
+        public void setHospita(string newVal)
         {
             doctor.hospital = newVal;
         }
+        #endregion
 
     }
 }

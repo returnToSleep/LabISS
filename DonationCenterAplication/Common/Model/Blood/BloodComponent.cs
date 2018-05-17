@@ -15,6 +15,7 @@ namespace Common.Model
         public virtual int id { get; set; }
         public virtual DateTime donationDate { get; set; }
         public virtual string email { get; set; }
+        public virtual bool isBeeingDelivered { get; set; }
         
         //int? - nullable int
         public virtual int? doctor_id { get; set; }
@@ -29,6 +30,7 @@ namespace Common.Model
             this.donationDate = donationDate;
             this.doctor_id = null;
             this.email = email;
+            isBeeingDelivered = false;
         }
 
         public virtual DateTime getExpirationDate()
