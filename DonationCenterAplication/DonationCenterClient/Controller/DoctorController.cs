@@ -21,8 +21,8 @@ namespace Controller
     public class DoctorController
     {
 
-        private Doctor doctor;
-        private IService service;
+        public Doctor doctor;
+        public IService service;
 
         public DoctorController(IService service, Doctor doctor)
         {
@@ -32,7 +32,7 @@ namespace Controller
 
 
         #region Ladi
-        public void makeRequest(Location val, int priority, string patientName, string patientCNP, string requestString)
+        public void makeRequest(Location val, int priority, string patientCNP, string requestString)
         {
             bool foundRequest = false;
             string donationCenterLocation = val.latitude.ToString() + ',' + val.longitude.ToString();
