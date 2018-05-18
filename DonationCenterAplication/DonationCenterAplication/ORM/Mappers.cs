@@ -15,6 +15,9 @@ namespace DonationCenterServer.ORM
     {
         public DoctorMap()
         {
+
+            Lazy(false);
+
             Id(x => x.id, m => {
                 m.UnsavedValue(0);
                 m.Generator(Generators.Native);
@@ -48,30 +51,34 @@ namespace DonationCenterServer.ORM
                 c.Lazy(false);
             });
 
-            Bag(x => x.trombocyteList, map =>
-            {
-                map.Table("Trombocyte");
-                map.Key(k => k.Column(col => col.Name("doctor_id")));
-                map.Lazy(CollectionLazy.NoLazy);
-            },
-         action => action.OneToMany());
+           
 
             Bag(x => x.redBloodCellList, map =>
             {
+                map.Lazy(CollectionLazy.NoLazy);
                 map.Table("RedBloodCell");
                 map.Key(k => k.Column(col => col.Name("doctor_id")));
-                map.Lazy(CollectionLazy.NoLazy);
+             
             },
           action => action.OneToMany());
 
             Bag(x => x.plasmaList, map =>
             {
+                map.Lazy(CollectionLazy.NoLazy);
                 map.Table("Plasma");
                 map.Key(k => k.Column(col => col.Name("doctor_id")));
-                map.Lazy(CollectionLazy.NoLazy);
+               
             },
             action => action.OneToMany());
 
+            Bag(x => x.trombocyteList, map =>
+            {
+                map.Lazy(CollectionLazy.NoLazy);
+                map.Table("Trombocyte");
+                map.Key(k => k.Column(col => col.Name("doctor_id")));
+
+            },
+           action => action.OneToMany());
         }
     }
     #endregion

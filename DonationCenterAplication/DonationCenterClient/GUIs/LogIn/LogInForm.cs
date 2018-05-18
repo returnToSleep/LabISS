@@ -2,6 +2,7 @@
 using Common.Model;
 using Controller;
 using DonationCenterAplication.Remoting;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +24,8 @@ namespace Client.GUIs.LogIn
         {
             InitializeComponent();
             passTextBox.PasswordChar = '*';
+
+           
 
         }
 
@@ -47,12 +50,14 @@ namespace Client.GUIs.LogIn
                 "tcp://localhost:9999/IService"
                 ));
 
-            LogInController logIn = new LogInController(users, pass, service);
+
+           LogInController logIn = new LogInController(users, pass, service);
 
             LogInfo info = logIn.getAccount();
+
             if (info == null)
             {
-
+                MessageBox.Show("No such user");
                 //TODO show error
                 ChannelServices.UnregisterChannel(channel);
                 return;
@@ -61,21 +66,13 @@ namespace Client.GUIs.LogIn
 
             if (info.type.Equals("Doctor"))
             {
-                List<string> loc = info.varId.Split(',').ToList<string>();
-                Location location = new Location
-                {
-                    latitude=Convert.ToDouble(loc[0]),
-                    longitude=Convert.ToDouble(loc[1])
-                };
-                Doctor doctor = service.GetAllFromDatabase<Doctor>().Where(d => CloseEnoughForMe(d.location.latitude, location.latitude, 0.001) && CloseEnoughForMe(d.location.longitude, location.longitude, 0.0001)).FirstOrDefault();
-                if (doctor != null)
-                {
-                    DoctorController doctorController = new DoctorController(service, doctor);
-                    this.Hide();
-                    new DoctorGUI(doctorController).ShowDialog();
-                }
-                else
-                    MessageBox.Show("No such user");
+
+                Doctor doctor = service.GetOneFromDatabase<Doctor>(info.intId);   
+                DoctorController doctorController = new DoctorController(service, doctor);
+
+                this.Hide();
+                new DoctorGUI(doctorController).ShowDialog();
+              
             }
 
             if (info.type.Equals("Donation"))

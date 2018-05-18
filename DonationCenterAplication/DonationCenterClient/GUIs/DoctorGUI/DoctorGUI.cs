@@ -26,17 +26,33 @@ namespace Client.GUIs
             RefreshLists();
             gMapDoctors.Manager.Mode = AccessMode.ServerOnly;
             gMapDoctors.MapProvider = GMapProviders.OpenStreetMap;
-            populateHospitalList();
-            this.comboBox1.SelectedIndex = 0;
-            this.priority.SelectedIndex = 0;
-            this.component.SelectedIndex = 0;
+
+            gMapStocks.Manager.Mode = AccessMode.ServerOnly;
+            gMapStocks.MapProvider = GMapProviders.OpenStreetMap;
+
+            populateDonationCenterList();
+            populateRequestList();
+
+            nameLabel.Text += " " + controller.doctor.name;
+
+            comboBox1.SelectedIndex = 0;
+            comboBox4.SelectedIndex = 0;
+            priority.SelectedIndex = 0;
+            component.SelectedIndex = 0;
+
         }
 
+        public void populateRequestList()
+        {
+          
 
-        public void populateHospitalList()
+        }
+
+        public void populateDonationCenterList()
         {
             this.controller.service.GetAllFromDatabase<Common.Model.DonationCenter>().ToList().ForEach(dc => {
                 this.comboBox1.Items.Add(dc.name);
+                this.comboBox4.Items.Add(dc.name);
                 });
 
         }
@@ -44,30 +60,16 @@ namespace Client.GUIs
 
         private void RefreshLists()
         {
+           
 
-            stockRedCellList.Items.Clear();
-            stockPlasmaList.Items.Clear();
-            stockTrombList.Items.Clear();
+            requestList.Items.Clear();
 
-            //controller.Refresh();
-
-            IList<Trombocyte> tlst = controller.doctor.trombocyteList;
-            foreach (Trombocyte t in tlst)
+            IList<DoctorRequest> requestLiat = controller.doctor.requests;
+            foreach (DoctorRequest r in requestLiat)
             {
-                stockTrombList.Items.Add(t);
+                requestList.Items.Add(r);
             }
-
-            IList<Plasma> plaslst = controller.doctor.plasmaList;
-            foreach (Plasma p in plaslst)
-            {
-                stockPlasmaList.Items.Add(p);
-            }
-
-            IList<RedBloodCell> rlst = controller.doctor.redBloodCellList;
-            foreach (RedBloodCell r in rlst)
-            {
-                stockRedCellList.Items.Add(r);
-            }
+            
 
 
         }
@@ -79,17 +81,19 @@ namespace Client.GUIs
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
+
+            controller.refresh();
             RefreshLists();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string donationCenterName = this.comboBox1.Items[this.comboBox1.SelectedIndex].ToString();
-            var donationCenter = this.controller.service.GetAllFromDatabase<Common.Model.DonationCenter>().Where(dc => dc.name == donationCenterName).FirstOrDefault();
+            var donationCenter = this.controller.service.GetAllFromDatabase<Common.Model.DonationCenter>().First(dc => dc.name == donationCenterName);
 
-            List<string> loc = donationCenter.id.Split(',').ToList<string>();
+            string[] loc = donationCenter.id.Split(',');
 
-            gMapDoctors.Position = new PointLatLng(Convert.ToDouble(loc[0]), Convert.ToDouble(loc[0]));
+            gMapDoctors.Position = new PointLatLng(double.Parse(loc[0]), double.Parse(loc[1]));
             gMapDoctors.Zoom = 15;
         }
 
@@ -120,29 +124,35 @@ namespace Client.GUIs
             string donationCenterName = this.comboBox1.Items[this.comboBox1.SelectedIndex].ToString();
             var donationCenter = this.controller.service.GetAllFromDatabase<Common.Model.DonationCenter>().Where(dc => dc.name == donationCenterName).FirstOrDefault();
 
-            List<string> loc = donationCenter.id.Split(',').ToList<string>();
+            List<string> loc = donationCenter.id.Split(',').ToList();
             Location location = new Location
             {
                 latitude = Convert.ToDouble(loc[0]),
                 longitude = Convert.ToDouble(loc[1])
             };
+
             string priority = this.priority.Items[this.priority.SelectedIndex].ToString();
             string pacientCNP = this.cnp.Text.ToString();
+
             var donor = this.controller.service.GetAllFromDatabase<Donor>().Where(d => d.cnp == pacientCNP);
-            if(donor == null)
+            if(donor != null)
             {
-                MessageBox.Show("No such donor!");
-                return;
+                priority = "0";
             }
+
             string request = "";
+
             if (this.component.SelectedIndex == 0)
                 request += "Red" + ',' + this.antigen.Text.ToString() + ',' + this.rh.Text.ToString() + ',' + this.quantity.Text.ToString();
+
             if (this.component.SelectedIndex == 1)
                 request += "Plasma" + ',' + this.antigen.Text.ToString() + ',' + this.quantity.Text.ToString();
 
             if (this.component.SelectedIndex == 2)
                 request += "Tromb" + ',' + this.quantity.Text.ToString();
-            this.controller.makeRequest(location, Convert.ToInt32(priority), pacientCNP, request);
+
+
+            this.controller.makeRequest(location, Convert.ToInt32(priority), "PACIENT NAME", pacientCNP, request);
             MessageBox.Show("Cerere trimisa");
             this.comboBox1.SelectedIndex = 0;
             this.priority.SelectedIndex = 0;
@@ -152,5 +162,100 @@ namespace Client.GUIs
             this.antigen.Text = "";
             this.rh.Text = "";
         }
+
+    
+
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string donationCenterName = this.comboBox4.Items[this.comboBox4.SelectedIndex].ToString();
+            var donationCenter = this.controller.service.GetAllFromDatabase<Common.Model.DonationCenter>().First(dc => dc.name == donationCenterName);
+
+
+            PlasmaAQuantity.Text = donationCenter.getPlasmaQuantity("A").ToString();
+            PlasmaBQuantity.Text = donationCenter.getPlasmaQuantity("B").ToString();
+            PlasmaABQuantity.Text = donationCenter.getPlasmaQuantity("AB").ToString();
+            Plasma0Quantity.Text = donationCenter.getPlasmaQuantity("0").ToString();
+
+            redAPQauntity.Text = donationCenter.getRedQuantity("A", true).ToString();
+            redBPQauntity.Text = donationCenter.getRedQuantity("B", true).ToString();
+            redABPQauntity.Text = donationCenter.getRedQuantity("AB", true).ToString();
+            red0PQauntity.Text = donationCenter.getRedQuantity("0", true).ToString();
+
+            redANQauntity.Text = donationCenter.getRedQuantity("A", false).ToString();
+            redBNQauntity.Text = donationCenter.getRedQuantity("B", false).ToString();
+            redABNQauntity.Text = donationCenter.getRedQuantity("AB", false).ToString();
+            red0NQauntity.Text = donationCenter.getRedQuantity("0", false).ToString();
+
+            trombQuantity.Text = donationCenter.getTrombQuantity().ToString();
+
+            string[] loc = donationCenter.id.Split(',');
+
+            gMapStocks.Position = new PointLatLng(double.Parse(loc[0]), double.Parse(loc[1]));
+           
+        }
+
+ 
+        private void requestList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            deliveredBloodList.Items.Clear();
+
+            try {
+                deliveredBloodList.Items.Add(controller.matchBloodWithRequest((DoctorRequest)requestList.SelectedItem));
+                noAcceptBloodButton.Enabled = true;
+                acceptBloodButton.Enabled = true;
+            }
+            catch (System.ArgumentNullException){
+                deliveredBloodList.Items.Add("Comanda este in asteptare");
+                acceptBloodButton.Enabled = false;
+                noAcceptBloodButton.Enabled = false;
+            }
+        }
+
+        private void acceptBloodButton_Click(object sender, EventArgs e)
+        {
+            DoctorRequest dR = (DoctorRequest)requestList.SelectedItem;
+
+            if (dR.requestString.Split(',')[0] == "Plasma")
+            {
+                controller.acceptBlood(dR, (Plasma)deliveredBloodList.Items[0], true);
+            }
+            if (dR.requestString.Split(',')[0] == "Red")
+            {
+                controller.acceptBlood(dR, (RedBloodCell)deliveredBloodList.Items[0], true);
+            }
+            if (dR.requestString.Split(',')[0] == "Tromb")
+            {
+                controller.acceptBlood(dR, (Trombocyte)deliveredBloodList.Items[0], true);
+            }
+
+            MessageBox.Show("Comanda a fost acceptata!");
+
+            RefreshLists();
+
+        }
+
+        private void noAcceptBloodButton_Click(object sender, EventArgs e)
+        {
+            DoctorRequest dR = (DoctorRequest)requestList.SelectedItem;
+
+            if (dR.requestString.Split(',')[0] == "Plasma")
+            {
+                controller.acceptBlood(dR, (Plasma)deliveredBloodList.Items[0], false);
+            }
+            if (dR.requestString.Split(',')[0] == "Red")
+            {
+                controller.acceptBlood(dR, (RedBloodCell)deliveredBloodList.Items[0], false);
+            }
+            if (dR.requestString.Split(',')[0] == "Tromb")
+            {
+                controller.acceptBlood(dR, (Trombocyte)deliveredBloodList.Items[0], false);
+            }
+
+            RefreshLists();
+
+            MessageBox.Show("Comanda a fost retrimisa!");
+
+        }
+
     }
 }

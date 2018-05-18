@@ -27,6 +27,29 @@ namespace Common.Model
         }
 
 
+        public float getTrombQuantity()
+        {
+            return this.trombocyteList
+                .Select(x => x.ammount)
+                .Sum();
+        }
+
+        public float getPlasmaQuantity(string type)
+        {
+            return this.plasmaList
+                .Where(x => x.antibody == type)
+                .Select(x => x.ammount)
+                .Sum();
+        }
+
+        public float getRedQuantity(string type, bool rh)
+        {
+            return this.redBloodCellList
+                .Where(x => x.antigen == type && x.rh == rh)
+                .Select(x => x.ammount)
+                .Sum();
+        }
+
 
     }
 }

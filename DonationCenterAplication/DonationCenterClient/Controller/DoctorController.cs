@@ -22,12 +22,17 @@ namespace Controller
     {
 
         public Doctor doctor { get; set; }
-        private IService service;
+        public IService service { get; set; }
 
         public DoctorController(IService service, Doctor doctor)
         {
             this.service = service;
             this.doctor = doctor;
+        }
+
+        public void refresh()
+        {
+            doctor = this.service.GetOneFromDatabase<Doctor>(this.doctor.id);
         }
 
 

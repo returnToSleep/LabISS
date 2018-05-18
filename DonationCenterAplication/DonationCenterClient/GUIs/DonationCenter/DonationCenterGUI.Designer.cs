@@ -74,7 +74,7 @@
             // 
             // donorPage
             // 
-            this.donorPage.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.donorPage.BackColor = System.Drawing.SystemColors.Control;
             this.donorPage.Controls.Add(this.donorList);
             this.donorPage.Controls.Add(this.gMapDonors);
             this.donorPage.Location = new System.Drawing.Point(4, 27);
@@ -118,13 +118,13 @@
             this.gMapDonors.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapDonors.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapDonors.ShowTileGridLines = false;
-            this.gMapDonors.Size = new System.Drawing.Size(498, 551);
+            this.gMapDonors.Size = new System.Drawing.Size(512, 551);
             this.gMapDonors.TabIndex = 0;
             this.gMapDonors.Zoom = 0D;
             // 
             // doctorPage
             // 
-            this.doctorPage.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.doctorPage.BackColor = System.Drawing.SystemColors.Control;
             this.doctorPage.Controls.Add(this.potentialBloodLabel);
             this.doctorPage.Controls.Add(this.requestLabel);
             this.doctorPage.Controls.Add(this.sendBloodButton);
@@ -141,7 +141,7 @@
             // potentialBloodLabel
             // 
             this.potentialBloodLabel.AutoSize = true;
-            this.potentialBloodLabel.Location = new System.Drawing.Point(549, 41);
+            this.potentialBloodLabel.Location = new System.Drawing.Point(549, 25);
             this.potentialBloodLabel.Name = "potentialBloodLabel";
             this.potentialBloodLabel.Size = new System.Drawing.Size(264, 19);
             this.potentialBloodLabel.TabIndex = 4;
@@ -151,7 +151,7 @@
             // requestLabel
             // 
             this.requestLabel.AutoSize = true;
-            this.requestLabel.Location = new System.Drawing.Point(11, 41);
+            this.requestLabel.Location = new System.Drawing.Point(11, 25);
             this.requestLabel.Name = "requestLabel";
             this.requestLabel.Size = new System.Drawing.Size(150, 19);
             this.requestLabel.TabIndex = 3;
@@ -159,9 +159,9 @@
             // 
             // sendBloodButton
             // 
-            this.sendBloodButton.Location = new System.Drawing.Point(911, 6);
+            this.sendBloodButton.Location = new System.Drawing.Point(911, 10);
             this.sendBloodButton.Name = "sendBloodButton";
-            this.sendBloodButton.Size = new System.Drawing.Size(152, 55);
+            this.sendBloodButton.Size = new System.Drawing.Size(152, 38);
             this.sendBloodButton.TabIndex = 2;
             this.sendBloodButton.Text = "Trimitere";
             this.sendBloodButton.UseVisualStyleBackColor = true;
@@ -170,10 +170,10 @@
             // 
             this.potentialBlood.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.potentialBlood.FormattingEnabled = true;
-            this.potentialBlood.Location = new System.Drawing.Point(553, 67);
+            this.potentialBlood.Location = new System.Drawing.Point(553, 54);
             this.potentialBlood.Name = "potentialBlood";
             this.potentialBlood.ScrollAlwaysVisible = true;
-            this.potentialBlood.Size = new System.Drawing.Size(510, 488);
+            this.potentialBlood.Size = new System.Drawing.Size(510, 501);
             this.potentialBlood.TabIndex = 1;
             this.potentialBlood.SelectedIndexChanged += new System.EventHandler(this.multiLineListBox1_SelectedIndexChanged);
             // 
@@ -181,10 +181,10 @@
             // 
             this.doctorRequestList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.doctorRequestList.FormattingEnabled = true;
-            this.doctorRequestList.Location = new System.Drawing.Point(15, 63);
+            this.doctorRequestList.Location = new System.Drawing.Point(15, 50);
             this.doctorRequestList.Name = "doctorRequestList";
             this.doctorRequestList.ScrollAlwaysVisible = true;
-            this.doctorRequestList.Size = new System.Drawing.Size(532, 493);
+            this.doctorRequestList.Size = new System.Drawing.Size(532, 506);
             this.doctorRequestList.TabIndex = 0;
             this.doctorRequestList.SelectedIndexChanged += new System.EventHandler(this.doctorRequestList_SelectedIndexChanged_1);
             // 
@@ -216,22 +216,24 @@
             // 
             // donorNotOkButton
             // 
+            this.donorNotOkButton.BackColor = System.Drawing.Color.Crimson;
             this.donorNotOkButton.Location = new System.Drawing.Point(114, 6);
             this.donorNotOkButton.Name = "donorNotOkButton";
             this.donorNotOkButton.Size = new System.Drawing.Size(86, 34);
             this.donorNotOkButton.TabIndex = 3;
             this.donorNotOkButton.Text = "Neapt";
-            this.donorNotOkButton.UseVisualStyleBackColor = true;
+            this.donorNotOkButton.UseVisualStyleBackColor = false;
             this.donorNotOkButton.Click += new System.EventHandler(this.donorNotOkButton_Click);
             // 
             // donorOkButton
             // 
+            this.donorOkButton.BackColor = System.Drawing.Color.ForestGreen;
             this.donorOkButton.Location = new System.Drawing.Point(16, 6);
             this.donorOkButton.Name = "donorOkButton";
             this.donorOkButton.Size = new System.Drawing.Size(92, 34);
             this.donorOkButton.TabIndex = 2;
             this.donorOkButton.Text = "Apt";
-            this.donorOkButton.UseVisualStyleBackColor = true;
+            this.donorOkButton.UseVisualStyleBackColor = false;
             this.donorOkButton.Click += new System.EventHandler(this.donorOkButton_Click);
             // 
             // gMapPendingDonors
@@ -280,7 +282,7 @@
             // 
             this.stockTrombList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.stockTrombList.FormattingEnabled = true;
-            this.stockTrombList.Location = new System.Drawing.Point(719, 41);
+            this.stockTrombList.Location = new System.Drawing.Point(743, 35);
             this.stockTrombList.Name = "stockTrombList";
             this.stockTrombList.ScrollAlwaysVisible = true;
             this.stockTrombList.Size = new System.Drawing.Size(329, 519);
@@ -290,7 +292,7 @@
             // 
             this.stockPlasmaList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.stockPlasmaList.FormattingEnabled = true;
-            this.stockPlasmaList.Location = new System.Drawing.Point(365, 35);
+            this.stockPlasmaList.Location = new System.Drawing.Point(389, 35);
             this.stockPlasmaList.Name = "stockPlasmaList";
             this.stockPlasmaList.ScrollAlwaysVisible = true;
             this.stockPlasmaList.Size = new System.Drawing.Size(348, 523);
@@ -303,13 +305,13 @@
             this.stockRedCellList.Location = new System.Drawing.Point(28, 35);
             this.stockRedCellList.Name = "stockRedCellList";
             this.stockRedCellList.ScrollAlwaysVisible = true;
-            this.stockRedCellList.Size = new System.Drawing.Size(331, 525);
+            this.stockRedCellList.Size = new System.Drawing.Size(355, 525);
             this.stockRedCellList.TabIndex = 6;
             // 
             // trombLabel
             // 
             this.trombLabel.AutoSize = true;
-            this.trombLabel.Location = new System.Drawing.Point(715, 13);
+            this.trombLabel.Location = new System.Drawing.Point(739, 13);
             this.trombLabel.Name = "trombLabel";
             this.trombLabel.Size = new System.Drawing.Size(90, 19);
             this.trombLabel.TabIndex = 5;
@@ -318,7 +320,7 @@
             // plasmaLabel
             // 
             this.plasmaLabel.AutoSize = true;
-            this.plasmaLabel.Location = new System.Drawing.Point(361, 13);
+            this.plasmaLabel.Location = new System.Drawing.Point(385, 13);
             this.plasmaLabel.Name = "plasmaLabel";
             this.plasmaLabel.Size = new System.Drawing.Size(61, 19);
             this.plasmaLabel.TabIndex = 4;
