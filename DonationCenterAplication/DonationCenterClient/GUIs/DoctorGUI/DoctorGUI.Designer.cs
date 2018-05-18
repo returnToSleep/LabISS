@@ -85,12 +85,12 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.gMapDoctors = new GMap.NET.WindowsForms.GMapControl();
             this.deliveryTab = new System.Windows.Forms.TabPage();
-            this.requestList = new NishBox.MultiLineListBox();
-            this.deliveredBloodList = new NishBox.MultiLineListBox();
-            this.acceptBloodButton = new System.Windows.Forms.Button();
-            this.noAcceptBloodButton = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.noAcceptBloodButton = new System.Windows.Forms.Button();
+            this.acceptBloodButton = new System.Windows.Forms.Button();
+            this.deliveredBloodList = new NishBox.MultiLineListBox();
+            this.requestList = new NishBox.MultiLineListBox();
             this.bloodStockPage.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -502,9 +502,9 @@
             this.groupBox1.Controls.Add(this.component);
             this.groupBox1.Controls.Add(this.priority);
             this.groupBox1.Controls.Add(this.comboBox1);
-            this.groupBox1.Location = new System.Drawing.Point(799, 7);
+            this.groupBox1.Location = new System.Drawing.Point(767, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(349, 333);
+            this.groupBox1.Size = new System.Drawing.Size(381, 333);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Detalii comanda";
@@ -532,7 +532,7 @@
             // 
             // quantity
             // 
-            this.quantity.Location = new System.Drawing.Point(122, 230);
+            this.quantity.Location = new System.Drawing.Point(154, 228);
             this.quantity.Margin = new System.Windows.Forms.Padding(4);
             this.quantity.Name = "quantity";
             this.quantity.Size = new System.Drawing.Size(220, 22);
@@ -540,7 +540,7 @@
             // 
             // antigen
             // 
-            this.antigen.Location = new System.Drawing.Point(122, 170);
+            this.antigen.Location = new System.Drawing.Point(154, 170);
             this.antigen.Margin = new System.Windows.Forms.Padding(4);
             this.antigen.Name = "antigen";
             this.antigen.Size = new System.Drawing.Size(220, 22);
@@ -548,7 +548,7 @@
             // 
             // rh
             // 
-            this.rh.Location = new System.Drawing.Point(122, 200);
+            this.rh.Location = new System.Drawing.Point(154, 198);
             this.rh.Margin = new System.Windows.Forms.Padding(4);
             this.rh.Name = "rh";
             this.rh.Size = new System.Drawing.Size(220, 22);
@@ -556,7 +556,7 @@
             // 
             // cnp
             // 
-            this.cnp.Location = new System.Drawing.Point(122, 108);
+            this.cnp.Location = new System.Drawing.Point(154, 108);
             this.cnp.Margin = new System.Windows.Forms.Padding(4);
             this.cnp.Name = "cnp";
             this.cnp.Size = new System.Drawing.Size(220, 22);
@@ -639,7 +639,7 @@
             "RedBloodCell",
             "Plasma",
             "Trombocyte"});
-            this.component.Location = new System.Drawing.Point(122, 138);
+            this.component.Location = new System.Drawing.Point(154, 138);
             this.component.Margin = new System.Windows.Forms.Padding(4);
             this.component.Name = "component";
             this.component.Size = new System.Drawing.Size(220, 24);
@@ -656,7 +656,7 @@
             "4",
             "5",
             "6"});
-            this.priority.Location = new System.Drawing.Point(122, 76);
+            this.priority.Location = new System.Drawing.Point(154, 76);
             this.priority.Margin = new System.Windows.Forms.Padding(4);
             this.priority.Name = "priority";
             this.priority.Size = new System.Drawing.Size(220, 24);
@@ -666,7 +666,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(122, 44);
+            this.comboBox1.Location = new System.Drawing.Point(154, 47);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(220, 24);
@@ -696,7 +696,7 @@
             this.gMapDoctors.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapDoctors.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapDoctors.ShowTileGridLines = false;
-            this.gMapDoctors.Size = new System.Drawing.Size(786, 660);
+            this.gMapDoctors.Size = new System.Drawing.Size(754, 660);
             this.gMapDoctors.TabIndex = 1;
             this.gMapDoctors.Zoom = 0D;
             // 
@@ -715,37 +715,23 @@
             this.deliveryTab.Text = "Comenzi";
             this.deliveryTab.UseVisualStyleBackColor = true;
             // 
-            // requestList
+            // label24
             // 
-            this.requestList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.requestList.FormattingEnabled = true;
-            this.requestList.Location = new System.Drawing.Point(7, 50);
-            this.requestList.Name = "requestList";
-            this.requestList.ScrollAlwaysVisible = true;
-            this.requestList.Size = new System.Drawing.Size(575, 616);
-            this.requestList.TabIndex = 0;
-            this.requestList.SelectedIndexChanged += new System.EventHandler(this.requestList_SelectedIndexChanged);
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(585, 30);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(257, 17);
+            this.label24.TabIndex = 5;
+            this.label24.Text = "Componente care satisfac cererea";
             // 
-            // deliveredBloodList
+            // label14
             // 
-            this.deliveredBloodList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.deliveredBloodList.FormattingEnabled = true;
-            this.deliveredBloodList.Location = new System.Drawing.Point(588, 50);
-            this.deliveredBloodList.Name = "deliveredBloodList";
-            this.deliveredBloodList.ScrollAlwaysVisible = true;
-            this.deliveredBloodList.Size = new System.Drawing.Size(560, 613);
-            this.deliveredBloodList.TabIndex = 1;
-            // 
-            // acceptBloodButton
-            // 
-            this.acceptBloodButton.BackColor = System.Drawing.Color.GreenYellow;
-            this.acceptBloodButton.Location = new System.Drawing.Point(1023, 3);
-            this.acceptBloodButton.Name = "acceptBloodButton";
-            this.acceptBloodButton.Size = new System.Drawing.Size(125, 41);
-            this.acceptBloodButton.TabIndex = 2;
-            this.acceptBloodButton.Text = "Acceptare";
-            this.acceptBloodButton.UseVisualStyleBackColor = false;
-            this.acceptBloodButton.Click += new System.EventHandler(this.acceptBloodButton_Click);
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(4, 30);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(127, 17);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "Comenzi plasate";
             // 
             // noAcceptBloodButton
             // 
@@ -758,23 +744,37 @@
             this.noAcceptBloodButton.UseVisualStyleBackColor = false;
             this.noAcceptBloodButton.Click += new System.EventHandler(this.noAcceptBloodButton_Click);
             // 
-            // label14
+            // acceptBloodButton
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(4, 30);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(127, 17);
-            this.label14.TabIndex = 4;
-            this.label14.Text = "Comenzi plasate";
+            this.acceptBloodButton.BackColor = System.Drawing.Color.GreenYellow;
+            this.acceptBloodButton.Location = new System.Drawing.Point(1023, 3);
+            this.acceptBloodButton.Name = "acceptBloodButton";
+            this.acceptBloodButton.Size = new System.Drawing.Size(125, 41);
+            this.acceptBloodButton.TabIndex = 2;
+            this.acceptBloodButton.Text = "Acceptare";
+            this.acceptBloodButton.UseVisualStyleBackColor = false;
+            this.acceptBloodButton.Click += new System.EventHandler(this.acceptBloodButton_Click);
             // 
-            // label24
+            // deliveredBloodList
             // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(585, 30);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(257, 17);
-            this.label24.TabIndex = 5;
-            this.label24.Text = "Componente care satisfac cererea";
+            this.deliveredBloodList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.deliveredBloodList.FormattingEnabled = true;
+            this.deliveredBloodList.Location = new System.Drawing.Point(588, 50);
+            this.deliveredBloodList.Name = "deliveredBloodList";
+            this.deliveredBloodList.ScrollAlwaysVisible = true;
+            this.deliveredBloodList.Size = new System.Drawing.Size(560, 613);
+            this.deliveredBloodList.TabIndex = 1;
+            // 
+            // requestList
+            // 
+            this.requestList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.requestList.FormattingEnabled = true;
+            this.requestList.Location = new System.Drawing.Point(7, 50);
+            this.requestList.Name = "requestList";
+            this.requestList.ScrollAlwaysVisible = true;
+            this.requestList.Size = new System.Drawing.Size(575, 616);
+            this.requestList.TabIndex = 0;
+            this.requestList.SelectedIndexChanged += new System.EventHandler(this.requestList_SelectedIndexChanged);
             // 
             // DoctorGUI
             // 

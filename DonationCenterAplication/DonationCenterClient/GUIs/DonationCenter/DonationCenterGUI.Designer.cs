@@ -69,7 +69,7 @@
             this.selectionTab.Location = new System.Drawing.Point(12, 39);
             this.selectionTab.Name = "selectionTab";
             this.selectionTab.SelectedIndex = 0;
-            this.selectionTab.Size = new System.Drawing.Size(1086, 605);
+            this.selectionTab.Size = new System.Drawing.Size(1153, 620);
             this.selectionTab.TabIndex = 1;
             // 
             // donorPage
@@ -80,7 +80,7 @@
             this.donorPage.Location = new System.Drawing.Point(4, 27);
             this.donorPage.Name = "donorPage";
             this.donorPage.Padding = new System.Windows.Forms.Padding(3);
-            this.donorPage.Size = new System.Drawing.Size(1078, 574);
+            this.donorPage.Size = new System.Drawing.Size(1145, 589);
             this.donorPage.TabIndex = 0;
             this.donorPage.Text = "Donatori";
             // 
@@ -89,10 +89,10 @@
             this.donorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.donorList.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Bold);
             this.donorList.FormattingEnabled = true;
-            this.donorList.Location = new System.Drawing.Point(6, 6);
+            this.donorList.Location = new System.Drawing.Point(7, 16);
             this.donorList.Name = "donorList";
             this.donorList.ScrollAlwaysVisible = true;
-            this.donorList.Size = new System.Drawing.Size(548, 554);
+            this.donorList.Size = new System.Drawing.Size(548, 567);
             this.donorList.TabIndex = 1;
             this.donorList.SelectedIndexChanged += new System.EventHandler(this.donorList_SelectedIndexChanged);
             // 
@@ -104,7 +104,7 @@
             this.gMapDonors.GrayScaleMode = false;
             this.gMapDonors.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapDonors.LevelsKeepInMemmory = 5;
-            this.gMapDonors.Location = new System.Drawing.Point(560, 12);
+            this.gMapDonors.Location = new System.Drawing.Point(560, 9);
             this.gMapDonors.MarkersEnabled = true;
             this.gMapDonors.MaxZoom = 15;
             this.gMapDonors.MinZoom = 15;
@@ -118,7 +118,7 @@
             this.gMapDonors.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapDonors.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapDonors.ShowTileGridLines = false;
-            this.gMapDonors.Size = new System.Drawing.Size(512, 551);
+            this.gMapDonors.Size = new System.Drawing.Size(579, 574);
             this.gMapDonors.TabIndex = 0;
             this.gMapDonors.Zoom = 0D;
             // 
@@ -133,7 +133,7 @@
             this.doctorPage.Location = new System.Drawing.Point(4, 27);
             this.doctorPage.Name = "doctorPage";
             this.doctorPage.Padding = new System.Windows.Forms.Padding(3);
-            this.doctorPage.Size = new System.Drawing.Size(1078, 574);
+            this.doctorPage.Size = new System.Drawing.Size(1145, 589);
             this.doctorPage.TabIndex = 1;
             this.doctorPage.Text = "Cereri de la doctori";
             this.doctorPage.Click += new System.EventHandler(this.doctorPage_Click);
@@ -141,7 +141,7 @@
             // potentialBloodLabel
             // 
             this.potentialBloodLabel.AutoSize = true;
-            this.potentialBloodLabel.Location = new System.Drawing.Point(549, 25);
+            this.potentialBloodLabel.Location = new System.Drawing.Point(576, 42);
             this.potentialBloodLabel.Name = "potentialBloodLabel";
             this.potentialBloodLabel.Size = new System.Drawing.Size(264, 19);
             this.potentialBloodLabel.TabIndex = 4;
@@ -151,7 +151,7 @@
             // requestLabel
             // 
             this.requestLabel.AutoSize = true;
-            this.requestLabel.Location = new System.Drawing.Point(11, 25);
+            this.requestLabel.Location = new System.Drawing.Point(11, 42);
             this.requestLabel.Name = "requestLabel";
             this.requestLabel.Size = new System.Drawing.Size(150, 19);
             this.requestLabel.TabIndex = 3;
@@ -159,7 +159,7 @@
             // 
             // sendBloodButton
             // 
-            this.sendBloodButton.Location = new System.Drawing.Point(911, 10);
+            this.sendBloodButton.Location = new System.Drawing.Point(987, 20);
             this.sendBloodButton.Name = "sendBloodButton";
             this.sendBloodButton.Size = new System.Drawing.Size(152, 38);
             this.sendBloodButton.TabIndex = 2;
@@ -170,10 +170,10 @@
             // 
             this.potentialBlood.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.potentialBlood.FormattingEnabled = true;
-            this.potentialBlood.Location = new System.Drawing.Point(553, 54);
+            this.potentialBlood.Location = new System.Drawing.Point(580, 64);
             this.potentialBlood.Name = "potentialBlood";
             this.potentialBlood.ScrollAlwaysVisible = true;
-            this.potentialBlood.Size = new System.Drawing.Size(510, 501);
+            this.potentialBlood.Size = new System.Drawing.Size(559, 514);
             this.potentialBlood.TabIndex = 1;
             this.potentialBlood.SelectedIndexChanged += new System.EventHandler(this.multiLineListBox1_SelectedIndexChanged);
             // 
@@ -181,10 +181,10 @@
             // 
             this.doctorRequestList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.doctorRequestList.FormattingEnabled = true;
-            this.doctorRequestList.Location = new System.Drawing.Point(15, 50);
+            this.doctorRequestList.Location = new System.Drawing.Point(15, 64);
             this.doctorRequestList.Name = "doctorRequestList";
             this.doctorRequestList.ScrollAlwaysVisible = true;
-            this.doctorRequestList.Size = new System.Drawing.Size(532, 506);
+            this.doctorRequestList.Size = new System.Drawing.Size(559, 519);
             this.doctorRequestList.TabIndex = 0;
             this.doctorRequestList.SelectedIndexChanged += new System.EventHandler(this.doctorRequestList_SelectedIndexChanged_1);
             // 
@@ -198,7 +198,7 @@
             this.pendingPage.Location = new System.Drawing.Point(4, 27);
             this.pendingPage.Name = "pendingPage";
             this.pendingPage.Padding = new System.Windows.Forms.Padding(3);
-            this.pendingPage.Size = new System.Drawing.Size(1078, 574);
+            this.pendingPage.Size = new System.Drawing.Size(1145, 589);
             this.pendingPage.TabIndex = 2;
             this.pendingPage.Text = "Persoane in asteptare";
             // 
@@ -210,7 +210,7 @@
             this.pendingDonorList.Location = new System.Drawing.Point(17, 42);
             this.pendingDonorList.Name = "pendingDonorList";
             this.pendingDonorList.ScrollAlwaysVisible = true;
-            this.pendingDonorList.Size = new System.Drawing.Size(491, 514);
+            this.pendingDonorList.Size = new System.Drawing.Size(556, 540);
             this.pendingDonorList.TabIndex = 4;
             this.pendingDonorList.SelectedIndexChanged += new System.EventHandler(this.pendingDonorList_SelectedIndexChanged);
             // 
@@ -244,7 +244,7 @@
             this.gMapPendingDonors.GrayScaleMode = false;
             this.gMapPendingDonors.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapPendingDonors.LevelsKeepInMemmory = 5;
-            this.gMapPendingDonors.Location = new System.Drawing.Point(514, 42);
+            this.gMapPendingDonors.Location = new System.Drawing.Point(579, 42);
             this.gMapPendingDonors.MarkersEnabled = true;
             this.gMapPendingDonors.MaxZoom = 15;
             this.gMapPendingDonors.MinZoom = 15;
@@ -258,13 +258,13 @@
             this.gMapPendingDonors.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapPendingDonors.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapPendingDonors.ShowTileGridLines = false;
-            this.gMapPendingDonors.Size = new System.Drawing.Size(543, 514);
+            this.gMapPendingDonors.Size = new System.Drawing.Size(560, 541);
             this.gMapPendingDonors.TabIndex = 1;
             this.gMapPendingDonors.Zoom = 0D;
             // 
             // bloodStockPage
             // 
-            this.bloodStockPage.BackColor = System.Drawing.Color.LightGray;
+            this.bloodStockPage.BackColor = System.Drawing.Color.Transparent;
             this.bloodStockPage.Controls.Add(this.stockTrombList);
             this.bloodStockPage.Controls.Add(this.stockPlasmaList);
             this.bloodStockPage.Controls.Add(this.stockRedCellList);
@@ -274,7 +274,7 @@
             this.bloodStockPage.Location = new System.Drawing.Point(4, 27);
             this.bloodStockPage.Name = "bloodStockPage";
             this.bloodStockPage.Padding = new System.Windows.Forms.Padding(3);
-            this.bloodStockPage.Size = new System.Drawing.Size(1078, 574);
+            this.bloodStockPage.Size = new System.Drawing.Size(1145, 589);
             this.bloodStockPage.TabIndex = 3;
             this.bloodStockPage.Text = "Stocuri";
             // 
@@ -282,20 +282,20 @@
             // 
             this.stockTrombList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.stockTrombList.FormattingEnabled = true;
-            this.stockTrombList.Location = new System.Drawing.Point(743, 35);
+            this.stockTrombList.Location = new System.Drawing.Point(764, 41);
             this.stockTrombList.Name = "stockTrombList";
             this.stockTrombList.ScrollAlwaysVisible = true;
-            this.stockTrombList.Size = new System.Drawing.Size(329, 519);
+            this.stockTrombList.Size = new System.Drawing.Size(375, 542);
             this.stockTrombList.TabIndex = 8;
             // 
             // stockPlasmaList
             // 
             this.stockPlasmaList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.stockPlasmaList.FormattingEnabled = true;
-            this.stockPlasmaList.Location = new System.Drawing.Point(389, 35);
+            this.stockPlasmaList.Location = new System.Drawing.Point(389, 41);
             this.stockPlasmaList.Name = "stockPlasmaList";
             this.stockPlasmaList.ScrollAlwaysVisible = true;
-            this.stockPlasmaList.Size = new System.Drawing.Size(348, 523);
+            this.stockPlasmaList.Size = new System.Drawing.Size(369, 541);
             this.stockPlasmaList.TabIndex = 7;
             // 
             // stockRedCellList
@@ -305,7 +305,7 @@
             this.stockRedCellList.Location = new System.Drawing.Point(28, 35);
             this.stockRedCellList.Name = "stockRedCellList";
             this.stockRedCellList.ScrollAlwaysVisible = true;
-            this.stockRedCellList.Size = new System.Drawing.Size(355, 525);
+            this.stockRedCellList.Size = new System.Drawing.Size(355, 551);
             this.stockRedCellList.TabIndex = 6;
             // 
             // trombLabel
@@ -337,7 +337,7 @@
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(962, 12);
+            this.refreshButton.Location = new System.Drawing.Point(1026, 12);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(129, 41);
             this.refreshButton.TabIndex = 3;
@@ -360,7 +360,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1110, 656);
+            this.ClientSize = new System.Drawing.Size(1177, 671);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.selectionTab);
