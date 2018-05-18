@@ -42,20 +42,27 @@ namespace DonationCenterServer.Forms
                 MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 repo.Delete(item.Tag);
-                update(new RepositoryBase());
+                update(repo);
+                clearTextBoxes();
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Doctor doc = this.read();
-            clearTextBoxes();
             if (doc != null)
             {
                 RepositoryBase repo = new RepositoryBase();
-                repo.Save(doc);
+                if (idLable.Text == "none")
+                    repo.Save(doc);
+                else
+                {
+                    doc.id = int.Parse(idLable.Text);
+                    repo.Update(doc);
+                }
                 update(repo);
             }
+            clearTextBoxes();
         }
 
         private Doctor read()
@@ -65,8 +72,6 @@ namespace DonationCenterServer.Forms
             comboBox1.BackColor = Color.Empty;
             bool ok = true;
             #region Validation
-            float dummy;
-          
 
             if (string.IsNullOrEmpty(nameTextbox.Text))
             {
@@ -92,7 +97,9 @@ namespace DonationCenterServer.Forms
                 return new Doctor(
                     nameTextbox.Text,
                     specialityTextbox.Text,
-                    comboBox1.Text);
+                    comboBox1.Text,
+                    new Location("", double.Parse(locXTextbox.Text), double.Parse(locYTextbox.Text))
+                    );
             }
             else
                 return null;
@@ -101,18 +108,22 @@ namespace DonationCenterServer.Forms
         private void fill(string docID)
         {
             RepositoryBase repo = new RepositoryBase();
-            Doctor doc = repo.FindOne<Doctor>(docID);
+            Doctor doc = repo.FindOne<Doctor>(int.Parse(docID));
 
-            locXTextbox.Text = doc.id.ToString();
+            idLable.Text = doc.id.ToString();
             nameTextbox.Text = doc.name;
             specialityTextbox.Text = doc.speciality;
             comboBox1.Text = doc.hospital;
+            locXTextbox.Text = doc.location.latitude.ToString();
+            locYTextbox.Text = doc.location.longitude.ToString();
         }
 
         private void clearTextBoxes()
         {
             #region Clear textboxes
+            idLable.Text = "none";
             locXTextbox.Clear();
+            locYTextbox.Clear();
             nameTextbox.Clear();
             specialityTextbox.Clear();
             comboBox1.Text = "";
@@ -125,71 +136,25 @@ namespace DonationCenterServer.Forms
             foreach (Doctor doc in repo.FindAll<Doctor>())
             {
                 GroupBox box = new GroupBox();
-                #region Card Creation
-                box.Size = new Size(280, 120);
-                Label name = new Label
-                {
-                    Font = new Font(FontFamily.GenericSansSerif, 24.0f, FontStyle.Bold),
-                    AutoSize = true,
-                    Location = new Point(5, 15),
-                    Text = doc.name
-                };
-                box.Controls.Add(name);
-                Font smallFont = new Font(FontFamily.GenericSansSerif, 14.0f);
-                Label mylabel1 = new Label
-                {
-                    Font = smallFont,
-                    AutoSize = true,
-                    Location = new Point(5, 55),
-                    Text = "speciality:"
-                };
-                box.Controls.Add(mylabel1);
-                Label speciality = new Label
-                {
-                    Font = smallFont,
-                    AutoSize = true,
-                    Location = new Point(100, 55),
-                    Text = doc.speciality
-                };
-                box.Controls.Add(speciality);
-                Label mylabel2 = new Label
-                {
-                    Location = new Point(5, 90),
-                    AutoSize = true,
-                    Font = smallFont,
-                    Text = "hospital"
-                };
-                box.Controls.Add(mylabel2);
-                Label hospital = new Label
-                {
-                    Font = smallFont,
-                    AutoSize = true,
-                    Location = new Point(100, 90),
-                    Text = doc.hospital
-                };
-                box.Controls.Add(hospital);
-                MenuItem item = new MenuItem("Delete");
-                item.Click += ContextMenu1_Click;
-                item.Tag = doc.id;
-                ContextMenu cm = new ContextMenu();
-                cm.MenuItems.Add(item);
-                box.ContextMenu = cm;
-                box.Click += new EventHandler(delegate (Object o, EventArgs a) { box.Focus(); box.BackColor = Color.AliceBlue; fill(doc.id.ToString()); });
-                //box.GotFocus += new EventHandler(delegate (Object o, EventArgs a) { });
-                box.LostFocus += new EventHandler(delegate (Object o, EventArgs a) { box.BackColor = Color.Empty; });
+                #region Card Creation 2
+                CardControl card = new CardControl
+                (
+                    doc.name, doc.id.ToString(), doc.speciality, doc.hospital, doc.location.latitude.ToString(), doc.location.longitude.ToString()
+                );
+                card.Click += (s, e) => { fill(card.id); };
+                card.ContextMenu = new ContextMenu();
+                MenuItem item = new MenuItem("Delete", ContextMenu1_Click);
+                item.Tag = doc;
+                card.ContextMenu.MenuItems.Add(item);
                 #endregion
-                flowLayoutPanel1.Controls.Add(box);
+                
+                flowLayoutPanel1.Controls.Add(card);
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             clearTextBoxes();
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

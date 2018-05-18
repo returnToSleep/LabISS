@@ -38,13 +38,11 @@ public class Source
             "IService", WellKnownObjectMode.Singleton);
 
         Console.WriteLine("Listening for requests from the Client! Press Enter to exit...");
-        Console.ReadLine();
+        //Console.ReadLine();
         
-        /*
       
         Form form = new Form1();
         form.ShowDialog();
         
-        */
     }
 }

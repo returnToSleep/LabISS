@@ -79,7 +79,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MultiLineListBox">
-      <HintPath>..\..\..\..\..\MultiLine\MultiLineListBox.dll</HintPath>
+      <HintPath>MultiLineListBox\MultiLineListBox.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -176,6 +176,12 @@
     <Compile Include="GUIs\DonationCenter\DonationCenterGUI.Designer.cs">
       <DependentUpon>DonationCenterGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUIs\DonorGUI\DonorGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\DonorGUI\DonorGUI.designer.cs">
+      <DependentUpon>DonorGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUIs\GUI.cs" />
     <Compile Include="GUIs\LogIn\LogInForm.cs">
       <SubType>Form</SubType>
@@ -206,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\DonationCenter\EMailForm.resx">
       <DependentUpon>EMailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\DonorGUI\DonorGUI.resx">
+      <DependentUpon>DonorGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\LogIn\LogInForm.resx">
       <DependentUpon>LogInForm.cs</DependentUpon>

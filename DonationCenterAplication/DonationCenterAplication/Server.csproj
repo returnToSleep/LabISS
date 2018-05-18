@@ -128,10 +128,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\CardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\CardControl.designer.cs">
+      <DependentUpon>CardControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Doctor CRUD.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Doctor CRUD.Designer.cs">
+    <Compile Include="Forms\Doctor CRUD.designer.cs">
       <DependentUpon>Doctor CRUD.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DonationCenterCRUD.cs">
@@ -152,10 +158,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\ServerConsoleUI.cs" />
     <Compile Include="Controller\ServerController.cs" />
+    <EmbeddedResource Include="Forms\CardControl.resx">
+      <DependentUpon>CardControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Doctor CRUD.resx">
       <DependentUpon>Doctor CRUD.cs</DependentUpon>
     </EmbeddedResource>

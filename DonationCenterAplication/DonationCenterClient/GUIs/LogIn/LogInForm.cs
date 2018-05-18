@@ -14,6 +14,7 @@ using System.Runtime.Remoting.Channels.Tcp;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Client.GUIs.DonorGUI;
 
 
 namespace Client.GUIs.LogIn
@@ -88,7 +89,8 @@ namespace Client.GUIs.LogIn
 
             if (info.type.Equals("Donor"))
             {
-                //TODO Donor GUI
+                Form form = new DonatorGUI();
+                form.ShowDialog();
             }
 
         }

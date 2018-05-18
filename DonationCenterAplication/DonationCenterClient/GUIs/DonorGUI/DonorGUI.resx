@@ -117,5 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label2.Text" xml:space="preserve">
+    <value>I want to donate blood volunatily for any patients found suitable by the donation center, and will not be entitled 
+to claim any exchange for my donation. Informations that I have furnished are true to the best of my knowledge.
+I understand the questions asked to me, which are for my protection as well as to protect the recipient of my blood</value>
+  </data>
 </root>
