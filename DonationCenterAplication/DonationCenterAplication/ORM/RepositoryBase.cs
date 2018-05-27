@@ -1,4 +1,5 @@
-﻿using DonationCenterAplication.ORM;
+﻿using Common.Exceptions;
+using DonationCenterAplication.ORM;
 using NHibernate;
 using NHibernate.Linq;
 using System;
@@ -21,10 +22,17 @@ namespace Repository
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Save(obj);
-                    session.Flush();
-                    transaction.Commit();
-                }
+                    try
+                    {
+                        session.Save(obj);
+                        session.Flush();
+                        transaction.Commit();
+                    }
+                    catch (Exception e)
+                    {
+                        throw new DataBaseException("Baza de date a intampinat o eroare", e);
+                    }
+                 }
             }
 
         }
@@ -35,9 +43,16 @@ namespace Repository
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Update(obj);
-                    session.Flush();
-                    transaction.Commit();
+                    try
+                    {
+                        session.Update(obj);
+                        session.Flush();
+                        transaction.Commit();
+                    }
+                    catch (Exception e)
+                    {
+                        throw new DataBaseException("Baza de date a intampinat o eroare", e);
+                    }
                 }
             }
 
@@ -51,9 +66,16 @@ namespace Repository
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    session.Delete(obj);
-                    session.Flush();
-                    transaction.Commit();
+                    try
+                    {
+                        session.Delete(obj);
+                        session.Flush();
+                        transaction.Commit();
+                    }
+                    catch (Exception e)
+                    {
+                        throw new DataBaseException("Baza de date a intampinat o eroare", e);
+                    }
                 }
             }
 
@@ -64,7 +86,14 @@ namespace Repository
         {
             using (ISession session = DataBaseHelper.OpenSession())
             {
-                 return (T)session.Load(typeof(T), objId);
+                try
+                {
+                    return (T)session.Load(typeof(T), objId);
+                }
+                catch (Exception e)
+                {
+                    throw new DataBaseException("Baza de date a intampinat o eroare", e);
+                }
             }
          
         }
@@ -82,7 +111,14 @@ namespace Repository
         {
             using (ISession session = DataBaseHelper.OpenSession())
             {
-                return session.QueryOver<T>().List();
+                try
+                {
+                    return session.QueryOver<T>().List();
+                }
+                catch (Exception e)
+                {
+                    throw new DataBaseException("Baza de date a intampinat o eroare", e);
+                }
             }
         }
 

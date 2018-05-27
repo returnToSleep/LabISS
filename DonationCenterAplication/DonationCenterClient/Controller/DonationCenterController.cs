@@ -1,10 +1,13 @@
-﻿using Common.Model;
+﻿using Client.Utils;
+using Common.Exceptions;
+using Common.Model;
 using DonationCenterAplication.Remoting;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -88,7 +91,7 @@ namespace Client.Controller
                 distanceList.Add(new Tuple<double, Donor>(getDistanceFromDonationCenter(d), d));
             }
 
-            return distanceList.OrderBy(x => x.Item1)
+            return distanceList.OrderByDescending(x => x.Item1)
                 .Select(x => x.Item2)
                 .ToList();
         }
@@ -100,25 +103,42 @@ namespace Client.Controller
         public void addBloodToStock<T>(T bloodComponent) where T : BloodComponent
         {
             bloodComponent.donationCenter_id = donationCenter.id;
-            service.AddToDatabase(bloodComponent);
+            try
+            {
+                service.AddToDatabase(bloodComponent);
+            }
+            catch (RemotingException rmE)
+            {
+                throw new ControllerException("A aparut o problema!", rmE);
+            }
             Refresh();
         }
 
         public void addDonationToDonor(Donor donor, Donation donation, string bloodType)
         {
-            donor.bloodType = bloodType.Split(' ')[0];
-
-            donor.rh = bloodType.Split(' ')[1] == "pozitiv";
-
-
-            service.UpdateOneFromDatabase(donor);
-            service.AddToDatabase(donation);
+          
+            try
+            {
+                service.UpdateOneFromDatabase(donor);
+                service.AddToDatabase(donation);
+            }
+            catch (RemotingException rmE)
+            {
+                throw new ControllerException("A aparut o problema!", rmE);
+            }
         }
 
         public void Refresh()
         {
             refreshBloodStock();
-            donationCenter = this.service.GetOneFromDatabase<DonationCenter>(this.donationCenter.id);
+            try
+            {
+                donationCenter = this.service.GetOneFromDatabase<DonationCenter>(this.donationCenter.id);
+            }
+            catch (RemotingException rmE)
+            {
+                throw new ControllerException("A aparut o problema!", rmE);
+            }
         }
 
         /**
@@ -130,15 +150,27 @@ namespace Client.Controller
             if (b)
             {
                 d.isPending = false;
-                this.service.UpdateOneFromDatabase(d);
+                try
+                {
+                    service.UpdateOneFromDatabase(d);
+                }
+                catch (RemotingException rmE)
+                {
+                    throw new ControllerException("A aparut o problema!", rmE);
+                }
                 Refresh();
-                //TODO : send mail
             }
             else
             {
-                this.service.DeleteFromDatabase(d);
+                try
+                {
+                    service.DeleteFromDatabase(d);
+                }
+                catch (RemotingException rmE)
+                {
+                    throw new ControllerException("A aparut o problema!", rmE);
+                }
                 Refresh();
-                //TODO : send mail
             }
 
         }
@@ -149,8 +181,15 @@ namespace Client.Controller
         private PriorityQueue<DoctorRequest> sortRequests()
         {
             PriorityQueue<DoctorRequest> priorityQueueRequests = new PriorityQueue<DoctorRequest>();
-            IList<DoctorRequest> doctorRequest = this.service.GetAllFromDatabase<DoctorRequest>();
-            doctorRequest.ToList().ForEach(request => priorityQueueRequests.Enqueue(request));
+            try
+            {
+                IList<DoctorRequest> doctorRequest = this.service.GetAllFromDatabase<DoctorRequest>();
+                doctorRequest.ToList().ForEach(request => priorityQueueRequests.Enqueue(request));
+            }
+            catch (RemotingException rmE)
+            {
+                throw new ControllerException("A aparut o problema!", rmE);
+            }
             return priorityQueueRequests;
         }
 
@@ -199,25 +238,8 @@ namespace Client.Controller
             #region Red
             if (splitRequest[0].Equals("Red"))
             {
-                if (splitRequest[1] == "A")
-                {
-                    bloodType = "B";
-                }
 
-                if (splitRequest[1] == "B")
-                {
-                    bloodType = "A";
-                }
-
-                if (splitRequest[1] == "AB")
-                {
-                    bloodType = "0";
-                }
-
-                if (splitRequest[1] == "0")
-                {
-                    bloodType = "A";
-                }
+                bloodType = splitRequest[1];
 
                 rh = bool.Parse(splitRequest[2]);
 
@@ -242,34 +264,94 @@ namespace Client.Controller
         }
 
 
-        public List<T> getAvailableBloodForRequest<T>(DoctorRequest request) where T : BloodComponent
+        public string getAvailableBloodGreedy<T>(List<T> componentList, double ammountNeeded) where T : BloodComponent
         {
+            IEnumerable<T> orderedList = componentList.OrderByDescending(x => x.ammount);
+            string combinedBlood = "";
+            double gatheredAmount = 0f;
+            DateTime maxDate = new DateTime(1, 1, 1);
+
+            foreach (T comp in orderedList)
+            {
+                if (gatheredAmount + comp.ammount >= ammountNeeded)
+                {
+                    if (comp.donationDate.CompareTo(maxDate) > 0)
+                    {
+                        maxDate = comp.donationDate;
+                    }
+                    combinedBlood += comp.id.ToString() + "," + (ammountNeeded - gatheredAmount).ToString() + ";" + maxDate.Year.ToString() + "/" + maxDate.Month.ToString() + "/" + maxDate.Day.ToString();
+                    gatheredAmount += ammountNeeded - gatheredAmount;
+                    break; 
+                }
+
+                if (comp.donationDate.CompareTo(maxDate) > 0)
+                {
+                    maxDate = comp.donationDate;
+                }
+                gatheredAmount +=  comp.ammount;
+                combinedBlood += comp.id.ToString() + "," + comp.ammount + ";\n"; 
+
+            }
+
+            if (gatheredAmount < ammountNeeded)
+            {
+                return null;
+            }
+
+            string type = typeof(T).ToString().Split('.')[1];
+
+            if (type == "RedBloodCell")
+            {
+                return "Celule rosii;" + combinedBlood;
+            }
+
+            if (type == "Plasma")
+            {
+                return type + ";" + combinedBlood;
+            }
+
+            if (type == "Trombocyte")
+            {
+                return "Trobocite;" + combinedBlood;
+            }
+
+            return null; 
+        }
+
+
+
+        public string getAvailableBloodForRequest<T>(DoctorRequest request) where T : BloodComponent
+        {
+
+            if (request.isBeeingDelivered)
+            {
+                return "Comanda este in curs de livrare";
+            }
+
             string[] splitRequest = request.requestString.Split(',');
             
 
             if (splitRequest[0].Equals("Plasma"))
             {
-                return this.donationCenter.plasmaList
-                    .Where(x => x.antibody == splitRequest[1] && x.ammount >= double.Parse(splitRequest[2]))
-                    .Cast<T>()
-                    .ToList();
+                return getAvailableBloodGreedy(donationCenter.plasmaList
+                    .Where(x => x.antibody == splitRequest[1])
+                    .ToList(), double.Parse(splitRequest[2]));
+            
             }
 
             if (splitRequest[0].Equals("Red"))
             {
-                return this.donationCenter.redBloodCellList
-                    .Where(x => x.antigen == splitRequest[1] && x.rh == bool.Parse(splitRequest[2]) && x.ammount >= double.Parse(splitRequest[3]))
-                    .Cast<T>()
-                    .ToList();
+            
+                return getAvailableBloodGreedy(donationCenter.redBloodCellList
+                    .Where(x => x.antigen == splitRequest[1] && x.rh == bool.Parse(splitRequest[2]))
+                    .ToList(), double.Parse(splitRequest[3]));
 
             }
 
             if (splitRequest[0].Equals("Tromb"))
             {
-                return this.donationCenter.trombocyteList
-                    .Where(x => x.ammount >= double.Parse(splitRequest[1]))
-                    .Cast<T>()
-                    .ToList();
+                return getAvailableBloodGreedy(donationCenter.trombocyteList
+                   .ToList(), double.Parse(splitRequest[1]));
             }
 
             return null;
@@ -284,25 +366,161 @@ namespace Client.Controller
          * Creates a new BloodComponent with the amount requested, and reduces the ammount of the source
 
          */
-        public void sendBlood<T>(BloodComponent bloodComponent, DoctorRequest request) where T : BloodComponent
+
+        private IList<Tuple<string, DoctorRequest>> updateAmmounts(string[] splitCompStr, string type, DoctorRequest req)
+        {
+
+            IList<Tuple<string, DoctorRequest>> emailList = new List<Tuple<string, DoctorRequest>>();
+
+            try
+            {
+                if (type == "Plasma")
+                {
+                    foreach (string s in splitCompStr)
+                    {
+                        string[] sArr = s.Split(',');
+                        Plasma p = donationCenter.plasmaList.First(x => x.id == int.Parse(sArr[0]));
+                        p.ammount -= double.Parse(sArr[1]);
+
+                        if (p.email != null) {
+                            emailList.Add(new Tuple<string, DoctorRequest>(p.email, req));
+                        }
+                            
+
+                        if (p.ammount == 0)
+                        {
+                            service.DeleteFromDatabase(p);
+                        }
+                        else
+                        {
+                            service.UpdateOneFromDatabase(p);
+                        }
+                        
+                    }
+                }
+
+                if (type == "Red")
+                {
+                    foreach (string s in splitCompStr)
+                    {
+                        string[] sArr = s.Split(',');
+                        RedBloodCell r = donationCenter.redBloodCellList.First(x => x.id == int.Parse(sArr[0]));
+                        r.ammount -= double.Parse(sArr[1]);
+
+                        if (r.email != null)
+                        {
+                            emailList.Add(new Tuple<string, DoctorRequest>(r.email, req));
+                        }
+                        
+
+                        if (r.ammount == 0)
+                        {
+                            service.DeleteFromDatabase(r);
+                        }
+                        else
+                        {
+                            service.UpdateOneFromDatabase(r);
+                        }
+                    }
+                }
+
+                if (type == "Tromb")
+                {
+                    foreach (string s in splitCompStr)
+                    {
+                        string[] sArr = s.Split(',');
+                        Trombocyte t = donationCenter.trombocyteList.First(x => x.id == int.Parse(sArr[0]));
+                        t.ammount -= double.Parse(sArr[1]);
+
+                        if (t.email != null)
+                        {
+                            emailList.Add(new Tuple<string, DoctorRequest>(t.email, req));
+                        }
+
+
+                        if (t.ammount == 0)
+                        {
+                            service.DeleteFromDatabase(t);
+                        }
+                        else
+                        {
+                            service.UpdateOneFromDatabase(t);
+                        }
+
+                    }
+                }
+                return emailList;
+            }
+
+
+            catch (RemotingException rmE)
+            {
+                throw new ControllerException("A aparut o problema!", rmE);
+            }
+       }
+
+
+        public IList<Tuple<string, DoctorRequest>> sendBlood(string compStr, DoctorRequest request)
         {
             string[] splitRequest = request.requestString.Split(',');
+            string[] splitCompStr = compStr.Replace("\n", "").Split(';');
+            splitCompStr = splitCompStr.Skip(1).ToArray();
             
-            T comp = (T)bloodComponent;
-            comp.doctor_id = request.doctor_id;
+            var emailList = updateAmmounts(splitCompStr.Take(splitCompStr.Count() - 1).ToArray(), splitRequest[0], request);
 
-            float ammount = float.Parse(splitRequest[3]);
+           
+            if (splitRequest[0] == "Plasma")
+            {
+                string dateStr = splitCompStr[splitCompStr.Length - 1];
+                string[] splitDateStr = dateStr.Split('/');
 
-            bloodComponent.ammount -= ammount;
+                Plasma comp;
 
-            if (bloodComponent.ammount == 0)
-                service.DeleteFromDatabase(bloodComponent);
-            else
-                service.UpdateOneFromDatabase(bloodComponent);
+                DateTime date = new DateTime(int.Parse(splitDateStr[0]), int.Parse(splitDateStr[1]), int.Parse(splitDateStr[2]));
+                comp = new Plasma(splitRequest[1], null, null, float.Parse(splitRequest[2]), date, null);
+                comp.doctor_id = request.doctor_id;
 
-            comp.ammount = ammount;
-            service.UpdateOneFromDatabase(comp);
-            Refresh();
+                request.isBeeingDelivered = true;
+                service.UpdateOneFromDatabase(request);
+                service.AddToDatabase(comp);
+                return emailList;
+            }
+
+            if (splitRequest[0] == "Red")
+            {
+                string dateStr = splitCompStr[splitCompStr.Length - 1];
+                string[] splitDateStr = dateStr.Split('/');
+
+                RedBloodCell comp;
+
+                DateTime date = new DateTime(int.Parse(splitDateStr[0]), int.Parse(splitDateStr[1]), int.Parse(splitDateStr[2]));
+                comp = new RedBloodCell(splitRequest[1], bool.Parse(splitRequest[2]), null, null, float.Parse(splitRequest[3]), date, null);
+                comp.doctor_id = request.doctor_id;
+
+                request.isBeeingDelivered = true;
+                service.UpdateOneFromDatabase(request);
+                service.AddToDatabase(comp);
+                return emailList;
+            }
+
+            if (splitRequest[0] == "Tromb")
+            {
+                Trombocyte comp;
+
+                string dateStr = splitCompStr[splitCompStr.Length - 1];
+                string[] splitDateStr = dateStr.Split('/');
+
+                DateTime date = new DateTime(int.Parse(splitDateStr[0]), int.Parse(splitDateStr[1]), int.Parse(splitDateStr[2]));
+                comp = new Trombocyte( null, null, float.Parse(splitRequest[1]), date, null);
+                comp.doctor_id = request.doctor_id;
+
+                request.isBeeingDelivered = true;
+                service.UpdateOneFromDatabase(request);
+                service.AddToDatabase(comp);
+                return emailList;
+            }
+
+            return emailList;
         }
     }
     #endregion

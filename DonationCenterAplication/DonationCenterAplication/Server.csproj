@@ -70,6 +70,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="GMap.NET.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
@@ -114,6 +122,7 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.108.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
@@ -128,22 +137,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\CardControl.cs">
+    <Compile Include="GUI\CardControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\CardControl.designer.cs">
+    <Compile Include="GUI\CardControl.designer.cs">
       <DependentUpon>CardControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Doctor CRUD.cs">
+    <Compile Include="GUI\Doctor CRUD.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Doctor CRUD.designer.cs">
+    <Compile Include="GUI\Doctor CRUD.designer.cs">
       <DependentUpon>Doctor CRUD.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DonationCenterCRUD.cs">
+    <Compile Include="GUI\DonationCenterCRUD.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DonationCenterCRUD.Designer.cs">
+    <Compile Include="GUI\DonationCenterCRUD.Designer.cs">
       <DependentUpon>DonationCenterCRUD.cs</DependentUpon>
     </Compile>
     <Compile Include="ORM\RepositoryBase.cs" />
@@ -151,27 +160,26 @@
     <Compile Include="ORM\IRepository.cs" />
     <Compile Include="ORM\Mappers.cs" />
     <Compile Include="Remoting\ServerService.cs" />
-    <Compile Include="Forms\Form1.cs">
+    <Compile Include="GUI\ServerGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="GUI\ServerGUI.Designer.cs">
+      <DependentUpon>ServerGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\ServerConsoleUI.cs" />
-    <Compile Include="Controller\ServerController.cs" />
-    <EmbeddedResource Include="Forms\CardControl.resx">
+    <Compile Include="Utils\ConsoleRedirected.cs" />
+    <EmbeddedResource Include="GUI\CardControl.resx">
       <DependentUpon>CardControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Doctor CRUD.resx">
+    <EmbeddedResource Include="GUI\Doctor CRUD.resx">
       <DependentUpon>Doctor CRUD.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DonationCenterCRUD.resx">
+    <EmbeddedResource Include="GUI\DonationCenterCRUD.resx">
       <DependentUpon>DonationCenterCRUD.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\ServerGUI.resx">
+      <DependentUpon>ServerGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -6,6 +6,7 @@ using System.Text;
 using Model;
 using Common.Model;
 using DonationCenterAplication.Remoting;
+using Common.Exceptions;
 
 namespace Controller{
     /**
@@ -14,8 +15,8 @@ namespace Controller{
     public class DonorController {
 
 
-        private Donor donor { get; set; }
-        private IService service { get; set; }
+        public Donor donor { get; set; }
+        public IService service { get; set; }
 
         //Constructors
         #region Constructors
@@ -44,30 +45,36 @@ namespace Controller{
         #region Donation
         /*
         *
-        * Donor GUI will have a list of checkboxes (ex "Ati suferit de: ... ") 
-        * isFit will determine based on the checkboxes if the donor is fit 
+        *       returns a string used in the GUI that informes the donor if or when they can donate again
         * 
         */
-        private bool isDonorFit(Donor donor, Donation donation, bool isFit)
+        public string isDonorFit()
         {
-           if (! isFit)
+
+           
+
+            if (donor.isPending == true)
             {
-                return false;
+                return "Momentan nu avem rezultatele analizelor";
             }
 
-            DateTime zeroTime = new DateTime(1, 1, 1);
+            DateTime lastDonationDate;
 
-            TimeSpan span = DateTime.Now - donor.birthdate;
-            
-            int age = (zeroTime + span).Year - 1;
-            
-            if ( age < 18 || age > 60)
+            try
             {
-                return false;
+                lastDonationDate = donor.getLastDonation();
             }
-            
+            catch
+            {
+                lastDonationDate = new DateTime(1, 1, 1); 
+            }
 
-            return true;
+            if (lastDonationDate.AddMonths(2).CompareTo(DateTime.Today) > 0)
+            {
+                return "Puteti dona din nou incepand din " + lastDonationDate.AddMonths(2).Date.ToString();
+            }
+
+            return "Puteti dona!";
 
         }
         
@@ -80,10 +87,19 @@ namespace Controller{
         public void selectDonationCenter(Location l)
         {
             string donationCenter_id = l.latitude.ToString() + ',' + l.longitude.ToString();
-            this.donor.donationCenter_id = donationCenter_id;
-            this.service.UpdateOneFromDatabase(donor); 
+            donor.donationCenter_id = donationCenter_id;
+
+            try
+            {
+                service.UpdateOneFromDatabase(donor);
+            }catch (RemotingException rmE)
+            {
+                throw new ControllerException("A aparut o problema!", rmE);
+            }
         }
         #endregion
+
+
         
         //Region for the blood tracking functionality
         #region Blood Tracking
@@ -111,5 +127,20 @@ namespace Controller{
         }
         #endregion
 
+
+        #region Utils
+
+        public void refresh()
+        {
+            try
+            {
+                donor = service.GetOneFromDatabase<Donor>(donor.cnp);
+            }catch (RemotingException rmE){
+                throw new ControllerException("A aparut o problema!", rmE);
+            }
+        }
+
+
+        #endregion
     }
 }

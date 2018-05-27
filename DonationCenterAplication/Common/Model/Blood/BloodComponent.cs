@@ -11,11 +11,12 @@ namespace Common.Model
     {
         public virtual string donationCenter_id { get; set; }
         public virtual string donor_cnp { get; set; }
-        public virtual float ammount { get; set; }
+        public virtual double ammount { get; set; }
         public virtual int id { get; set; }
         public virtual DateTime donationDate { get; set; }
         public virtual string email { get; set; }
         public virtual bool isBeeingDelivered { get; set; }
+        public virtual string donatedFor { get; set; }
         
         //int? - nullable int
         public virtual int? doctor_id { get; set; }
@@ -38,6 +39,10 @@ namespace Common.Model
             return this.donationDate;
         }
 
+        public override string ToString()
+        {
+            return donatedFor == null ? "" : "\nDonat pentru: " + donatedFor;
+        }
 
     }
 }

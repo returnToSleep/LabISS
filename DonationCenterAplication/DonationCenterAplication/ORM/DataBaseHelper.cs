@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using Common.Exceptions;
+using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 using NHibernate.Dialect;
@@ -6,6 +7,7 @@ using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -27,7 +29,7 @@ namespace DonationCenterAplication.ORM
                     var cfg = new Configuration();
 
                     cfg.DataBaseIntegration(x => {
-                        x.ConnectionString = "Data Source = DESKTOP-ILR06L3; Initial Catalog = Blood; Integrated Security = True";
+                        x.ConnectionString = "Data Source = CTRLSOFT-FM1A7D\\MYSQL; Initial Catalog = Blood; Integrated Security = True";
 
                         x.Driver<SqlClientDriver>();
                                             x.Dialect<MsSql2012Dialect>();
@@ -46,7 +48,14 @@ namespace DonationCenterAplication.ORM
 
                     //cfg.Configure();
 
-                    _sessionFactory = cfg.BuildSessionFactory();
+                    try
+                    {
+                        _sessionFactory = cfg.BuildSessionFactory();
+                    }
+                    catch (SqlException)
+                    {
+                        throw new DataBaseException("Ai uitat sa schimibi connction string-ul din \"DataBaseHelper\"");
+                    }
                 }
                 return _sessionFactory;
             }

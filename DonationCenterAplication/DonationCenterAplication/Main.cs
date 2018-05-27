@@ -26,23 +26,14 @@ public class Source
     static void Main()
     {
 
-        /*
+        
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
         Application.Run(new Form1());
-        */
-
-        TcpServerChannel channel = new TcpServerChannel(9999);
-        ChannelServices.RegisterChannel(channel, false);
-        RemotingConfiguration.RegisterWellKnownServiceType(typeof(ServerService),
-            "IService", WellKnownObjectMode.Singleton);
-
-        Console.WriteLine("Listening for requests from the Client! Press Enter to exit...");
-        //Console.ReadLine();
         
+
+        
+       
       
-        Form form = new Form1();
-        form.ShowDialog();
-        
     }
 }

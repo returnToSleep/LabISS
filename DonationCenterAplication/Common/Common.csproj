@@ -64,6 +64,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ControllerException.cs" />
+    <Compile Include="Exceptions\DataBaseException.cs" />
+    <Compile Include="Exceptions\RemotingException.cs" />
     <Compile Include="Model\Blood\BloodComponent.cs" />
     <Compile Include="Model\DoctorRequest.cs" />
     <Compile Include="Model\Donation.cs" />
@@ -78,6 +81,9 @@
     <Compile Include="Model\Blood\RedBloodCells.cs" />
     <Compile Include="Model\Blood\Trombocytes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\BloodInputValidator.cs" />
+    <Compile Include="Validators\DonorValidator.cs" />
+    <Compile Include="Validators\RequestValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

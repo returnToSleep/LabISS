@@ -30,7 +30,7 @@ namespace Model{
 
         public override string ToString()
         {
-            return "Data expirarii: " + getExpirationDate() + "\nCantitate: " + ammount;
+            return "Data expirarii: " + getExpirationDate() + "\nCantitate: " + ammount + base.ToString();
 
         }
     }

@@ -18,6 +18,7 @@ namespace Common.Model{
         public virtual Location location{ get; set; }
         public virtual IList<Donation> donationHistory { get; set; }
         public virtual string email { get; set; }
+        public virtual string address { get; set; }
 
         public virtual IList<RedBloodCell> redBloodCellList { get; set; }
         public virtual IList<Trombocyte> trombocyteList { get; set; }
@@ -28,6 +29,7 @@ namespace Common.Model{
         public virtual string donationCenter_id { get; set; }
         public virtual string bloodType { get; set; }
         public virtual bool rh { get; set; }
+        public virtual string donatedFor { get; set; }
 
         public Donor() { }
 
@@ -49,6 +51,7 @@ namespace Common.Model{
             this.name = name;
             this.cnp = cnp;
             this.birthdate = birthdate;
+            this.address = address;
             this.location = location;
             this.email = email;
             this.isPending = true;
@@ -56,18 +59,26 @@ namespace Common.Model{
 
         public virtual DateTime getLastDonation()
         {
-            return donationHistory
-                .Select(x => x.donationDate)
-                .Max();
+            try
+            {
+                return donationHistory
+                    .Select(x => x.donationDate)
+                    .Max();
+            }
+            catch
+            {
+                return new DateTime(1, 1, 1);
+            }
         }
 
         public override string ToString()
         {
             string bt = (bloodType == null) ? "?" : bloodType;
             string rhStr = (rh) ? " pozitiv" : " negativ";
+            string donatesFor = donatedFor == null && ! isPending ? "" : "Doneaza pentru: " + donatedFor;
 
             return "Nume: " + name + "\nCNP: " + cnp + "\nGrupa sanguina: " + bt + rhStr + "\nData nasterii: " + birthdate.Date.ToString()
-                + "\nE-mail: " + email + "\n";
+                + "\nE-mail: " + email + "\n" + donatedFor + "\n";
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Common.Model{
         public virtual int id { get; set; }
         public virtual double latitude { get; set;}
         public virtual double longitude { get; set; }
+        public virtual string addressString { get; set; }
 
         public Location() { }
 
@@ -24,7 +25,10 @@ namespace Common.Model{
         public Location(string addressString, double latitude, double longitude) {
             this.latitude = latitude;
             this.longitude = longitude;
+            this.addressString = addressString;
         }
+
+
 
    
 

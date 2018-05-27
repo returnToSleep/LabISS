@@ -20,6 +20,8 @@ namespace Common.Model
         public virtual float trombQuantity { get; set; }
         public virtual float redQuantity { get; set; }
 
+        public virtual string pacientName { get; set; }
+
         public Donation() { }
 
         public Donation(string donorCnp, float quantity, int pulse, int bloodPressure, DateTime donationDate, float plasmaQuantity, float redQuantity, float trombQuantity)
@@ -37,13 +39,17 @@ namespace Common.Model
 
         public override string ToString()
         {
+
+            string donatedFor = pacientName != null ? "\nDonat pentru: " + pacientName : "";
+
             return "Donatia din: " + donationDate.Date.ToString()
-                + "Cantitate recoltata: " + quantity.ToString() + " ml dintre care: \n"
+                + "\nCantitate recoltata: " + quantity.ToString() + " ml dintre care: \n"
                 + "    Celule rosii: " + redQuantity.ToString() + " ml\n"
                 + "    Trombocite: " + trombQuantity.ToString() + " ml\n"
                 + "    Plasma: " + trombQuantity.ToString() + " ml\n"
                 + "Presiunea sistolica: " + bloodPressure.ToString() + "mmHg\n"
-                + "Puls: " + pulse.ToString() + "bpm";
+                + "Puls: " + pulse.ToString() + "bpm"
+                + donatedFor;
         }
 
 

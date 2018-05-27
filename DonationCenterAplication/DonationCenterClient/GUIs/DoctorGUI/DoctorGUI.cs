@@ -1,7 +1,10 @@
 ﻿using Common.Model;
+using Common.Validators;
 using Controller;
 using GMap.NET;
 using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -25,13 +28,15 @@ namespace Client.GUIs
             this.controller = controller;
             RefreshLists();
             gMapDoctors.Manager.Mode = AccessMode.ServerOnly;
-            gMapDoctors.MapProvider = GMapProviders.OpenStreetMap;
+            gMapDoctors.MapProvider = GMapProviders.GoogleMap;
 
             gMapStocks.Manager.Mode = AccessMode.ServerOnly;
-            gMapStocks.MapProvider = GMapProviders.OpenStreetMap;
+            gMapStocks.MapProvider = GMapProviders.GoogleMap;
+            
 
             populateDonationCenterList();
             populateRequestList();
+            populatePacientList();
 
             nameLabel.Text += " " + controller.doctor.name;
 
@@ -40,27 +45,14 @@ namespace Client.GUIs
             priority.SelectedIndex = 0;
             component.SelectedIndex = 0;
 
+            Text = controller.doctor.hospital;
+
         }
+
+        
 
         public void populateRequestList()
         {
-          
-
-        }
-
-        public void populateDonationCenterList()
-        {
-            this.controller.service.GetAllFromDatabase<Common.Model.DonationCenter>().ToList().ForEach(dc => {
-                this.comboBox1.Items.Add(dc.name);
-                this.comboBox4.Items.Add(dc.name);
-                });
-
-        }
-
-
-        private void RefreshLists()
-        {
-           
 
             requestList.Items.Clear();
 
@@ -69,9 +61,70 @@ namespace Client.GUIs
             {
                 requestList.Items.Add(r);
             }
-            
+
+        }
+
+        public void populatePacientList()
+        {
+            pacientMultiList.Items.Clear();
+
+            HashSet<string> pacientList = controller.getPacients();
+            foreach (string r in pacientList)
+            {
+                pacientMultiList.Items.Add(r);
+            }
+        }
+
+        public void populateDonationCenterList()
+        {
+            this.comboBox1.Items.Clear();
+            this.comboBox4.Items.Clear();
 
 
+
+            GMapOverlay markersStock = new GMapOverlay("markersStock");
+            GMapOverlay markersRequest = new GMapOverlay("markersRequest");
+
+            this.controller.service.GetAllFromDatabase<Common.Model.DonationCenter>().ToList().ForEach(dc =>
+            {
+                this.comboBox1.Items.Add(dc);
+                this.comboBox4.Items.Add(dc);
+
+
+                dc.setLatLon();
+
+                double lat = dc.lat;
+                double lon = dc.lon;
+
+                GMapMarker marker = new GMarkerGoogle(
+                    new PointLatLng(lat, lon),
+                    GMarkerGoogleType.red);
+
+                marker.ToolTipText = dc.name;
+
+                markersStock.Markers.Add(marker);
+                markersRequest.Markers.Add(marker);
+
+            });
+
+            GMapMarker doctorMarker = new GMarkerGoogle(
+                   new PointLatLng(controller.doctor.location.latitude, controller.doctor.location.longitude),
+                   GMarkerGoogleType.blue);
+
+            doctorMarker.ToolTipText = "Spitalul dumneavoastra";
+
+            markersStock.Markers.Add(doctorMarker);
+            markersRequest.Markers.Add(doctorMarker);
+
+            gMapDoctors.Overlays.Add(markersRequest);
+            gMapStocks.Overlays.Add(markersStock);
+        }
+        private void RefreshLists()
+        { 
+            controller.refresh();
+            populateRequestList();
+            populatePacientList();
+            populateDonationCenterList();
         }
 
         private void DoctorGUI_FormClosed(object sender, FormClosedEventArgs e)
@@ -80,20 +133,41 @@ namespace Client.GUIs
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
-        {
-
-            controller.refresh();
+        { 
             RefreshLists();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string donationCenterName = this.comboBox1.Items[this.comboBox1.SelectedIndex].ToString();
-            var donationCenter = this.controller.service.GetAllFromDatabase<Common.Model.DonationCenter>().First(dc => dc.name == donationCenterName);
 
-            string[] loc = donationCenter.id.Split(',');
+            Common.Model.DonationCenter donationCenter = (Common.Model.DonationCenter)comboBox1.SelectedItem;
 
-            gMapDoctors.Position = new PointLatLng(double.Parse(loc[0]), double.Parse(loc[1]));
+            double doctorLat = controller.doctor.location.latitude;
+            double doctorLon = controller.doctor.location.longitude;
+
+
+            double donationCenterLat = donationCenter.lat;
+            double donationCenterLon = donationCenter.lon;
+
+
+            try
+            {
+                gMapDoctors.Overlays.Remove(gMapDoctors.Overlays.First(x => x.Id == "requestRoute"));
+            }
+            catch { }
+
+            MapRoute route = OpenStreetMapProvider.Instance.GetRoute(
+            new PointLatLng(doctorLat, doctorLon), new PointLatLng(donationCenterLat, donationCenterLon), false, false, 15);
+
+            GMapRoute r = new GMapRoute(route.Points, "Route to donation center");
+
+            GMapOverlay routesOverlay = new GMapOverlay("requestRoute");
+
+            routesOverlay.Routes.Add(r);
+
+            gMapDoctors.Overlays.Add(routesOverlay);
+            
+            gMapDoctors.Position = new PointLatLng(donationCenterLat, donationCenterLon);
             gMapDoctors.Zoom = 15;
         }
 
@@ -119,57 +193,33 @@ namespace Client.GUIs
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string donationCenterName = this.comboBox1.Items[this.comboBox1.SelectedIndex].ToString();
-            var donationCenter = this.controller.service.GetAllFromDatabase<Common.Model.DonationCenter>().Where(dc => dc.name == donationCenterName).FirstOrDefault();
-
-            List<string> loc = donationCenter.id.Split(',').ToList();
-            Location location = new Location
-            {
-                latitude = Convert.ToDouble(loc[0]),
-                longitude = Convert.ToDouble(loc[1])
-            };
-
-            string priority = this.priority.Items[this.priority.SelectedIndex].ToString();
-            string pacientCNP = this.cnp.Text.ToString();
-
-            var donor = this.controller.service.GetAllFromDatabase<Donor>().Where(d => d.cnp == pacientCNP);
-            if(donor != null)
-            {
-                priority = "0";
-            }
-
-            string request = "";
-
-            if (this.component.SelectedIndex == 0)
-                request += "Red" + ',' + this.antigen.Text.ToString() + ',' + this.rh.Text.ToString() + ',' + this.quantity.Text.ToString();
-
-            if (this.component.SelectedIndex == 1)
-                request += "Plasma" + ',' + this.antigen.Text.ToString() + ',' + this.quantity.Text.ToString();
-
-            if (this.component.SelectedIndex == 2)
-                request += "Tromb" + ',' + this.quantity.Text.ToString();
-
-
-            this.controller.makeRequest(location, Convert.ToInt32(priority), "PACIENT NAME", pacientCNP, request);
-            MessageBox.Show("Cerere trimisa");
-            this.comboBox1.SelectedIndex = 0;
-            this.priority.SelectedIndex = 0;
-            this.component.SelectedIndex = 0;
-            this.cnp.Text = "";
-            this.quantity.Text = "";
-            this.antigen.Text = "";
-            this.rh.Text = "";
-        }
-
-    
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string donationCenterName = this.comboBox4.Items[this.comboBox4.SelectedIndex].ToString();
-            var donationCenter = this.controller.service.GetAllFromDatabase<Common.Model.DonationCenter>().First(dc => dc.name == donationCenterName);
 
+            Common.Model.DonationCenter donationCenter = (Common.Model.DonationCenter)comboBox4.SelectedItem;
+
+            double doctorLat = controller.doctor.location.latitude;
+            double doctorLon = controller.doctor.location.longitude;
+
+            double donationCenterLat = donationCenter.lat;
+            double donationCenterLon = donationCenter.lon;
+
+            try
+            {
+                gMapStocks.Overlays.Remove(gMapStocks.Overlays.First(x => x.Id == "stockRoute"));
+            }
+            catch { }
+        
+            MapRoute route = OpenStreetMapProvider.Instance.GetRoute(
+            new PointLatLng(doctorLat, doctorLon), new PointLatLng(donationCenterLat, donationCenterLon), false, false, 15);
+
+            GMapRoute r = new GMapRoute(route.Points, "Route to donation center");
+            GMapOverlay routesOverlay = new GMapOverlay("stockRoute");
+            routesOverlay.Routes.Add(r);
+
+
+            gMapStocks.Overlays.Add(routesOverlay);
 
             PlasmaAQuantity.Text = donationCenter.getPlasmaQuantity("A").ToString();
             PlasmaBQuantity.Text = donationCenter.getPlasmaQuantity("B").ToString();
@@ -191,7 +241,8 @@ namespace Client.GUIs
             string[] loc = donationCenter.id.Split(',');
 
             gMapStocks.Position = new PointLatLng(double.Parse(loc[0]), double.Parse(loc[1]));
-           
+            gMapStocks.Zoom = 15;
+
         }
 
  
@@ -228,7 +279,7 @@ namespace Client.GUIs
                 controller.acceptBlood(dR, (Trombocyte)deliveredBloodList.Items[0], true);
             }
 
-            MessageBox.Show("Comanda a fost acceptata!");
+            MessageBox.Show("Comanda a fost acceptata!", "Suces!");
 
             RefreshLists();
 
@@ -253,9 +304,212 @@ namespace Client.GUIs
 
             RefreshLists();
 
-            MessageBox.Show("Comanda a fost retrimisa!");
+            MessageBox.Show("Comanda a fost retrimisa!", "Ne cerem scuze");
 
         }
 
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void multiLineListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            foreach(Control c in pacientStatusGroupBox.Controls)
+            {
+                c.Enabled = true;
+            }
+
+
+            string selectedPacient = (string)pacientMultiList.SelectedItem;
+
+            var result = controller.getBloodDonatedForPacient(selectedPacient);
+            var totalNeeded = controller.getRequiredBloodForPacient(selectedPacient);
+
+
+            pacientNameLabel.Text = "Componente donate pentru " + selectedPacient;
+
+          
+
+            pacientTrombTextBox.Text = result.Item1.ToString();
+            pacientPlasmaTExtBox.Text = result.Item2.ToString();
+            pacientRedTextBox.Text = result.Item3.ToString();
+
+
+
+            trombProgress.Maximum = (int)totalNeeded.Item1;
+            plasmaProgress.Maximum = (int)totalNeeded.Item2;
+            redProgress.Maximum = (int)totalNeeded.Item3;
+
+
+            trombProgress.Value = totalNeeded.Item1 < result.Item1 ? (int)totalNeeded.Item1 : (int)result.Item1;
+            plasmaProgress.Value = totalNeeded.Item2 < result.Item2 ? (int)totalNeeded.Item2 : (int)result.Item2;
+            redProgress.Value = totalNeeded.Item3 < result.Item3 ? (int)totalNeeded.Item3 : (int)result.Item3;
+
+            if (totalNeeded.Item1 == 0)
+            {
+                pacientTrombTextBox.Text = "Nu este nevoie";
+                pacientTrombTextBox.Enabled = false;
+                trombProgress.Enabled = false;
+
+            }
+            if (totalNeeded.Item2 == 0)
+            {
+                pacientPlasmaTExtBox.Text = "Nu este nevoie";
+                pacientPlasmaTExtBox.Enabled = false;
+                plasmaProgress.Enabled = false;
+            }
+            if (totalNeeded.Item3 == 0)
+            {
+                pacientRedTextBox.Text = "Nu este nevoie";
+                pacientRedTextBox.Enabled = false;
+                redProgress.Enabled = false;
+            }
+
+
+        }
+
+        private void sendRequestButton_Click(object sender, EventArgs e)
+        {
+
+
+            string err = RequestValidator.validateNameQuantity(this.cnp.Text, quantity.Text);
+
+            if (err != "")
+            {
+                MessageBox.Show(err, "Date invalide");
+                return;
+            }
+
+
+            string donationCenterName = this.comboBox1.Items[this.comboBox1.SelectedIndex].ToString();
+            var donationCenter = this.controller.service.GetAllFromDatabase<Common.Model.DonationCenter>().Where(dc => dc.name == donationCenterName).FirstOrDefault();
+
+            List<string> loc = donationCenter.id.Split(',').ToList();
+            Location location = new Location
+            {
+                latitude = Convert.ToDouble(loc[0]),
+                longitude = Convert.ToDouble(loc[1])
+            };
+
+            string priority = this.priority.Items[this.priority.SelectedIndex].ToString();
+
+            if (priority == "Mare")
+                priority = "1";
+
+            if (priority == "Medie")
+                priority = "2";
+
+            if (priority == "Scazuta")
+                priority = "3";
+
+            string pacientName = this.cnp.Text.ToString();
+
+            IList<Donor> donorList = controller.service.GetAllFromDatabase<Donor>();
+            try
+            {
+                Donor donor = donorList.First(x => x.name == pacientName);
+                priority = "0";
+            }
+            catch (Exception) { }
+
+
+            string request = "";
+
+            if (this.component.SelectedIndex == 0)
+                request += "Red" + ',' + this.antigen.Text.ToString() + ',' + rh.Checked.ToString() + ',' + this.quantity.Text.ToString();
+
+            if (this.component.SelectedIndex == 1)
+                request += "Plasma" + ',' + this.antigen.Text.ToString() + ',' + this.quantity.Text.ToString();
+
+            if (this.component.SelectedIndex == 2)
+                request += "Tromb" + ',' + this.quantity.Text.ToString();
+
+
+            this.controller.makeRequest(location, Convert.ToInt32(priority), "PACIENT NAME", pacientName, request, donationCenterName);
+            MessageBox.Show("Cerere trimisa", "Suces!");
+
+            this.priority.SelectedIndex = 0;
+            this.component.SelectedIndex = 0;
+            this.cnp.Text = "";
+            this.quantity.Text = "";
+            this.antigen.Text = "";
+            this.rh.Text = "";
+        }
+
+        private void gMapStocks_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void logOutButton_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Abort;
+            Close();
+        }
+
+        private void trombProgress_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pacientRedTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pacientPlasmaTExtBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gMapStocks_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+        {
+            if (item.ToolTipText != "Spitalul dumneavoastra")
+            {
+                foreach (object donationCenter in comboBox4.Items)
+                {
+                    Common.Model.DonationCenter d = (Common.Model.DonationCenter)donationCenter;
+
+                    if (d.name == item.ToolTipText)
+                    {
+                        comboBox4.SelectedItem = donationCenter;
+                        comboBox1.SelectedItem = donationCenter;
+                        return;
+                    }
+
+                }
+            }
+        }
+
+        private void gMapDoctors_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+        {
+            if (item.ToolTipText != "Spitalul dumneavoastra")
+            {
+                foreach (object donationCenter in comboBox1.Items)
+                {
+                    Common.Model.DonationCenter d = (Common.Model.DonationCenter)donationCenter;
+
+                    if (d.name == item.ToolTipText)
+                    {
+                        comboBox1.SelectedItem = donationCenter;
+                        comboBox4.SelectedItem = donationCenter;
+                        return;
+                    }
+
+                }
+            }
+        }
+
+        private void refreshTimer_Tick(object sender, EventArgs e)
+        {
+            RefreshLists();
+        }
+
+        private void label33_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

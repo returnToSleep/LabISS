@@ -13,6 +13,10 @@ namespace Common.Model
         //the id is in latitude,logitude format
         public virtual string id { get; set; }
         public virtual string name { get; set; }
+
+        public double lat { get; set; }
+        public double lon { get; set; }
+
         public virtual IList<DoctorRequest> requests { get; set; }
         public virtual IList<Donor> donors { get; set; }
         public virtual IList<RedBloodCell> redBloodCellList { get; set; }
@@ -24,30 +28,42 @@ namespace Common.Model
         {
             this.id = id;
             this.name = name;
+
+        }
+
+        public void setLatLon()
+        { 
+            lat = double.Parse(id.Split(',')[0]);
+            lon = double.Parse(id.Split(',')[1]);
         }
 
 
-        public float getTrombQuantity()
+        public double getTrombQuantity()
         {
-            return this.trombocyteList
+            return trombocyteList
                 .Select(x => x.ammount)
                 .Sum();
         }
 
-        public float getPlasmaQuantity(string type)
+        public double getPlasmaQuantity(string type)
         {
-            return this.plasmaList
+            return plasmaList
                 .Where(x => x.antibody == type)
                 .Select(x => x.ammount)
                 .Sum();
         }
 
-        public float getRedQuantity(string type, bool rh)
+        public double getRedQuantity(string type, bool rh)
         {
-            return this.redBloodCellList
+            return redBloodCellList
                 .Where(x => x.antigen == type && x.rh == rh)
                 .Select(x => x.ammount)
                 .Sum();
+        }
+
+        public override string ToString()
+        {
+            return name;
         }
 
 

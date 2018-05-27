@@ -1,10 +1,13 @@
-﻿using Common.Model;
+﻿using Common.Exceptions;
+using Common.Model;
 using DonationCenterAplication.Remoting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Client.Controller
 {
@@ -27,10 +30,19 @@ namespace Client.Controller
 
         public LogInfo getAccount()
         {
-            LogInfo info = service.GetOneFromDatabase<LogInfo>(user);
-            if (info.password == password)
-                return info;
-            return null;
+            try
+            {
+                LogInfo info = service.GetOneFromDatabase<LogInfo>(user);
+                if (info.password == password)
+                    return info;
+                return null;
+            }catch (RemotingException rmE)
+            {
+                throw new ControllerException("A aparut o problema!", rmE);
+            }catch (SocketException)
+            {
+                throw new ControllerException("Nu se poate efectua conexiunea la server\nIncercati din nou mai taziu");
+            }
         }
     }
 }

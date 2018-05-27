@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Repository;
+using Common.Exceptions;
 
 namespace DonationCenterAplication.Remoting
 {
@@ -20,32 +21,74 @@ namespace DonationCenterAplication.Remoting
 
         public void AddToDatabase(object obj)
         {
-            this.repo.Save(obj);
+            try
+            {
+                this.repo.Save(obj);
+            }catch (DataBaseException dbE)
+            {
+                throw new RemotingException("Serverul a intampinat o eroare", dbE);
+            }
         }
 
         public void UpdateOneFromDatabase(object obj)
         {
-            this.repo.Update(obj);
+            try
+            {
+                this.repo.Update(obj);
+            }
+            catch (DataBaseException dbE)
+            {
+                throw new RemotingException("Serverul a intampinat o eroare", dbE);
+            }
+
         }
 
         public void DeleteFromDatabase(object obj)
         {
-            this.repo.Delete(obj);
+            try
+            {
+                this.repo.Delete(obj);
+            }
+            catch (DataBaseException dbE)
+            {
+                throw new RemotingException("Serverul a intampinat o eroare", dbE);
+            }
         }
 
         public IList<T> GetAllFromDatabase<T>() where T: class 
         {
-            return this.repo.FindAll<T>();
+            try
+            {
+                return this.repo.FindAll<T>();
+            }
+            catch (DataBaseException dbE)
+            {
+                throw new RemotingException("Serverul a intampinat o eroare", dbE);
+            }
         }
 
         public T GetOneFromDatabase<T>(object objId)
         {
-            return this.repo.FindOne<T>(objId);
+            try
+            {
+                return this.repo.FindOne<T>(objId);
+            }
+            catch (DataBaseException dbE)
+            {
+                throw new RemotingException("Serverul a intampinat o eroare", dbE);
+            }
         }
 
         public void Refresh(object obj)
         {
-            this.repo.Refresh(obj);
+            try
+            {
+                this.repo.Refresh(obj);
+            }
+            catch (DataBaseException dbE)
+            {
+                throw new RemotingException("Serverul a intampinat o eroare", dbE);
+            }
         }
 
     }

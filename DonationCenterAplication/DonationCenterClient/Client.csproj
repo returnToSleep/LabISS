@@ -143,78 +143,110 @@
     <Compile Include="GUIs\DoctorGUI\DoctorGUI.Designer.cs">
       <DependentUpon>DoctorGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIs\DonationCenterDoctors.cs" />
-    <Compile Include="GUIs\DonationCenterDonors.cs" />
-    <Compile Include="GUIs\Dialog.cs">
+    <Compile Include="GUIs\DonationCenterGUI\BloodInput.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUIs\Dialog.Designer.cs">
-      <DependentUpon>Dialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUIs\DonationCenter\BloodInput.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUIs\DonationCenter\BloodInput.Designer.cs">
+    <Compile Include="GUIs\DonationCenterGUI\BloodInput.Designer.cs">
       <DependentUpon>BloodInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIs\DonationCenter\CallDonorsForm.cs">
+    <Compile Include="GUIs\DonationCenterGUI\CallDonorsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUIs\DonationCenter\CallDonorsForm.Designer.cs">
+    <Compile Include="GUIs\DonationCenterGUI\CallDonorsForm.Designer.cs">
       <DependentUpon>CallDonorsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIs\DonationCenter\EMailForm.cs">
+    <Compile Include="GUIs\DonationCenterGUI\EMailForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUIs\DonationCenter\EMailForm.Designer.cs">
+    <Compile Include="GUIs\DonationCenterGUI\EMailForm.Designer.cs">
       <DependentUpon>EMailForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIs\DonorGUI.cs" />
-    <Compile Include="GUIs\DonationCenter\DonationCenterGUI.cs">
+    <Compile Include="GUIs\DonationCenterGUI\DonationCenterGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUIs\DonationCenter\DonationCenterGUI.Designer.cs">
+    <Compile Include="GUIs\DonationCenterGUI\DonationCenterGUI.Designer.cs">
       <DependentUpon>DonationCenterGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIs\DonorGUI\DonorGUI.cs">
+    <Compile Include="GUIs\DonorGUI\AccountWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUIs\DonorGUI\DonorGUI.designer.cs">
-      <DependentUpon>DonorGUI.cs</DependentUpon>
+    <Compile Include="GUIs\DonorGUI\AccountWindow.Designer.cs">
+      <DependentUpon>AccountWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIs\GUI.cs" />
+    <Compile Include="GUIs\DonorGUI\CreateAccountWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\DonorGUI\CreateAccountWindow.Designer.cs">
+      <DependentUpon>CreateAccountWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIs\DonorGUI\dataEditWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\DonorGUI\dataEditWindow.Designer.cs">
+      <DependentUpon>dataEditWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIs\DonorGUI\doneWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\DonorGUI\doneWindow.Designer.cs">
+      <DependentUpon>doneWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIs\DonorGUI\DonorFormGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\DonorGUI\DonorFormGUI.designer.cs">
+      <DependentUpon>DonorFormGUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIs\DonorGUI\DonorMainGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\DonorGUI\DonorMainGUI.Designer.cs">
+      <DependentUpon>DonorMainGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUIs\LogIn\LogInForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUIs\LogIn\LogInForm.Designer.cs">
       <DependentUpon>LogInForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUIs\MasterGUI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\EmailService.cs" />
     <EmbeddedResource Include="Client.resx">
       <DependentUpon>Client.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\Dialog.resx">
-      <DependentUpon>Dialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\DoctorGUI\DoctorGUI.resx">
       <DependentUpon>DoctorGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\DonationCenter\BloodInput.resx">
+    <EmbeddedResource Include="GUIs\DonationCenterGUI\BloodInput.resx">
       <DependentUpon>BloodInput.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\DonationCenter\CallDonorsForm.resx">
+    <EmbeddedResource Include="GUIs\DonationCenterGUI\CallDonorsForm.resx">
       <DependentUpon>CallDonorsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\DonationCenter\DonationCenterGUI.resx">
+    <EmbeddedResource Include="GUIs\DonationCenterGUI\DonationCenterGUI.resx">
       <DependentUpon>DonationCenterGUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\DonationCenter\EMailForm.resx">
+    <EmbeddedResource Include="GUIs\DonationCenterGUI\EMailForm.resx">
       <DependentUpon>EMailForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUIs\DonorGUI\DonorGUI.resx">
-      <DependentUpon>DonorGUI.cs</DependentUpon>
+    <EmbeddedResource Include="GUIs\DonorGUI\AccountWindow.resx">
+      <DependentUpon>AccountWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\DonorGUI\CreateAccountWindow.resx">
+      <DependentUpon>CreateAccountWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\DonorGUI\dataEditWindow.resx">
+      <DependentUpon>dataEditWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\DonorGUI\doneWindow.resx">
+      <DependentUpon>doneWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\DonorGUI\DonorFormGUI.resx">
+      <DependentUpon>DonorFormGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\DonorGUI\DonorMainGUI.resx">
+      <DependentUpon>DonorMainGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\LogIn\LogInForm.resx">
       <DependentUpon>LogInForm.cs</DependentUpon>

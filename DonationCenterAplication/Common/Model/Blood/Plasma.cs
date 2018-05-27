@@ -27,12 +27,12 @@ namespace Model{
          * @return DateTime
          */
         public override DateTime getExpirationDate() {
-            return donationDate.AddMonths(3);
+            return donationDate.AddYears(1);
         }
 
         public override string ToString()
         {
-            return "Anticorpi: " + antibody + "\nData expirarii: " + this.getExpirationDate().ToString() + "\nCantitate";
+            return "Anticorpi: " + antibody + "\nData expirarii: " + this.getExpirationDate().Date.ToString() + "\nCantitate" + ammount.ToString() + base.ToString();
         }
     }
 }
