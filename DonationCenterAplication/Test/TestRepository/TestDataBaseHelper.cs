@@ -33,7 +33,10 @@ namespace DonationCenterAplication.ORM
 
                         //ConnectionString-ul pentru testDb
 
-                        x.ConnectionString = "Data Source = CTRLSOFT-FM1A7D\\MYSQL; Initial Catalog = Blood; Integrated Security = True";
+                        //TODO Toata lumea
+                        //Baza de date pentru teste poate sa fie una diferita fata de cea normala
+
+                        x.ConnectionString = "";
 
                         x.Driver<SqlClientDriver>();
                                             x.Dialect<MsSql2012Dialect>();

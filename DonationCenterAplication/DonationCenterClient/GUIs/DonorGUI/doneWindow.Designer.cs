@@ -51,17 +51,17 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.label2.Location = new System.Drawing.Point(14, 71);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(254, 54);
+            this.label2.Size = new System.Drawing.Size(441, 36);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Contul dumneavoastra a fost creeat! \r\nVa asteptam pe parcursul saptamanii \r\nviito" +
-    "are la centru de donatie: ";
+            this.label2.Text = "Contul dumneavoastra a fost creeat! \r\nVa asteptam pe parcursul saptamanii viitoar" +
+    "e la centru de donatie: ";
             // 
             // donationCenterLabel
             // 
             this.donationCenterLabel.AutoSize = true;
             this.donationCenterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.donationCenterLabel.ForeColor = System.Drawing.Color.Black;
-            this.donationCenterLabel.Location = new System.Drawing.Point(14, 125);
+            this.donationCenterLabel.Location = new System.Drawing.Point(14, 124);
             this.donationCenterLabel.Name = "donationCenterLabel";
             this.donationCenterLabel.Size = new System.Drawing.Size(149, 18);
             this.donationCenterLabel.TabIndex = 3;

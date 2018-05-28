@@ -62,10 +62,18 @@ namespace Client.Controller
         }
 
 
-
+        /*
+         * Retruns the list of pending donors
+         *      (isPending - true)
+         */ 
         public IList<Donor> getPendingDonors(){
             return this.donationCenter.donors.Where(x => x.isPending == true).ToList();
         }
+
+        /*
+         * Returns the list of available donors
+         *      (isPending - false)
+         */ 
 
         public IList<Donor> getDonatedDonors()
         {
@@ -73,6 +81,9 @@ namespace Client.Controller
         }
 
 
+        /*
+        *   Returns the distance between two LatLong points
+        */
         public double getDistanceFromDonationCenter(Donor donor)
         {
             double exp1 = donor.location.latitude - float.Parse(this.donationCenter.id.Split(',')[0]);
@@ -80,6 +91,10 @@ namespace Client.Controller
 
             return Math.Sqrt(Math.Pow(exp1, 2) - Math.Pow(exp2, 2));
         }
+
+        /*
+         *  Returns a sorted list (ordered by distance) of the available donors 
+         */
 
         public IList<Donor> getNearestDonors(IList<Donor> lst)
         {
@@ -114,6 +129,11 @@ namespace Client.Controller
             Refresh();
         }
 
+
+        /*
+        *   Adds a donation to the donor 
+        * 
+        */ 
         public void addDonationToDonor(Donor donor, Donation donation, string bloodType)
         {
           
@@ -127,6 +147,11 @@ namespace Client.Controller
                 throw new ControllerException("A aparut o problema!", rmE);
             }
         }
+
+        /*
+         * Gets a new instance for this.donationCenter
+         * 
+         */ 
 
         public void Refresh()
         {
@@ -198,6 +223,10 @@ namespace Client.Controller
 
         #region Blood dispatching
 
+        /*
+         * Returns the matching donors based on a request (Same blood type)
+         */ 
+
         public IList<Donor> getAvailableDonorsForRequest(DoctorRequest request)
         {
             string[] splitRequest = request.requestString.Split(',');
@@ -263,7 +292,17 @@ namespace Client.Controller
 
         }
 
-
+        /*
+         * This one is a bit strange
+         *      When an employee of the donation center wants to see if there is enough blood for a request
+         *      The components needed should't be removed from the database (Onlny when the wmployee clicks the "trimitere" button)      
+         *
+         *      Returns a string with the type of the component, the id's of the selected components, the ammounts and the first expiration date
+         *      
+         *      Ex:
+         *          Plasma;12,100,15;15,200,02-02-2018"
+         *      
+         */     
         public string getAvailableBloodGreedy<T>(List<T> componentList, double ammountNeeded) where T : BloodComponent
         {
             IEnumerable<T> orderedList = componentList.OrderByDescending(x => x.ammount);
@@ -357,15 +396,15 @@ namespace Client.Controller
             return null;
 
         }
-     
-        /*
-         * Sends blood to doctor
-         * Marks the doctor_id field with the id of the doctor making the request
-         * All components with doctor_id != null are beeing delivered to a doctor
-         * 
-         * Creates a new BloodComponent with the amount requested, and reduces the ammount of the source
 
+        /*
+         * Updates the component ammount based on "splitCompStr" 
+         * Example of "splitCompStr":
+         *       {"Plasma", "12,100", "15,15", "200,02-02-2018"}"
+         *       
+         *  if the ammount of the component is 0 after the operation, it is removed fom the database
          */
+
 
         private IList<Tuple<string, DoctorRequest>> updateAmmounts(string[] splitCompStr, string type, DoctorRequest req)
         {
@@ -458,6 +497,16 @@ namespace Client.Controller
                 throw new ControllerException("A aparut o problema!", rmE);
             }
        }
+
+
+        /*
+         * Sends blood to doctor
+         * Marks the doctor_id field with the id of the doctor making the request
+         * All components with doctor_id != null are beeing delivered to a doctor
+         * 
+         * Creates a new BloodComponent with the amount requested, and reduces the ammount of the source
+
+         */
 
 
         public IList<Tuple<string, DoctorRequest>> sendBlood(string compStr, DoctorRequest request)
