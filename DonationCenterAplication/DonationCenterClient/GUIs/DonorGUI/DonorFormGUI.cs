@@ -162,11 +162,19 @@ namespace Client.GUIs.DonorGUI
 
                 donationCenterMarker.ToolTipText = donationCenter.name;
 
+                donationCenterMarker.ToolTip.Stroke.Color = Color.White;
+                donationCenterMarker.ToolTip.Foreground = Brushes.Black;
+
                 GMapMarker donorMarker = new GMarkerGoogle(
                     new PointLatLng(donorLat, donorLon),
                     GMarkerGoogleType.blue);
 
                 donorMarker.ToolTipText = "Dumneavoastra!";
+
+
+                donorMarker.ToolTip.Stroke.Color = Color.White;
+                donorMarker.ToolTip.Foreground = Brushes.Black;
+
 
                 markers.Markers.Add(donationCenterMarker);
                 markers.Markers.Add(donorMarker);

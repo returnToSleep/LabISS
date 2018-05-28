@@ -137,6 +137,10 @@ namespace Client.GUIs
 
                     doctorMarker.ToolTipText = donor.ToString();
 
+                    doctorMarker.ToolTip.Stroke.Color = Color.White;
+                    doctorMarker.ToolTip.Foreground = Brushes.Black;
+
+
                     markes.Markers.Add(doctorMarker);
                 });
 
@@ -376,12 +380,19 @@ namespace Client.GUIs
 
             doctorMarker.ToolTipText = selected.hospital;
 
+            doctorMarker.ToolTip.Stroke.Color = Color.White;
+            doctorMarker.ToolTip.Foreground = Brushes.Black;
+
 
             GMapMarker donationCenterMarker = new GMarkerGoogle(
                    new PointLatLng(donationCenterLat, donationCenterLon),
                    GMarkerGoogleType.red);
 
             donationCenterMarker.ToolTipText = "Centrul nostru!";
+
+            donationCenterMarker.ToolTip.Stroke.Color = Color.White;
+            donationCenterMarker.ToolTip.Foreground = Brushes.Black;
+
 
             markes.Markers.Add(doctorMarker);
             markes.Markers.Add(donationCenterMarker);

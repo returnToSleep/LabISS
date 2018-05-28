@@ -73,6 +73,7 @@ namespace Controller{
             {
                 return "Puteti dona din nou incepand din " + lastDonationDate.AddMonths(2).Date.ToString();
             }
+            
 
             return "Puteti dona!";
 
@@ -100,25 +101,7 @@ namespace Controller{
         #endregion
 
 
-        
-        //Region for the blood tracking functionality
-        #region Blood Tracking
-        public IList<Trombocyte> getTrombocyteList()
-        {
-            return this.donor.trombocyteList;
-        }
-
-        public IList<RedBloodCell> getRedBloodCell()
-        {
-            return this.donor.redBloodCellList;
-        }
-
-        public IList<Plasma> getPlasmaList()
-        {
-            return this.donor.plasmaList;
-        }
-        #endregion
-
+   
         //Region for the donation history
         #region Donation History
         public IList<Donation> getDonationHistory()

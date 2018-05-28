@@ -234,29 +234,6 @@ namespace DonationCenterServer.ORM
                 },
                action => action.OneToMany());
 
-              Bag(x => x.trombocyteList, map =>
-                {
-                    map.Table("Trombocyte");
-                    map.Key(k => k.Column(col => col.Name("donor_Cnp")));
-                    map.Lazy(CollectionLazy.NoLazy);
-                },
-              action => action.OneToMany());
-
-                Bag(x => x.redBloodCellList, map =>
-                {
-                    map.Table("RedBloodCell");
-                    map.Key(k => k.Column(col => col.Name("donor_Cnp")));
-                    map.Lazy(CollectionLazy.NoLazy);
-                },
-              action => action.OneToMany());
-
-              Bag(x => x.plasmaList, map =>
-                {
-                    map.Table("Plasma");
-                    map.Key(k => k.Column(col => col.Name("donor_Cnp")));
-                    map.Lazy(CollectionLazy.NoLazy);
-                },
-              action => action.OneToMany());
 
             Property(x => x.bloodType);
             Property(x => x.rh);

@@ -101,9 +101,12 @@ namespace Client.GUIs
                     GMarkerGoogleType.red);
 
                 marker.ToolTipText = dc.name;
+                marker.ToolTip.Stroke.Color = Color.White;
+                marker.ToolTip.Foreground = Brushes.Black;
 
                 markersStock.Markers.Add(marker);
                 markersRequest.Markers.Add(marker);
+
 
             });
 
@@ -112,6 +115,8 @@ namespace Client.GUIs
                    GMarkerGoogleType.blue);
 
             doctorMarker.ToolTipText = "Spitalul dumneavoastra";
+            doctorMarker.ToolTip.Stroke.Color = Color.White;
+            doctorMarker.ToolTip.Foreground = Brushes.Black;
 
             markersStock.Markers.Add(doctorMarker);
             markersRequest.Markers.Add(doctorMarker);

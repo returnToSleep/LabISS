@@ -20,10 +20,6 @@ namespace Common.Model{
         public virtual string email { get; set; }
         public virtual string address { get; set; }
 
-        public virtual IList<RedBloodCell> redBloodCellList { get; set; }
-        public virtual IList<Trombocyte> trombocyteList { get; set; }
-        public virtual IList<Plasma> plasmaList { get; set; }
-
         //Status of donor, either pending or donated 
         public virtual bool isPending { get; set; }
         public virtual string donationCenter_id { get; set; }
