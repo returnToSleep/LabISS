@@ -88,7 +88,9 @@ namespace Client.GUIs.DonorGUI
 
             if(donorForm.DialogResult == DialogResult.Yes)
             {
-                controller.service.UpdateOneFromDatabase(donorForm.returnDonor);
+                controller.service.DeleteFromDatabase(controller.service.GetOneFromDatabase<Donor>(donorForm.returnDonor.cnp));
+                donorForm.returnDonor.isPending = true;
+                controller.service.AddToDatabase(donorForm.returnDonor);
                 refreshData();
             }
         }

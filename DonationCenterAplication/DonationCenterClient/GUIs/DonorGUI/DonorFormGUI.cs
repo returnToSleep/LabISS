@@ -323,6 +323,7 @@ namespace Client.GUIs.DonorGUI
                 else
                 {
 
+                    returnDonor.isPending = true;
                     returnDonor.bloodType = controller.donor.bloodType;
                     MessageBox.Show("Formularul a fost trimis!\nVa asteptam in decursul saptamanii viitoare la: " + donationCenter.name, "Multumim!");
                     DialogResult = DialogResult.Yes;
