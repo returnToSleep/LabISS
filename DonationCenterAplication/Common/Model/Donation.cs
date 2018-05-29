@@ -46,7 +46,7 @@ namespace Common.Model
                 + "\nCantitate recoltata: " + quantity.ToString() + " ml dintre care: \n"
                 + "    Celule rosii: " + redQuantity.ToString() + " ml\n"
                 + "    Trombocite: " + trombQuantity.ToString() + " ml\n"
-                + "    Plasma: " + trombQuantity.ToString() + " ml\n"
+                + "    Plasma: " + plasmaQuantity.ToString() + " ml\n"
                 + "Presiunea sistolica: " + bloodPressure.ToString() + "mmHg\n"
                 + "Puls: " + pulse.ToString() + "bpm"
                 + donatedFor;
