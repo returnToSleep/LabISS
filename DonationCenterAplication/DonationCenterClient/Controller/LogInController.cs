@@ -36,12 +36,14 @@ namespace Client.Controller
                 if (info.password == password)
                     return info;
                 return null;
-            }catch (RemotingException rmE)
-            {
-                throw new ControllerException("A aparut o problema!", rmE);
-            }catch (SocketException)
+            }
+            catch (SocketException)
             {
                 throw new ControllerException("Nu se poate efectua conexiunea la server\nIncercati din nou mai taziu");
+            }
+            catch (Exception rmE)
+            {
+                throw new ControllerException("A aparut o problema!", rmE);
             }
         }
     }

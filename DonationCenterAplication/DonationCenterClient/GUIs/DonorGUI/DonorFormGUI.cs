@@ -268,10 +268,10 @@ namespace Client.GUIs.DonorGUI
                 int day = int.Parse(birthDateDayTextBox.Text);
                 birthday = new DateTime(year, month, day);
             }
-            catch (FormatException)
-            {
+            catch (Exception) {
                 err += "\nData nasterii este completata gresit";
             }
+
             if (isFirstTime || cnp != controller.donor.cnp)
             {
                 try
@@ -280,7 +280,7 @@ namespace Client.GUIs.DonorGUI
                     MessageBox.Show("Ati introdus CNP-ul unei alte persoane", "CNP invalid");
                     return;
                 }
-                catch (RemotingException){}
+                catch (Exception){}
             }
 
             gMapDonationCenter.SetPositionByKeywords(residence);
