@@ -32,8 +32,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DonationCenterGUI));
             this.selectionTab = new System.Windows.Forms.TabControl();
             this.donorPage = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.donorList = new NishBox.MultiLineListBox();
             this.gMapDonors = new GMap.NET.WindowsForms.GMapControl();
+            this.pendingPage = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.pendingDonorList = new NishBox.MultiLineListBox();
+            this.donorNotOkButton = new System.Windows.Forms.Button();
+            this.donorOkButton = new System.Windows.Forms.Button();
+            this.gMapPendingDonors = new GMap.NET.WindowsForms.GMapControl();
             this.doctorPage = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.doctorRequestList = new NishBox.MultiLineListBox();
@@ -42,11 +49,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.potentialBloodTextBox = new System.Windows.Forms.RichTextBox();
             this.sendBloodButton = new System.Windows.Forms.Button();
-            this.pendingPage = new System.Windows.Forms.TabPage();
-            this.pendingDonorList = new NishBox.MultiLineListBox();
-            this.donorNotOkButton = new System.Windows.Forms.Button();
-            this.donorOkButton = new System.Windows.Forms.Button();
-            this.gMapPendingDonors = new GMap.NET.WindowsForms.GMapControl();
             this.bloodStockPage = new System.Windows.Forms.TabPage();
             this.stocksDataGridView = new System.Windows.Forms.DataGridView();
             this.compoenetSelectComboBox = new System.Windows.Forms.ComboBox();
@@ -57,18 +59,16 @@
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.label33 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.selectionTab.SuspendLayout();
             this.donorPage.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.pendingPage.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.doctorPage.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.pendingPage.SuspendLayout();
             this.bloodStockPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stocksDataGridView)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // selectionTab
@@ -99,6 +99,20 @@
             this.donorPage.Size = new System.Drawing.Size(1145, 556);
             this.donorPage.TabIndex = 0;
             this.donorPage.Text = "Donatori";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox4.Controls.Add(this.donorList);
+            this.groupBox4.Font = new System.Drawing.Font("Arial Unicode MS", 11F);
+            this.groupBox4.ForeColor = System.Drawing.Color.DarkRed;
+            this.groupBox4.Location = new System.Drawing.Point(6, 6);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(450, 540);
+            this.groupBox4.TabIndex = 2;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Donatori";
             // 
             // donorList
             // 
@@ -143,131 +157,6 @@
             this.gMapDonors.TabIndex = 0;
             this.gMapDonors.Zoom = 0D;
             // 
-            // doctorPage
-            // 
-            this.doctorPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.doctorPage.Controls.Add(this.groupBox2);
-            this.doctorPage.Controls.Add(this.groupBox1);
-            this.doctorPage.Location = new System.Drawing.Point(4, 33);
-            this.doctorPage.Name = "doctorPage";
-            this.doctorPage.Padding = new System.Windows.Forms.Padding(3);
-            this.doctorPage.Size = new System.Drawing.Size(1145, 556);
-            this.doctorPage.TabIndex = 1;
-            this.doctorPage.Text = "Cereri de la doctori";
-            this.doctorPage.Click += new System.EventHandler(this.doctorPage_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox2.Controls.Add(this.doctorRequestList);
-            this.groupBox2.Font = new System.Drawing.Font("Arial Unicode MS", 11F);
-            this.groupBox2.ForeColor = System.Drawing.Color.DarkRed;
-            this.groupBox2.Location = new System.Drawing.Point(6, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(450, 540);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Cereri de la doctori";
-            // 
-            // doctorRequestList
-            // 
-            this.doctorRequestList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.doctorRequestList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.doctorRequestList.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.doctorRequestList.FormattingEnabled = true;
-            this.doctorRequestList.Location = new System.Drawing.Point(6, 37);
-            this.doctorRequestList.Name = "doctorRequestList";
-            this.doctorRequestList.ScrollAlwaysVisible = true;
-            this.doctorRequestList.Size = new System.Drawing.Size(438, 493);
-            this.doctorRequestList.TabIndex = 0;
-            this.doctorRequestList.SelectedIndexChanged += new System.EventHandler(this.doctorRequestList_SelectedIndexChanged_1);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.gMapRouteToDoctor);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.potentialBloodTextBox);
-            this.groupBox1.Controls.Add(this.sendBloodButton);
-            this.groupBox1.ForeColor = System.Drawing.Color.DarkRed;
-            this.groupBox1.Location = new System.Drawing.Point(462, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(677, 540);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Componente care satisfac cererea";
-            // 
-            // gMapRouteToDoctor
-            // 
-            this.gMapRouteToDoctor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gMapRouteToDoctor.Bearing = 0F;
-            this.gMapRouteToDoctor.CanDragMap = true;
-            this.gMapRouteToDoctor.EmptyTileColor = System.Drawing.Color.Navy;
-            this.gMapRouteToDoctor.GrayScaleMode = false;
-            this.gMapRouteToDoctor.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.gMapRouteToDoctor.LevelsKeepInMemmory = 5;
-            this.gMapRouteToDoctor.Location = new System.Drawing.Point(6, 89);
-            this.gMapRouteToDoctor.MarkersEnabled = true;
-            this.gMapRouteToDoctor.MaxZoom = 15;
-            this.gMapRouteToDoctor.MinZoom = 15;
-            this.gMapRouteToDoctor.MouseWheelZoomEnabled = true;
-            this.gMapRouteToDoctor.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.gMapRouteToDoctor.Name = "gMapRouteToDoctor";
-            this.gMapRouteToDoctor.NegativeMode = false;
-            this.gMapRouteToDoctor.PolygonsEnabled = true;
-            this.gMapRouteToDoctor.RetryLoadTile = 0;
-            this.gMapRouteToDoctor.RoutesEnabled = true;
-            this.gMapRouteToDoctor.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.gMapRouteToDoctor.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.gMapRouteToDoctor.ShowTileGridLines = false;
-            this.gMapRouteToDoctor.Size = new System.Drawing.Size(665, 397);
-            this.gMapRouteToDoctor.TabIndex = 4;
-            this.gMapRouteToDoctor.Zoom = 0D;
-            this.gMapRouteToDoctor.Load += new System.EventHandler(this.gMapRouteToDoctor_Load);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(6, 510);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(282, 20);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "*Cererile sunt sortate in functie de urgenta";
-            // 
-            // potentialBloodTextBox
-            // 
-            this.potentialBloodTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.potentialBloodTextBox.Location = new System.Drawing.Point(6, 37);
-            this.potentialBloodTextBox.Name = "potentialBloodTextBox";
-            this.potentialBloodTextBox.Size = new System.Drawing.Size(665, 46);
-            this.potentialBloodTextBox.TabIndex = 0;
-            this.potentialBloodTextBox.Text = "";
-            this.potentialBloodTextBox.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
-            // 
-            // sendBloodButton
-            // 
-            this.sendBloodButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.sendBloodButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.sendBloodButton.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sendBloodButton.ForeColor = System.Drawing.Color.Black;
-            this.sendBloodButton.Location = new System.Drawing.Point(519, 492);
-            this.sendBloodButton.Name = "sendBloodButton";
-            this.sendBloodButton.Size = new System.Drawing.Size(152, 38);
-            this.sendBloodButton.TabIndex = 2;
-            this.sendBloodButton.Text = "Trimitere";
-            this.sendBloodButton.UseVisualStyleBackColor = false;
-            this.sendBloodButton.Click += new System.EventHandler(this.sendBloodButton_Click);
-            // 
             // pendingPage
             // 
             this.pendingPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -279,6 +168,22 @@
             this.pendingPage.Size = new System.Drawing.Size(1145, 556);
             this.pendingPage.TabIndex = 2;
             this.pendingPage.Text = "Persoane in asteptare";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox3.Controls.Add(this.pendingDonorList);
+            this.groupBox3.Controls.Add(this.donorNotOkButton);
+            this.groupBox3.Controls.Add(this.donorOkButton);
+            this.groupBox3.Font = new System.Drawing.Font("Arial Unicode MS", 11F);
+            this.groupBox3.ForeColor = System.Drawing.Color.DarkRed;
+            this.groupBox3.Location = new System.Drawing.Point(6, 6);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(450, 540);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Persoane in asteptare";
             // 
             // pendingDonorList
             // 
@@ -346,6 +251,131 @@
             this.gMapPendingDonors.Size = new System.Drawing.Size(677, 528);
             this.gMapPendingDonors.TabIndex = 1;
             this.gMapPendingDonors.Zoom = 0D;
+            // 
+            // doctorPage
+            // 
+            this.doctorPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.doctorPage.Controls.Add(this.groupBox2);
+            this.doctorPage.Controls.Add(this.groupBox1);
+            this.doctorPage.Location = new System.Drawing.Point(4, 33);
+            this.doctorPage.Name = "doctorPage";
+            this.doctorPage.Padding = new System.Windows.Forms.Padding(3);
+            this.doctorPage.Size = new System.Drawing.Size(1145, 556);
+            this.doctorPage.TabIndex = 1;
+            this.doctorPage.Text = "Cereri de la doctori";
+            this.doctorPage.Click += new System.EventHandler(this.doctorPage_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox2.Controls.Add(this.doctorRequestList);
+            this.groupBox2.Font = new System.Drawing.Font("Arial Unicode MS", 11F);
+            this.groupBox2.ForeColor = System.Drawing.Color.DarkRed;
+            this.groupBox2.Location = new System.Drawing.Point(6, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(450, 540);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Cereri de la doctori";
+            // 
+            // doctorRequestList
+            // 
+            this.doctorRequestList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.doctorRequestList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.doctorRequestList.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.doctorRequestList.FormattingEnabled = true;
+            this.doctorRequestList.Location = new System.Drawing.Point(6, 37);
+            this.doctorRequestList.Name = "doctorRequestList";
+            this.doctorRequestList.ScrollAlwaysVisible = true;
+            this.doctorRequestList.Size = new System.Drawing.Size(438, 493);
+            this.doctorRequestList.TabIndex = 0;
+            this.doctorRequestList.SelectedIndexChanged += new System.EventHandler(this.doctorRequestList_SelectedIndexChanged_1);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.gMapRouteToDoctor);
+            this.groupBox1.Controls.Add(this.sendBloodButton);
+            this.groupBox1.Controls.Add(this.potentialBloodTextBox);
+            this.groupBox1.ForeColor = System.Drawing.Color.DarkRed;
+            this.groupBox1.Location = new System.Drawing.Point(462, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(677, 540);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Componente care satisfac cererea";
+            // 
+            // gMapRouteToDoctor
+            // 
+            this.gMapRouteToDoctor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gMapRouteToDoctor.Bearing = 0F;
+            this.gMapRouteToDoctor.CanDragMap = true;
+            this.gMapRouteToDoctor.EmptyTileColor = System.Drawing.Color.Navy;
+            this.gMapRouteToDoctor.GrayScaleMode = false;
+            this.gMapRouteToDoctor.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.gMapRouteToDoctor.LevelsKeepInMemmory = 5;
+            this.gMapRouteToDoctor.Location = new System.Drawing.Point(6, 89);
+            this.gMapRouteToDoctor.MarkersEnabled = true;
+            this.gMapRouteToDoctor.MaxZoom = 15;
+            this.gMapRouteToDoctor.MinZoom = 15;
+            this.gMapRouteToDoctor.MouseWheelZoomEnabled = true;
+            this.gMapRouteToDoctor.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.gMapRouteToDoctor.Name = "gMapRouteToDoctor";
+            this.gMapRouteToDoctor.NegativeMode = false;
+            this.gMapRouteToDoctor.PolygonsEnabled = true;
+            this.gMapRouteToDoctor.RetryLoadTile = 0;
+            this.gMapRouteToDoctor.RoutesEnabled = true;
+            this.gMapRouteToDoctor.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.gMapRouteToDoctor.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.gMapRouteToDoctor.ShowTileGridLines = false;
+            this.gMapRouteToDoctor.Size = new System.Drawing.Size(665, 441);
+            this.gMapRouteToDoctor.TabIndex = 4;
+            this.gMapRouteToDoctor.Zoom = 0D;
+            this.gMapRouteToDoctor.Load += new System.EventHandler(this.gMapRouteToDoctor_Load);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(8, 690);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(282, 20);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "*Cererile sunt sortate in functie de urgenta";
+            // 
+            // potentialBloodTextBox
+            // 
+            this.potentialBloodTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.potentialBloodTextBox.Location = new System.Drawing.Point(6, 37);
+            this.potentialBloodTextBox.Name = "potentialBloodTextBox";
+            this.potentialBloodTextBox.Size = new System.Drawing.Size(507, 46);
+            this.potentialBloodTextBox.TabIndex = 0;
+            this.potentialBloodTextBox.Text = "";
+            this.potentialBloodTextBox.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            // 
+            // sendBloodButton
+            // 
+            this.sendBloodButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.sendBloodButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.sendBloodButton.Enabled = false;
+            this.sendBloodButton.Font = new System.Drawing.Font("Arial Unicode MS", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sendBloodButton.ForeColor = System.Drawing.Color.Black;
+            this.sendBloodButton.Location = new System.Drawing.Point(519, 37);
+            this.sendBloodButton.Name = "sendBloodButton";
+            this.sendBloodButton.Size = new System.Drawing.Size(152, 46);
+            this.sendBloodButton.TabIndex = 2;
+            this.sendBloodButton.Text = "Trimitere";
+            this.sendBloodButton.UseVisualStyleBackColor = false;
+            this.sendBloodButton.Click += new System.EventHandler(this.sendBloodButton_Click);
             // 
             // bloodStockPage
             // 
@@ -449,36 +479,6 @@
             this.label33.TabIndex = 10;
             this.label33.Text = "Atentie! Toate cantitatile sunt masurate in mililitri";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox3.Controls.Add(this.pendingDonorList);
-            this.groupBox3.Controls.Add(this.donorNotOkButton);
-            this.groupBox3.Controls.Add(this.donorOkButton);
-            this.groupBox3.Font = new System.Drawing.Font("Arial Unicode MS", 11F);
-            this.groupBox3.ForeColor = System.Drawing.Color.DarkRed;
-            this.groupBox3.Location = new System.Drawing.Point(6, 6);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(450, 540);
-            this.groupBox3.TabIndex = 5;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Persoane in asteptare";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox4.Controls.Add(this.donorList);
-            this.groupBox4.Font = new System.Drawing.Font("Arial Unicode MS", 11F);
-            this.groupBox4.ForeColor = System.Drawing.Color.DarkRed;
-            this.groupBox4.Location = new System.Drawing.Point(6, 6);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(450, 540);
-            this.groupBox4.TabIndex = 2;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Donatori";
-            // 
             // DonationCenterGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -487,6 +487,7 @@
             this.ClientSize = new System.Drawing.Size(1177, 719);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.logOutButton);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.selectionTab);
@@ -495,16 +496,15 @@
             this.Load += new System.EventHandler(this.DonationCenterGUI_Load);
             this.selectionTab.ResumeLayout(false);
             this.donorPage.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.pendingPage.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.doctorPage.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.pendingPage.ResumeLayout(false);
             this.bloodStockPage.ResumeLayout(false);
             this.bloodStockPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stocksDataGridView)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

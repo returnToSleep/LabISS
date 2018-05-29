@@ -68,6 +68,7 @@ namespace Client.GUIs
             gMapPendingDonors.Position = new PointLatLng(controller.donationCenter.lat, controller.donationCenter.lon);
             gMapPendingDonors.Zoom = 15;
 
+            selectedComponent = "Plasma";
             fillComponentList();
 
         }
@@ -445,6 +446,13 @@ namespace Client.GUIs
             if (type == "Tromb")
             {
                 comp = controller.getAvailableBloodForRequest<Trombocyte>(selected);
+            }
+
+            sendBloodButton.Enabled = false;
+
+            if (comp != null)
+            {
+                sendBloodButton.Enabled = true;
             }
 
             getAvailableDonorsForRequest(comp, selected);
