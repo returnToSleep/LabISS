@@ -29,10 +29,11 @@ namespace Client.GUIs
             RefreshLists();
             gMapDoctors.Manager.Mode = AccessMode.ServerOnly;
             gMapDoctors.MapProvider = GMapProviders.GoogleMap;
+            gMapDoctors.DragButton = MouseButtons.Left;
 
             gMapStocks.Manager.Mode = AccessMode.ServerOnly;
             gMapStocks.MapProvider = GMapProviders.GoogleMap;
-            
+            gMapStocks.DragButton = MouseButtons.Left;
 
             populateDonationCenterList();
             populateRequestList();

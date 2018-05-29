@@ -41,7 +41,7 @@ namespace Client.GUIs
             controller.refreshBloodStock();
 
             //not use proxy
-            GMapProvider.WebProxy = null;
+            //GMapProvider.WebProxy = null;
 
             this.controller = controller;
             
@@ -49,15 +49,19 @@ namespace Client.GUIs
             
 
             nameLabel.Text = controller.donationCenter.name;
+            
 
             gMapDonors.Manager.Mode = AccessMode.ServerOnly;
             gMapDonors.MapProvider = GMapProviders.GoogleMap;
+            gMapDonors.DragButton = MouseButtons.Left;
 
             gMapPendingDonors.Manager.Mode = AccessMode.ServerOnly;
             gMapPendingDonors.MapProvider = GMapProviders.GoogleMap;
+            gMapPendingDonors.DragButton = MouseButtons.Left;
 
             gMapRouteToDoctor.Manager.Mode = AccessMode.ServerOnly;
             gMapRouteToDoctor.MapProvider = GMapProviders.GoogleMap;
+            gMapRouteToDoctor.DragButton = MouseButtons.Left;
 
             populateDonorMarkers();
 

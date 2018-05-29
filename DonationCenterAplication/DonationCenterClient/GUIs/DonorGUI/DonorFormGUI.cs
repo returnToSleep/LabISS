@@ -35,6 +35,7 @@ namespace Client.GUIs.DonorGUI
 
             gMapDonationCenter.Manager.Mode = AccessMode.ServerOnly;
             gMapDonationCenter.MapProvider = GMapProviders.GoogleMap;
+            gMapDonationCenter.DragButton = MouseButtons.Left;
 
         }
 

@@ -31,7 +31,7 @@ namespace Client.GUIs.DonationCenter
 
             gMapAvailableDonors.Manager.Mode = AccessMode.ServerOnly;
             gMapAvailableDonors.MapProvider = GMapProviders.GoogleMap;
-
+            gMapAvailableDonors.DragButton = MouseButtons.Left;
 
             warningLabel.Text += " " + request.ToString();
             populateDonorList();
