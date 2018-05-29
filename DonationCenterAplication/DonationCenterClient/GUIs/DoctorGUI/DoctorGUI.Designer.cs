@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DoctorGUI));
             this.nameLabel = new System.Windows.Forms.Label();
             this.bloodStockPage = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -1148,6 +1149,7 @@
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.selectionTab);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DoctorGUI";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DoctorGUI_FormClosed);

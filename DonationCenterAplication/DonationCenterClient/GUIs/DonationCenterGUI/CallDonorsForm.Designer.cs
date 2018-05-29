@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CallDonorsForm));
             this.warningLabel = new System.Windows.Forms.Label();
             this.donorList = new NishBox.MultiLineListBox();
             this.contactButton = new System.Windows.Forms.Button();
@@ -146,6 +147,7 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.contactButton);
             this.Controls.Add(this.warningLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CallDonorsForm";
             this.Text = "Nu exista suficient sange";
             this.Load += new System.EventHandler(this.CallDonorsForm_Load);

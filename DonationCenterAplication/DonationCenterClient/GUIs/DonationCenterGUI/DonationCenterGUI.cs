@@ -64,7 +64,9 @@ namespace Client.GUIs
             compoenetSelectComboBox.SelectedIndex = 0;
             selectedComponent = compoenetSelectComboBox.SelectedText;
 
-
+            controller.donationCenter.setLatLon();
+            gMapPendingDonors.Position = new PointLatLng(controller.donationCenter.lat, controller.donationCenter.lon);
+            gMapPendingDonors.Zoom = 15;
 
             fillComponentList();
 

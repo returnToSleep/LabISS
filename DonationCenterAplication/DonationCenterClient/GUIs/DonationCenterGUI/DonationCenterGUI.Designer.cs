@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DonationCenterGUI));
             this.selectionTab = new System.Windows.Forms.TabControl();
             this.donorPage = new System.Windows.Forms.TabPage();
             this.donorList = new NishBox.MultiLineListBox();
@@ -55,6 +56,9 @@
             this.logOutButton = new System.Windows.Forms.Button();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.label33 = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.selectionTab.SuspendLayout();
             this.donorPage.SuspendLayout();
             this.doctorPage.SuspendLayout();
@@ -63,6 +67,8 @@
             this.pendingPage.SuspendLayout();
             this.bloodStockPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stocksDataGridView)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // selectionTab
@@ -71,8 +77,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.selectionTab.Controls.Add(this.donorPage);
-            this.selectionTab.Controls.Add(this.doctorPage);
             this.selectionTab.Controls.Add(this.pendingPage);
+            this.selectionTab.Controls.Add(this.doctorPage);
             this.selectionTab.Controls.Add(this.bloodStockPage);
             this.selectionTab.Font = new System.Drawing.Font("Arial Unicode MS", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.selectionTab.Location = new System.Drawing.Point(12, 76);
@@ -84,7 +90,7 @@
             // donorPage
             // 
             this.donorPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.donorPage.Controls.Add(this.donorList);
+            this.donorPage.Controls.Add(this.groupBox4);
             this.donorPage.Controls.Add(this.gMapDonors);
             this.donorPage.Font = new System.Drawing.Font("Arial Unicode MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.donorPage.Location = new System.Drawing.Point(4, 33);
@@ -101,10 +107,10 @@
             this.donorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.donorList.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.donorList.FormattingEnabled = true;
-            this.donorList.Location = new System.Drawing.Point(7, 16);
+            this.donorList.Location = new System.Drawing.Point(6, 39);
             this.donorList.Name = "donorList";
             this.donorList.ScrollAlwaysVisible = true;
-            this.donorList.Size = new System.Drawing.Size(548, 528);
+            this.donorList.Size = new System.Drawing.Size(438, 495);
             this.donorList.TabIndex = 1;
             this.donorList.SelectedIndexChanged += new System.EventHandler(this.donorList_SelectedIndexChanged);
             // 
@@ -119,7 +125,7 @@
             this.gMapDonors.GrayScaleMode = false;
             this.gMapDonors.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapDonors.LevelsKeepInMemmory = 5;
-            this.gMapDonors.Location = new System.Drawing.Point(560, 16);
+            this.gMapDonors.Location = new System.Drawing.Point(462, 18);
             this.gMapDonors.MarkersEnabled = true;
             this.gMapDonors.MaxZoom = 15;
             this.gMapDonors.MinZoom = 15;
@@ -133,7 +139,7 @@
             this.gMapDonors.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapDonors.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapDonors.ShowTileGridLines = false;
-            this.gMapDonors.Size = new System.Drawing.Size(579, 528);
+            this.gMapDonors.Size = new System.Drawing.Size(677, 528);
             this.gMapDonors.TabIndex = 0;
             this.gMapDonors.Zoom = 0D;
             // 
@@ -159,7 +165,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.DarkRed;
             this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(479, 540);
+            this.groupBox2.Size = new System.Drawing.Size(450, 540);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Cereri de la doctori";
@@ -174,7 +180,7 @@
             this.doctorRequestList.Location = new System.Drawing.Point(6, 37);
             this.doctorRequestList.Name = "doctorRequestList";
             this.doctorRequestList.ScrollAlwaysVisible = true;
-            this.doctorRequestList.Size = new System.Drawing.Size(463, 493);
+            this.doctorRequestList.Size = new System.Drawing.Size(438, 493);
             this.doctorRequestList.TabIndex = 0;
             this.doctorRequestList.SelectedIndexChanged += new System.EventHandler(this.doctorRequestList_SelectedIndexChanged_1);
             // 
@@ -188,9 +194,9 @@
             this.groupBox1.Controls.Add(this.potentialBloodTextBox);
             this.groupBox1.Controls.Add(this.sendBloodButton);
             this.groupBox1.ForeColor = System.Drawing.Color.DarkRed;
-            this.groupBox1.Location = new System.Drawing.Point(491, 6);
+            this.groupBox1.Location = new System.Drawing.Point(462, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(648, 540);
+            this.groupBox1.Size = new System.Drawing.Size(677, 540);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Componente care satisfac cererea";
@@ -220,7 +226,7 @@
             this.gMapRouteToDoctor.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapRouteToDoctor.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapRouteToDoctor.ShowTileGridLines = false;
-            this.gMapRouteToDoctor.Size = new System.Drawing.Size(636, 397);
+            this.gMapRouteToDoctor.Size = new System.Drawing.Size(665, 397);
             this.gMapRouteToDoctor.TabIndex = 4;
             this.gMapRouteToDoctor.Zoom = 0D;
             this.gMapRouteToDoctor.Load += new System.EventHandler(this.gMapRouteToDoctor_Load);
@@ -243,7 +249,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.potentialBloodTextBox.Location = new System.Drawing.Point(6, 37);
             this.potentialBloodTextBox.Name = "potentialBloodTextBox";
-            this.potentialBloodTextBox.Size = new System.Drawing.Size(636, 46);
+            this.potentialBloodTextBox.Size = new System.Drawing.Size(665, 46);
             this.potentialBloodTextBox.TabIndex = 0;
             this.potentialBloodTextBox.Text = "";
             this.potentialBloodTextBox.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -254,7 +260,7 @@
             this.sendBloodButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.sendBloodButton.Font = new System.Drawing.Font("Arial Unicode MS", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sendBloodButton.ForeColor = System.Drawing.Color.Black;
-            this.sendBloodButton.Location = new System.Drawing.Point(490, 492);
+            this.sendBloodButton.Location = new System.Drawing.Point(519, 492);
             this.sendBloodButton.Name = "sendBloodButton";
             this.sendBloodButton.Size = new System.Drawing.Size(152, 38);
             this.sendBloodButton.TabIndex = 2;
@@ -265,9 +271,7 @@
             // pendingPage
             // 
             this.pendingPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pendingPage.Controls.Add(this.pendingDonorList);
-            this.pendingPage.Controls.Add(this.donorNotOkButton);
-            this.pendingPage.Controls.Add(this.donorOkButton);
+            this.pendingPage.Controls.Add(this.groupBox3);
             this.pendingPage.Controls.Add(this.gMapPendingDonors);
             this.pendingPage.Location = new System.Drawing.Point(4, 33);
             this.pendingPage.Name = "pendingPage";
@@ -283,18 +287,18 @@
             this.pendingDonorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.pendingDonorList.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pendingDonorList.FormattingEnabled = true;
-            this.pendingDonorList.Location = new System.Drawing.Point(6, 43);
+            this.pendingDonorList.Location = new System.Drawing.Point(6, 71);
             this.pendingDonorList.Name = "pendingDonorList";
             this.pendingDonorList.ScrollAlwaysVisible = true;
-            this.pendingDonorList.Size = new System.Drawing.Size(556, 501);
+            this.pendingDonorList.Size = new System.Drawing.Size(438, 462);
             this.pendingDonorList.TabIndex = 4;
             this.pendingDonorList.SelectedIndexChanged += new System.EventHandler(this.pendingDonorList_SelectedIndexChanged);
             // 
             // donorNotOkButton
             // 
             this.donorNotOkButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.donorNotOkButton.ForeColor = System.Drawing.Color.DarkRed;
-            this.donorNotOkButton.Location = new System.Drawing.Point(104, 6);
+            this.donorNotOkButton.ForeColor = System.Drawing.Color.Black;
+            this.donorNotOkButton.Location = new System.Drawing.Point(104, 31);
             this.donorNotOkButton.Name = "donorNotOkButton";
             this.donorNotOkButton.Size = new System.Drawing.Size(86, 34);
             this.donorNotOkButton.TabIndex = 3;
@@ -305,8 +309,8 @@
             // donorOkButton
             // 
             this.donorOkButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.donorOkButton.ForeColor = System.Drawing.Color.DarkRed;
-            this.donorOkButton.Location = new System.Drawing.Point(6, 6);
+            this.donorOkButton.ForeColor = System.Drawing.Color.Black;
+            this.donorOkButton.Location = new System.Drawing.Point(6, 31);
             this.donorOkButton.Name = "donorOkButton";
             this.donorOkButton.Size = new System.Drawing.Size(92, 34);
             this.donorOkButton.TabIndex = 2;
@@ -325,7 +329,7 @@
             this.gMapPendingDonors.GrayScaleMode = false;
             this.gMapPendingDonors.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapPendingDonors.LevelsKeepInMemmory = 5;
-            this.gMapPendingDonors.Location = new System.Drawing.Point(568, 43);
+            this.gMapPendingDonors.Location = new System.Drawing.Point(462, 18);
             this.gMapPendingDonors.MarkersEnabled = true;
             this.gMapPendingDonors.MaxZoom = 15;
             this.gMapPendingDonors.MinZoom = 15;
@@ -339,7 +343,7 @@
             this.gMapPendingDonors.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapPendingDonors.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapPendingDonors.ShowTileGridLines = false;
-            this.gMapPendingDonors.Size = new System.Drawing.Size(571, 501);
+            this.gMapPendingDonors.Size = new System.Drawing.Size(677, 528);
             this.gMapPendingDonors.TabIndex = 1;
             this.gMapPendingDonors.Zoom = 0D;
             // 
@@ -366,6 +370,7 @@
             this.stocksDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.stocksDataGridView.Location = new System.Drawing.Point(11, 48);
             this.stocksDataGridView.Name = "stocksDataGridView";
+            this.stocksDataGridView.ReadOnly = true;
             this.stocksDataGridView.RowTemplate.Height = 24;
             this.stocksDataGridView.Size = new System.Drawing.Size(1128, 502);
             this.stocksDataGridView.TabIndex = 3;
@@ -444,6 +449,36 @@
             this.label33.TabIndex = 10;
             this.label33.Text = "Atentie! Toate cantitatile sunt masurate in mililitri";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox3.Controls.Add(this.pendingDonorList);
+            this.groupBox3.Controls.Add(this.donorNotOkButton);
+            this.groupBox3.Controls.Add(this.donorOkButton);
+            this.groupBox3.Font = new System.Drawing.Font("Arial Unicode MS", 11F);
+            this.groupBox3.ForeColor = System.Drawing.Color.DarkRed;
+            this.groupBox3.Location = new System.Drawing.Point(6, 6);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(450, 540);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Persoane in asteptare";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox4.Controls.Add(this.donorList);
+            this.groupBox4.Font = new System.Drawing.Font("Arial Unicode MS", 11F);
+            this.groupBox4.ForeColor = System.Drawing.Color.DarkRed;
+            this.groupBox4.Location = new System.Drawing.Point(6, 6);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(450, 540);
+            this.groupBox4.TabIndex = 2;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Donatori";
+            // 
             // DonationCenterGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -455,6 +490,7 @@
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.selectionTab);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DonationCenterGUI";
             this.Load += new System.EventHandler(this.DonationCenterGUI_Load);
             this.selectionTab.ResumeLayout(false);
@@ -467,6 +503,8 @@
             this.bloodStockPage.ResumeLayout(false);
             this.bloodStockPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stocksDataGridView)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -500,5 +538,8 @@
         private System.Windows.Forms.DataGridView stocksDataGridView;
         private System.Windows.Forms.Timer refreshTimer;
         private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

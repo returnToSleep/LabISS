@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DonorMainGUI));
             this.donationHistoryList = new NishBox.MultiLineListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.noOfDonationsLabel = new System.Windows.Forms.Label();
@@ -276,6 +277,7 @@
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.fillFormButton);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DonorMainGUI";
             this.Text = "DonorGUI";
             this.groupBox1.ResumeLayout(false);
