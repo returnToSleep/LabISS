@@ -351,7 +351,7 @@ namespace Client.Controller
 
             if (type == "Trombocyte")
             {
-                return "Trobocite;" + combinedBlood;
+                return "Trombocite;" + combinedBlood;
             }
 
             return null; 
@@ -359,7 +359,7 @@ namespace Client.Controller
 
 
 
-        public string getAvailableBloodForRequest<T>(DoctorRequest request) where T : BloodComponent
+        public string getAvailableBloodForRequest(DoctorRequest request)
         {
 
             if (request.isBeeingDelivered)

@@ -27,7 +27,7 @@ namespace Common.Model
         public DoctorRequest(int? doctor_id, string donationCeter_id, int priority, string pacientName, string requestString, string donationCenterName)
         {
             this.doctor_id = doctor_id;
-            this.donationCenter_id = donationCenter_id;
+            this.donationCenter_id = donationCeter_id;
             this.priority = priority;
             this.pacientName = pacientName;
             this.requestString = requestString;

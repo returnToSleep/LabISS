@@ -435,17 +435,17 @@ namespace Client.GUIs
 
             if (type == "Plasma")
             {
-                comp = controller.getAvailableBloodForRequest<Plasma>(selected);
+                comp = controller.getAvailableBloodForRequest(selected);
                 
             }
             if (type == "Red")
             {
-                comp = controller.getAvailableBloodForRequest<RedBloodCell>(selected);
+                comp = controller.getAvailableBloodForRequest(selected);
                
             }
             if (type == "Tromb")
             {
-                comp = controller.getAvailableBloodForRequest<Trombocyte>(selected);
+                comp = controller.getAvailableBloodForRequest(selected);
             }
 
             sendBloodButton.Enabled = false;

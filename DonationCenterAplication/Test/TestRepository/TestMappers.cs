@@ -126,6 +126,7 @@ namespace DonationCenterServer.ORM
 
             Bag(x => x.requests, map =>
             {
+                map.Inverse(true);
 
                 map.Table("DoctorRequest");
                 map.Key(k => k.Column(col => col.Name("donationCenter_id")));
@@ -135,6 +136,7 @@ namespace DonationCenterServer.ORM
 
             Bag(x => x.donors, map =>
             {
+                map.Inverse(true);
 
                 map.Table("Donor");
                 map.Key(k => k.Column(col => col.Name("donationCenter_id")));
@@ -144,6 +146,7 @@ namespace DonationCenterServer.ORM
 
             Bag(x => x.redBloodCellList, map =>
             {
+                map.Inverse(true);
 
                 map.Table("RedBloodCell");
                 map.Key(k => k.Column(col => col.Name("donationCenter_id")));
@@ -153,6 +156,7 @@ namespace DonationCenterServer.ORM
 
             Bag(x => x.plasmaList, map =>
             {
+                map.Inverse(true);
 
                 map.Table("Plasma");
                 map.Key(k => k.Column(col => col.Name("donationCenter_id")));
@@ -162,6 +166,7 @@ namespace DonationCenterServer.ORM
 
             Bag(x => x.trombocyteList, map =>
             {
+                map.Inverse(true);
 
                 map.Table("Trombocyte");
                 map.Key(k => k.Column(col => col.Name("donationCenter_id")));
@@ -234,29 +239,6 @@ namespace DonationCenterServer.ORM
                 },
                action => action.OneToMany());
 
-              Bag(x => x.trombocyteList, map =>
-                {
-                    map.Table("Trombocyte");
-                    map.Key(k => k.Column(col => col.Name("donor_Cnp")));
-                    map.Lazy(CollectionLazy.NoLazy);
-                },
-              action => action.OneToMany());
-
-                Bag(x => x.redBloodCellList, map =>
-                {
-                    map.Table("RedBloodCell");
-                    map.Key(k => k.Column(col => col.Name("donor_Cnp")));
-                    map.Lazy(CollectionLazy.NoLazy);
-                },
-              action => action.OneToMany());
-
-              Bag(x => x.plasmaList, map =>
-                {
-                    map.Table("Plasma");
-                    map.Key(k => k.Column(col => col.Name("donor_Cnp")));
-                    map.Lazy(CollectionLazy.NoLazy);
-                },
-              action => action.OneToMany());
 
             Property(x => x.bloodType);
             Property(x => x.rh);

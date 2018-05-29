@@ -20,7 +20,7 @@ namespace Test
 
             Random rng = new Random();
             var doctorList = testService.GetAllFromDatabase<Doctor>();
-            Doctor doctor = doctorList[rng.Next(doctorList.Count)];
+            Doctor doctor = doctorList[rng.Next(doctorList.Count - 1)];
 
             return new DoctorController(testService, doctor);
         }

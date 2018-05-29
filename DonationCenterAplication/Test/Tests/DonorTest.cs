@@ -16,7 +16,7 @@ namespace Test.Tests
 
             Random rng = new Random();
             var donorList = testService.GetAllFromDatabase<Donor>();
-            Donor donor = donorList[rng.Next(donorList.Count)];
+            Donor donor = donorList[rng.Next(donorList.Count - 1)];
 
             return new DonorController(testService, donor);
         }
