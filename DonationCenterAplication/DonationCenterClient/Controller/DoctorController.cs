@@ -109,7 +109,7 @@ namespace Controller
                 double redQ = 0.0;
 
 
-                List<DoctorRequest> filteredList = doctor.requests
+                List<DoctorRequest> filteredList = service.GetAllFromDatabase<DoctorRequest>()
                     .Where(x => x.pacientName == pacientName)
                     .ToList();
 
@@ -148,6 +148,16 @@ namespace Controller
          * Adds a new request to the database. If there allready exist a similar reques (Same component, same donation center, different ammounts, it will automatically merge them
          */ 
         #region Ladi
+
+        public void deleteRequest(string pacientName)
+        {
+            foreach (var req in this.service.GetAllFromDatabase<DoctorRequest>()
+                .Where(dr => dr.pacientName == pacientName))
+            {
+                this.service.DeleteFromDatabase(req);
+            }
+        }
+
         public void makeRequest(Location val, int priority, string patientName, string pacientName, string requestString, string donationCenterName)
         {
             bool foundRequest = false;
