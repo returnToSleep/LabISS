@@ -30,8 +30,45 @@ namespace Test
         [TestMethod]
         public void Test_getBloodDonatedForPacient()
         {
+            var doctorController = this.doctorControllerFactory();
+            #region FillDate
+            var tromb = new Trombocyte
+            {
+                ammount = 10,
+                donatedFor = "TestDonatedFor",
+                donationDate = DateTime.Parse("2018-05-30"),
+                donationCenter_id = "46.751727,23.594825"
+            };
+            var red = new RedBloodCell
+            {
+                ammount = 53,
+                donatedFor = "TestDonatedFor",
+                donationDate = DateTime.Parse("2018-05-30"),
+                donationCenter_id = "46.751727,23.594825",
+                antigen="B",
+                rh=false
+            };
+            var plasma = new Plasma
+            {
+                ammount = 23,
+                donatedFor = "TestDonatedFor",
+                donationDate = DateTime.Parse("2018-05-30"),
+                donationCenter_id = "46.751727,23.594825",
+                antibody="B"
+            };
+            doctorController.service.AddToDatabase(tromb);
+            doctorController.service.AddToDatabase(red);
+            doctorController.service.AddToDatabase(plasma);
+#endregion
+            var result = doctorController.getBloodDonatedForPacient("TestDonatedFor");
+            Assert.AreEqual(result.Item1, 10);
+            Assert.AreEqual(result.Item2, 23);
+            Assert.AreEqual(result.Item3, 53);
 
-            //TODO Ladi
+            //DELETE NEW DATA
+            doctorController.service.DeleteFromDatabase(tromb);
+            doctorController.service.DeleteFromDatabase(red);
+            doctorController.service.DeleteFromDatabase(plasma);
         }
 
         [TestMethod]
