@@ -17,9 +17,22 @@ namespace Test.Tests
             TestRemotingService testService = new TestRemotingService();
 
             DonationCenter don = new DonationCenter("123,123", "testName");
-
+            /*
+            foreach ( Plasma plasma in don.plasmaList.ToList() )
+            {
+                testService.DeleteFromDatabase(plasma);
+            }
+            foreach (RedBloodCell red in don.redBloodCellList.ToList())
+            {
+                testService.DeleteFromDatabase(red);
+            }
+            foreach (Trombocyte tromb in don.trombocyteList.ToList())
+            {
+                testService.DeleteFromDatabase(tromb);
+            }
             testService.DeleteFromDatabase(don);
             testService.AddToDatabase(don);
+            */
 
 
             DonationCenter donationCenter = testService.GetOneFromDatabase<DonationCenter>("123,123");
@@ -60,13 +73,121 @@ namespace Test.Tests
         [TestMethod]
         public void Test_getAvailableBloodGreedy()
         {
-            //TODO Lecu
+            #region content
+
+            #region setUp
+
+            DonationCenterController dcc = donationCenterControllerFactory();
+
+            dcc.service.AddToDatabase(new Doctor("asdf", "asdf", "asdf", new Location("test", 1, 1)));
+
+            int? doctor_id = dcc.service.GetAllFromDatabase<Doctor>()[0].id;
+
+            #endregion
+
+            #region fail Case
+           
+            // not enought blood - return null
+            Assert.IsNull(dcc.getAvailableBloodGreedy<RedBloodCell>(new List<RedBloodCell>(), 100));
+
+            #endregion
+
+            #region celule rosii
+
+            String res = dcc.getAvailableBloodGreedy<RedBloodCell>(dcc.donationCenter.redBloodCellList.ToList(), 111);
+
+            Assert.AreEqual(res.Split(';')[0], "Celule rosii");
+            Assert.AreEqual(res.Split(';')[1].Split(',')[1], "111");
+
+            #endregion
+
+            #region trombocite
+
+            res = dcc.getAvailableBloodGreedy<Trombocyte>(dcc.donationCenter.trombocyteList.ToList(), 112);
+
+            Assert.AreEqual(res.Split(';')[0], "Trombocite");
+            Assert.AreEqual(res.Split(';')[1].Split(',')[1], "112");
+
+            #endregion
+
+            #region plasma
+
+            res = dcc.getAvailableBloodGreedy<Plasma>(dcc.donationCenter.plasmaList.ToList(), 103);
+
+            Assert.AreEqual(res.Split(';')[0], "Plasma");
+            Assert.AreEqual(res.Split(';')[1].Split(',')[1], "103");
+
+            #endregion
+
+            #endregion
         }
 
+        /* Sterge blood component-urile din baza de date ca sa mearga ok
+        query:
+
+        delete from redbloodcell;
+        delete from plasma;
+        delete from trombocyte;
+        */
         [TestMethod]
         public void Test_updateAmmounts()
         {
-            //TODO Lecu
+            #region setUp
+
+            DonationCenterController dcc = donationCenterControllerFactory();
+
+            dcc.service.AddToDatabase(new Doctor("asdf", "asdf", "asdf", new Location("test", 1, 1)));
+
+            int? doctor_id = dcc.service.GetAllFromDatabase<Doctor>()[0].id;
+
+            #endregion
+
+            #region red
+
+            var redBCs = dcc.service.GetAllFromDatabase<RedBloodCell>();
+            int minID = redBCs.First().id;
+
+            String[] compStr = new String[3] { minID + ",104", (minID +1) +",100", (minID + 2) +",50" };
+            int size = redBCs.Count;
+            var emailList = dcc.updateAmmounts(compStr, "Red", new DoctorRequest());
+
+            Assert.AreNotEqual(size, dcc.service.GetAllFromDatabase<RedBloodCell>().Count);
+            Assert.AreEqual(emailList.Count, 3);
+
+            #endregion
+
+            #region trombocite
+
+            var tromb = dcc.service.GetAllFromDatabase<Trombocyte>();
+            minID = tromb.First().id;
+            compStr = new String[1] { minID +",12"};
+            size = tromb.Count;
+            emailList = dcc.updateAmmounts(compStr, "Tromb", new DoctorRequest());
+            Assert.AreEqual(emailList.Count, 1);
+
+            compStr[0] = minID + ",100";
+            dcc.updateAmmounts(compStr, "Tromb", new DoctorRequest());
+            Assert.AreNotEqual(size, dcc.service.GetAllFromDatabase<RedBloodCell>().Count);
+
+            #endregion
+
+            #region plasma
+
+            var plasma = dcc.service.GetAllFromDatabase<Plasma>();
+            minID = plasma.First().id;
+            compStr = new String[2] { minID+ ",100", (minID +1)+",100" }; 
+            size = dcc.service.GetAllFromDatabase<Plasma>().Count;
+            emailList = dcc.updateAmmounts(compStr, "Plasma", new DoctorRequest());
+
+            Assert.AreNotEqual(size, dcc.service.GetAllFromDatabase<Plasma>().Count);
+            Assert.AreEqual(emailList.Count, 2);
+
+            #endregion
+            //Lazy loading exception - ammount :/
+            Assert.AreEqual(dcc.service.GetOneFromDatabase<Plasma>(2).ammount, 1);
+
+
+
         }
 
         [TestMethod]
