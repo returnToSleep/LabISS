@@ -36,7 +36,7 @@ namespace DonationCenterAplication.ORM
                         //TODO Toata lumea
                         //Baza de date pentru teste poate sa fie una diferita fata de cea normala
 
-                        x.ConnectionString = "Data Source = CTRLSOFT-FM1A7D\\MYSQL; Initial Catalog = Blood; Integrated Security = True";
+                        x.ConnectionString = "Data Source = CTRLSOFT-FM1A7D\\MYSQL; Initial Catalog = IssTest; Integrated Security = True";
 
                         x.Driver<SqlClientDriver>();
                                             x.Dialect<MsSql2012Dialect>();

@@ -406,7 +406,7 @@ namespace Client.Controller
          */
 
 
-        private IList<Tuple<string, DoctorRequest>> updateAmmounts(string[] splitCompStr, string type, DoctorRequest req)
+        public IList<Tuple<string, DoctorRequest>> updateAmmounts(string[] splitCompStr, string type, DoctorRequest req)
         {
 
             IList<Tuple<string, DoctorRequest>> emailList = new List<Tuple<string, DoctorRequest>>();
