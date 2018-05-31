@@ -47,6 +47,7 @@ namespace DonationCenterServer.Forms
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question) == DialogResult.Yes)
             {
+
                 repo.Delete(item.Tag);
                 update(new RepositoryBase());
             }
@@ -135,7 +136,7 @@ namespace DonationCenterServer.Forms
 
                 MenuItem item = new MenuItem("Delete");
                 item.Click += ContextMenu1_Click;
-                item.Tag = dc.id;
+                item.Tag = dc;
                 ContextMenu cm = new ContextMenu();
                 cm.MenuItems.Add(item);
                 box.ContextMenu = cm;

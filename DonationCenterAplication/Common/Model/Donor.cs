@@ -73,8 +73,8 @@ namespace Common.Model{
             string rhStr = (rh) ? " pozitiv" : " negativ";
             string donatesFor = donatedFor == null && ! isPending ? "" : "Doneaza pentru: " + donatedFor;
 
-            return "Nume: " + name + "\nCNP: " + cnp + "\nGrupa sanguina: " + bt + rhStr + "\nData nasterii: " + birthdate.Date.ToString()
-                + "\nE-mail: " + email + "\n" + donatedFor + "\n";
+            return "Name: " + name + "\nCNP: " + cnp + "\nBlood type: " + bt + rhStr + "\nBirthdate: " + birthdate.Date.ToString()
+                + "\nE-mail: " + email + "\n";
         }
     }
 }

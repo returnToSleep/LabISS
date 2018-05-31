@@ -52,15 +52,15 @@ namespace Client.GUIs
             
 
             gMapDonors.Manager.Mode = AccessMode.ServerOnly;
-            gMapDonors.MapProvider = GMapProviders.GoogleMap;
+            gMapDonors.MapProvider = GMapProviders.BingMap;
             gMapDonors.DragButton = MouseButtons.Left;
 
             gMapPendingDonors.Manager.Mode = AccessMode.ServerOnly;
-            gMapPendingDonors.MapProvider = GMapProviders.GoogleMap;
+            gMapPendingDonors.MapProvider = GMapProviders.BingMap;
             gMapPendingDonors.DragButton = MouseButtons.Left;
 
             gMapRouteToDoctor.Manager.Mode = AccessMode.ServerOnly;
-            gMapRouteToDoctor.MapProvider = GMapProviders.GoogleMap;
+            gMapRouteToDoctor.MapProvider = GMapProviders.BingMap;
             gMapRouteToDoctor.DragButton = MouseButtons.Left;
 
             populateDonorMarkers();
@@ -72,7 +72,7 @@ namespace Client.GUIs
             gMapPendingDonors.Position = new PointLatLng(controller.donationCenter.lat, controller.donationCenter.lon);
             gMapPendingDonors.Zoom = 15;
 
-            selectedComponent = "Plasma";
+            selectedComponent = "Celule Rosii";
             fillComponentList();
 
         }

@@ -82,5 +82,11 @@ namespace Client.GUIs.DonorGUI
             Close();
             
         }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
     }
 }

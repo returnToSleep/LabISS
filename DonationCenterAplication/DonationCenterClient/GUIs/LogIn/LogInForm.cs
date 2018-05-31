@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Client.GUIs.DonorGUI;
 using Common.Exceptions;
+using System.Net.Sockets;
 
 namespace Client.GUIs.LogIn
 {
@@ -48,7 +49,7 @@ namespace Client.GUIs.LogIn
             TcpClientChannel channel = new TcpClientChannel();
             ChannelServices.RegisterChannel(channel, false);
             service = (IService)(Activator.GetObject(typeof(IService),
-                "tcp://25.56.133.78:9999/IService"
+                "tcp://localhost:9999/IService"
                 ));
 
 
@@ -59,15 +60,23 @@ namespace Client.GUIs.LogIn
             {
                 info = logIn.getAccount();
                 
-            }catch (ControllerException cE) 
+            }
+            catch (NoSuchUserException nsuE) 
             {
-                MessageBox.Show(cE.Message, "Oops!");
+                MessageBox.Show(nsuE.Message, "Oops!");
                 ChannelServices.UnregisterChannel(channel);
                 return;
             }
+            catch (ControllerException)
+            {
+                MessageBox.Show("Nu se poate efectua conexiunea la server\nIncercati din nou mai tarziu", "Oops!");
+                ChannelServices.UnregisterChannel(channel);
+                return;
+            }
+
             if (info == null)
             {
-                MessageBox.Show("Nume sau parola gresita");
+                MessageBox.Show("Parola gresita", "Oops!");
                 ChannelServices.UnregisterChannel(channel);
                 return;
             }
@@ -79,10 +88,13 @@ namespace Client.GUIs.LogIn
                 {
                     Doctor doctor = service.GetOneFromDatabase<Doctor>(info.intId);
                     DoctorController doctorController = new DoctorController(service, doctor);
-
-                    DoctorGUI form = new DoctorGUI(doctorController);
                     Hide();
+                    DoctorGUI form = new DoctorGUI(doctorController);
+
                     form.ShowDialog();
+
+                    userTextBox.Text = "";
+                    passTextBox.Text = "";
 
                     if (form.DialogResult == DialogResult.Abort)
                     {
@@ -90,8 +102,13 @@ namespace Client.GUIs.LogIn
                         ChannelServices.UnregisterChannel(channel);
                         Show();
                     }
+                    else
+                    {
+                        Close();
+                    }
+                 
 
-                } catch (IndexOutOfRangeException)
+                } catch (RemotingException)
                 {
                     MessageBox.Show("Nu se poate efectua conexiunea la server.\n Va rugam reveniti mai tarziu", "Oops!");
 
@@ -108,14 +125,26 @@ namespace Client.GUIs.LogIn
                     DonationCenterController donationController = new DonationCenterController(service, donationCenter);
 
                     this.Hide();
+
+
+
+                    userTextBox.Text = "";
+                    passTextBox.Text = "";
+
                     DonationCenterGUI form = new DonationCenterGUI(donationController);
                     form.ShowDialog();
+
+
 
                     if (form.DialogResult == DialogResult.Abort)
                     {
 
                         ChannelServices.UnregisterChannel(channel);
                         Show();
+                    }
+                    else
+                    {
+                        Close();
                     }
                 }
                 catch (RemotingException)
@@ -135,6 +164,9 @@ namespace Client.GUIs.LogIn
                     Donor donor = service.GetOneFromDatabase<Donor>(info.varId);
                     DonorController controller = new DonorController(service, donor);
 
+                    userTextBox.Text = "";
+                    passTextBox.Text = "";
+
                     Form form = new DonorMainGUI(controller);
                     Hide();
                     form.ShowDialog();
@@ -144,6 +176,10 @@ namespace Client.GUIs.LogIn
 
                         ChannelServices.UnregisterChannel(channel);
                         Show();
+                    }
+                    else
+                    {
+                        Close();
                     }
 
                 }
@@ -159,7 +195,7 @@ namespace Client.GUIs.LogIn
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-
+            Close();
         }
 
         private void createAccountButton_Click(object sender, EventArgs e)
@@ -168,9 +204,12 @@ namespace Client.GUIs.LogIn
             TcpClientChannel channel = new TcpClientChannel();
             ChannelServices.RegisterChannel(channel, false);
             service = (IService)(Activator.GetObject(typeof(IService),
-                "tcp://25.56.133.78:9999/IService"
+                "tcp://localhost:9999/IService"
                 ));
             CreateAccountWindow a = new CreateAccountWindow(service);
+            Hide();
+
+
             a.ShowDialog();
 
             if (a.DialogResult == DialogResult.Abort)
