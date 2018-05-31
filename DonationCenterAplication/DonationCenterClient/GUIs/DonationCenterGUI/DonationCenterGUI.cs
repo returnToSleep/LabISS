@@ -508,15 +508,15 @@ namespace Client.GUIs
 
             stocksDataGridView.Rows.Clear();
 
-            if (type == "Celule Rosii")
+            if (type == "Red cells")
             {
                 stocksDataGridView.ColumnCount = 5;
 
                 stocksDataGridView.Columns[0].HeaderText = "Antigen";
                 stocksDataGridView.Columns[1].HeaderText = "Rh";
-                stocksDataGridView.Columns[2].HeaderText = "Cantitate";
-                stocksDataGridView.Columns[3].HeaderText = "Expira la";
-                stocksDataGridView.Columns[4].HeaderText = "Donat pentru";
+                stocksDataGridView.Columns[2].HeaderText = "Quantity";
+                stocksDataGridView.Columns[3].HeaderText = "Expires on";
+                stocksDataGridView.Columns[4].HeaderText = "Donated for";
 
 
                 controller.donationCenter.redBloodCellList
@@ -528,10 +528,10 @@ namespace Client.GUIs
             {
                 stocksDataGridView.ColumnCount = 4;
 
-                stocksDataGridView.Columns[0].HeaderText = "Anticorpi";
-                stocksDataGridView.Columns[1].HeaderText = "Cantitate";
-                stocksDataGridView.Columns[2].HeaderText = "Expira la";
-                stocksDataGridView.Columns[3].HeaderText = "Donat pentru";
+                stocksDataGridView.Columns[0].HeaderText = "Antibody";
+                stocksDataGridView.Columns[1].HeaderText = "Quantity";
+                stocksDataGridView.Columns[2].HeaderText = "Expires on";
+                stocksDataGridView.Columns[3].HeaderText = "Donated for";
 
 
                 controller.donationCenter.plasmaList
@@ -541,13 +541,13 @@ namespace Client.GUIs
 
             }
 
-            if (type == "Trombocite")
+            if (type == "Trombocytes")
             {
                 stocksDataGridView.ColumnCount = 3;
 
-                stocksDataGridView.Columns[0].HeaderText = "Cantitate";
-                stocksDataGridView.Columns[1].HeaderText = "Expira la";
-                stocksDataGridView.Columns[2].HeaderText = "Donat pentru";
+                stocksDataGridView.Columns[0].HeaderText = "Quantity";
+                stocksDataGridView.Columns[1].HeaderText = "Expires on";
+                stocksDataGridView.Columns[2].HeaderText = "Donated for";
 
 
 

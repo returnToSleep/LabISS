@@ -44,7 +44,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(230, 41);
             this.button1.TabIndex = 0;
-            this.button1.Text = "Lista Doctori\r\n";
+            this.button1.Text = "Doctor list";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -57,7 +57,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(219, 41);
             this.button2.TabIndex = 1;
-            this.button2.Text = "Lista Centre de donatie\r\n";
+            this.button2.Text = "Donation center list";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -67,9 +67,9 @@
             this.consoleCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.consoleCheckBox.Location = new System.Drawing.Point(17, 28);
             this.consoleCheckBox.Name = "consoleCheckBox";
-            this.consoleCheckBox.Size = new System.Drawing.Size(186, 24);
+            this.consoleCheckBox.Size = new System.Drawing.Size(145, 24);
             this.consoleCheckBox.TabIndex = 3;
-            this.consoleCheckBox.Text = "Redirectionare ouput";
+            this.consoleCheckBox.Text = "Redirect output";
             this.consoleCheckBox.UseVisualStyleBackColor = true;
             this.consoleCheckBox.CheckedChanged += new System.EventHandler(this.consoleCheckBox_CheckedChanged);
             // 

@@ -50,9 +50,9 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(138, 26);
+            this.label1.Size = new System.Drawing.Size(153, 26);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Pasul 1 din 3";
+            this.label1.Text = "Step 1 out of 3";
             // 
             // userTextBox
             // 
@@ -84,9 +84,9 @@
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(6, 47);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(122, 17);
+            this.label2.Size = new System.Drawing.Size(38, 17);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Nume de utilizator";
+            this.label2.Text = "User";
             // 
             // label3
             // 
@@ -95,9 +95,9 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(6, 78);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 18);
+            this.label3.Size = new System.Drawing.Size(75, 18);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Parola";
+            this.label3.Text = "Password";
             // 
             // label4
             // 
@@ -108,7 +108,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(121, 17);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Confirmare parola";
+            this.label4.Text = "Confirm Password";
             // 
             // groupBox1
             // 
@@ -125,7 +125,7 @@
             this.groupBox1.Size = new System.Drawing.Size(423, 148);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Inregristrare";
+            this.groupBox1.Text = "Register";
             // 
             // submitButton
             // 
@@ -136,7 +136,7 @@
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(146, 35);
             this.submitButton.TabIndex = 8;
-            this.submitButton.Text = "Creeare cont";
+            this.submitButton.Text = "Next";
             this.submitButton.UseVisualStyleBackColor = false;
             this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
             // 
@@ -149,7 +149,7 @@
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(110, 35);
             this.cancelButton.TabIndex = 9;
-            this.cancelButton.Text = "Anulare";
+            this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
             // 
             // label5
@@ -157,10 +157,10 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(15, 58);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(393, 51);
+            this.label5.Size = new System.Drawing.Size(395, 51);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Crearea unui cont consta in alegerea unui nume de utilizator \r\nsi a unui parole. " +
-    "Cu aceste data puteti accesa contul \r\ndumneavostra.\r\n";
+            this.label5.Text = "Creating an account consists of choosing a user name and a\r\npassword. Once creeat" +
+    "eed you can use theese credentials to\r\nlog in to your profile!\r\n";
             // 
             // AccountWindow
             // 

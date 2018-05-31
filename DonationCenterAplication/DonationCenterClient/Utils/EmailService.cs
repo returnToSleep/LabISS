@@ -38,12 +38,12 @@ namespace Client.Utils
 
         public static void sendCreateMesage(string toAddress, LogInfo log)
         {
-            string subject = "Contul dumneavoastra a fost creeat!";
+            string subject = "Your account has been created!";
 
-            string body = "Buna ziua!" + "\n\n\n"
-                    + "Multumim ca ati ales aplicatia noastra\n"
-                    + "Utilizator: " + log.username + "\n"
-                    + "Parola: " + log.password;
+            string body = "Hello!" + "\n\n\n"
+                    + "Thank you for using our application\n"
+                    + "User: " + log.username + "\n"
+                    + "Password: " + log.password;
 
 
             sendMail("Blood donation", toAddress, subject, body);
@@ -51,15 +51,15 @@ namespace Client.Utils
     
         public static void sendBloodDispatchingMail(string toAddress, DoctorRequest req)
         {
-            string subject = "Sangele donat de catre dumneavoastra a fost trimis catre un spital!";
+            string subject = "Some of the blood you have donated has been sent to a hospital!";
 
-            string body = "Buna ziua!" + "\n\n\n"
-                    + "Va aducem la cunostinta faptul ca sangele donat de dumneavoastra\n"
-                    + "urmeaza sa fie livrat catre spitalul " + req.hospital
-                    + "pentru pacientul " + req.pacientName + ".\n"
-                    + "Multumim pentru inca o data pentru donatie si pentru ca ati ajutat la salvarea unui pacient.\n"
+            string body = "Good day!" + "\n\n\n"
+                    + "We would like to inform you that part of the blood you have donated\n"
+                    + "is beeing delivered to " + req.hospital + " hospital"
+                    + "for the pacient " + req.pacientName + ".\n"
+                    + "Thank you again for your donation and for aiding in the recovery of a pacient.\n"
                     + "\n\n"
-                    + "Cu respect,"
+                    + "Respectfully,"
                     + req.donationCenterName;
 
             sendMail(req.donationCenterName, toAddress, subject, body);               
@@ -68,18 +68,17 @@ namespace Client.Utils
 
         public static void sendNotEnoughtBloodMail(Donor don, DoctorRequest req)
         {
-            string subject = "Avem nevoie de ajutorul dumneavoastra!";
+            string subject = "Someone needs your help!";
 
-            string missMister1 = don.cnp[0] == '1' ? "Stimate domn " : "Stimata doamna ";
-            string missMister = don.cnp[0] == '1' ? "determiat a fi compatibil" : "determinata a fi compatibila";
-
+            string missMister1 = don.cnp[0] == '1' ? "Dear mister " : "Dear miss ";
+        
             string body = missMister1 + don.name + ",\n\n\n"
-                    + "Pacientrul " + req.pacientName + " are mare nevoie de ajutorul dumneavoastra.\n"
-                    + "Din nefericire nu avem sangele necesar in stoc iar dumneavostra ati fost " + missMister + ".\n"
-                    + "Am aprecia enorm daca ati putea sa va faceti timp pentru o donatie.\n"
-                    + "Multumim si ne cerem scuze pentru deranj."
+                    +  req.pacientName + " has hospitalized at the " + req.hospital + " hospital and is in great need of your help.\n"
+                    + "Unfortunately, we do not have the necessary ammount on stock and you have been determined to be compatible.\n"
+                    + "We would appreciate enormly if you could make some time for a donation.\n"
+                    + "Thank you."
                     + "\n\n"
-                    + "Cu respect, "
+                    + "Respectfully, "
                     + req.donationCenterName;
                    
             sendMail(req.donationCenterName, don.email, subject, body);

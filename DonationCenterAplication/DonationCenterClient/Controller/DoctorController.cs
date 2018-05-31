@@ -46,6 +46,17 @@ namespace Controller
             return new HashSet<string>(doctor.requests.Select(x => x.pacientName).ToList());
         }
 
+        public double getDistanceFromDoctor(DonationCenter don)
+        {
+            don.setLatLon();
+            double exp1 = don.lat - doctor.location.latitude;
+            double exp2 = don.lon - doctor.location.longitude;
+
+            return Math.Sqrt(Math.Pow(exp1, 2) - Math.Pow(exp2, 2));
+        }
+
+  
+
 
         public List<Tuple<string, double, string>> getBestRequest(string pacientName, string component, string type = null, bool rh = false, float ammount = 0)
         {
@@ -61,14 +72,13 @@ namespace Controller
                 case "Plasma":
                     {
 
-
                         List<DonationCenter> sortedList = donList.ToList()
-                            .OrderByDescending(x => x.plasmaList
-                                 .Where(plasma => plasma.antibody == type)
-                                 .Select(y => y.ammount)
-                                 .Sum())
-                                 .ToList();
-                      
+                                .OrderByDescending(x => x.plasmaList
+                                        .Where(plasma => plasma.antibody == type)
+                                        .Select(y => y.ammount)
+                                        .Sum() - getDistanceFromDoctor(x))
+                                        .ToList();
+
 
                         foreach (DonationCenter donationCenter in sortedList)
                         {
@@ -123,7 +133,7 @@ namespace Controller
                            .OrderByDescending(x => x.redBloodCellList
                                 .Where(red => red.antigen == type && red.rh == rh)
                                 .Select(y => y.ammount)
-                                .Sum())
+                                .Sum() - getDistanceFromDoctor(x))
                                 .ToList();
 
                         foreach (DonationCenter donationCenter in sortedList)
@@ -176,7 +186,7 @@ namespace Controller
                         List<DonationCenter> sortedList = donList.ToList()
                            .OrderByDescending(x => x.redBloodCellList
                                 .Select(y => y.ammount)
-                                .Sum())
+                                .Sum() - getDistanceFromDoctor(x))
                                 .ToList();
 
                         foreach (DonationCenter donationCenter in sortedList) 
@@ -666,7 +676,7 @@ namespace Controller
                 }
                 catch (RemotingException rmE)
                 {
-                    throw new ControllerException("A aparut o problema!", rmE);
+                    throw new ControllerException("An error has occured!", rmE);
                 }
             }
             else
@@ -682,11 +692,53 @@ namespace Controller
                 }
                 catch (RemotingException rmE)
                 {
-                    throw new ControllerException("A aparut o problema!", rmE);
+                    throw new ControllerException("An error has occured", rmE);
                 }
             }
         }
         #endregion
+
+
+
+        public void deleteRequest(DoctorRequest req)
+        {
+            if (req.isBeeingDelivered)
+                throw new ControllerException("A request while that is beeing delivered cannot delete");
+
+            try
+            {
+                service.DeleteFromDatabase(req);
+            }
+            catch (Exception)
+            {
+                throw new ControllerException("No selected item");
+            }
+        }
+
+        public void deleteAllRequests(DoctorRequest req)
+        {
+
+            if (req.isBeeingDelivered)
+                throw new ControllerException("A request while that is beeing delivered cannot delete");
+
+            try
+            {
+                doctor.requests.Where(x => x.pacientName == req.pacientName && x.isBeeingDelivered == false)
+                .ToList()
+                .ForEach(x => service.DeleteFromDatabase(x));
+
+            }
+            catch (Exception)
+            {
+                throw new ControllerException("No selected item");
+            }
+        }
+
+        public void sortRequests()
+        {
+            doctor.requests = doctor.requests.OrderBy(x => x.isBeeingDelivered).ToList();
+        }
+
 
     }
 }

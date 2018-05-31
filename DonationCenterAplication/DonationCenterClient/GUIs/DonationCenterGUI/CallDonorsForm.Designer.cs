@@ -1,4 +1,6 @@
-﻿namespace Client.GUIs.DonationCenter
+﻿using Client.Utils;
+
+namespace Client.GUIs.DonationCenter
 {
     partial class CallDonorsForm
     {
@@ -30,7 +32,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CallDonorsForm));
             this.warningLabel = new System.Windows.Forms.Label();
-            this.donorList = new NishBox.MultiLineListBox();
+            this.donorList = new Client.Utils.SafeNishBox();
             this.contactButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -45,13 +47,14 @@
             this.warningLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.warningLabel.Location = new System.Drawing.Point(8, 9);
             this.warningLabel.Name = "warningLabel";
-            this.warningLabel.Size = new System.Drawing.Size(468, 20);
+            this.warningLabel.Size = new System.Drawing.Size(442, 20);
             this.warningLabel.TabIndex = 0;
-            this.warningLabel.Text = "Nu exista suficient sange pe stoc pentru a satisface cererea: ";
+            this.warningLabel.Text = "There is not enough blood on stock to satisfy the request: ";
             // 
             // donorList
             // 
             this.donorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.donorList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.donorList.FormattingEnabled = true;
             this.donorList.Location = new System.Drawing.Point(6, 34);
             this.donorList.Name = "donorList";
@@ -69,7 +72,7 @@
             this.contactButton.Name = "contactButton";
             this.contactButton.Size = new System.Drawing.Size(165, 44);
             this.contactButton.TabIndex = 2;
-            this.contactButton.Text = "Contactere donator";
+            this.contactButton.Text = "Send e-mail";
             this.contactButton.UseVisualStyleBackColor = false;
             this.contactButton.Click += new System.EventHandler(this.contactButton_Click);
             // 
@@ -82,7 +85,7 @@
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(114, 44);
             this.cancelButton.TabIndex = 4;
-            this.cancelButton.Text = "Anulare";
+            this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
             // 
             // groupBox1
@@ -96,7 +99,7 @@
             this.groupBox1.Size = new System.Drawing.Size(1026, 538);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Donatori disponibili";
+            this.groupBox1.Text = "Available donors";
             // 
             // gMapAvailableDonors
             // 
@@ -123,6 +126,7 @@
             this.gMapAvailableDonors.Size = new System.Drawing.Size(550, 488);
             this.gMapAvailableDonors.TabIndex = 2;
             this.gMapAvailableDonors.Zoom = 0D;
+            this.gMapAvailableDonors.Load += new System.EventHandler(this.gMapAvailableDonors_Load);
             // 
             // label1
             // 
@@ -131,10 +135,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.Location = new System.Drawing.Point(14, 661);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(352, 40);
+            this.label1.Size = new System.Drawing.Size(524, 20);
             this.label1.TabIndex = 6;
-            this.label1.Text = "*Donatorii disponibili sunt sortati in functie de \r\ndistanta fata de centrul de d" +
-    "onatie";
+            this.label1.Text = "*Available donors are sorted by the distance from the donation center";
             // 
             // CallDonorsForm
             // 
@@ -149,7 +152,6 @@
             this.Controls.Add(this.warningLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CallDonorsForm";
-            this.Text = "Nu exista suficient sange";
             this.Load += new System.EventHandler(this.CallDonorsForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -160,7 +162,7 @@
         #endregion
 
         private System.Windows.Forms.Label warningLabel;
-        private NishBox.MultiLineListBox donorList;
+        private SafeNishBox donorList;
         private System.Windows.Forms.Button contactButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.GroupBox groupBox1;

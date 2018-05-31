@@ -82,7 +82,7 @@
             this.groupBox1.Size = new System.Drawing.Size(423, 475);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Adaugare doctor";
+            this.groupBox1.Text = "Add doctor";
             // 
             // idLable
             // 
@@ -152,7 +152,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(170, 39);
             this.button2.TabIndex = 10;
-            this.button2.Text = "Stergere Date";
+            this.button2.Text = "Clear";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -164,7 +164,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(133, 39);
             this.button1.TabIndex = 6;
-            this.button1.Text = "Adaugare";
+            this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -184,9 +184,9 @@
             this.label3.Location = new System.Drawing.Point(10, 237);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 29);
+            this.label3.Size = new System.Drawing.Size(101, 29);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Spital:";
+            this.label3.Text = "Hospital";
             // 
             // specialityTextbox
             // 
@@ -203,9 +203,9 @@
             this.label2.Location = new System.Drawing.Point(8, 166);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(145, 29);
+            this.label2.Size = new System.Drawing.Size(123, 29);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Specialitate:";
+            this.label2.Text = "Specilaity:";
             // 
             // nameTextbox
             // 
@@ -222,9 +222,9 @@
             this.label1.Location = new System.Drawing.Point(8, 95);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 29);
+            this.label1.Size = new System.Drawing.Size(84, 29);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Nume: ";
+            this.label1.Text = "Name:";
             // 
             // gMapDoctorSelect
             // 

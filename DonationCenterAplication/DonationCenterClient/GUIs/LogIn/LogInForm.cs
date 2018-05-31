@@ -69,14 +69,14 @@ namespace Client.GUIs.LogIn
             }
             catch (ControllerException)
             {
-                MessageBox.Show("Nu se poate efectua conexiunea la server\nIncercati din nou mai tarziu", "Oops!");
+                MessageBox.Show("Can not connect to server\nPlease try again later", "Oops!");
                 ChannelServices.UnregisterChannel(channel);
                 return;
             }
 
             if (info == null)
             {
-                MessageBox.Show("Parola gresita", "Oops!");
+                MessageBox.Show("Wrong password", "Oops!");
                 ChannelServices.UnregisterChannel(channel);
                 return;
             }
@@ -110,7 +110,7 @@ namespace Client.GUIs.LogIn
 
                 } catch (RemotingException)
                 {
-                    MessageBox.Show("Nu se poate efectua conexiunea la server.\n Va rugam reveniti mai tarziu", "Oops!");
+                    MessageBox.Show("Can not connect to server\nPlease try again later", "Oops!");
 
                     ChannelServices.UnregisterChannel(channel);
                 }
@@ -149,7 +149,7 @@ namespace Client.GUIs.LogIn
                 }
                 catch (RemotingException)
                 {
-                    MessageBox.Show("Nu se poate efectua conexiunea la server.\n Va rugam reveniti mai tarziu", "Oops!");
+                    MessageBox.Show("Can not connect to server\nPlease try again later", "Oops!");
 
                     ChannelServices.UnregisterChannel(channel);
                 }
@@ -185,7 +185,7 @@ namespace Client.GUIs.LogIn
                 }
                 catch (RemotingException)
                 {
-                    MessageBox.Show("Nu se poate efectua conexiunea la server.\n Va rugam reveniti mai tarziu", "Oops!");
+                    MessageBox.Show("Can not connect to server\nPlease try again later", "Oops!");
 
                     ChannelServices.UnregisterChannel(channel);
                 }

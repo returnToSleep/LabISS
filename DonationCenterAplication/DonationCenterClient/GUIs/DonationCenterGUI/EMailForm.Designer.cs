@@ -46,9 +46,9 @@
             this.label1.ForeColor = System.Drawing.Color.DarkRed;
             this.label1.Location = new System.Drawing.Point(12, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(229, 25);
+            this.label1.Size = new System.Drawing.Size(195, 25);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Informare rezultat analize";
+            this.label1.Text = "Medical exam results";
             // 
             // label2
             // 
@@ -56,9 +56,9 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label2.Location = new System.Drawing.Point(12, 59);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 25);
+            this.label2.Size = new System.Drawing.Size(36, 25);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Catre";
+            this.label2.Text = "To";
             // 
             // eMailBox
             // 
@@ -75,7 +75,7 @@
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(96, 39);
             this.sendButton.TabIndex = 3;
-            this.sendButton.Text = "Trimitere";
+            this.sendButton.Text = "Send";
             this.sendButton.UseVisualStyleBackColor = false;
             this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
             // 
@@ -86,7 +86,7 @@
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(110, 39);
             this.cancelButton.TabIndex = 4;
-            this.cancelButton.Text = "Anulare";
+            this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
@@ -106,7 +106,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 25);
             this.label3.TabIndex = 6;
-            this.label3.Text = "Subiect";
+            this.label3.Text = "Subject\r\n";
             // 
             // subjectTextBox
             // 

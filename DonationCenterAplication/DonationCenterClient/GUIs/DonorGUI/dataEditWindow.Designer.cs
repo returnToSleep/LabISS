@@ -83,7 +83,7 @@
             this.groupBox1.Size = new System.Drawing.Size(661, 546);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Editare date";
+            this.groupBox1.Text = "Data edit";
             // 
             // groupBox3
             // 
@@ -103,7 +103,7 @@
             this.groupBox3.Size = new System.Drawing.Size(646, 74);
             this.groupBox3.TabIndex = 31;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Adresa";
+            this.groupBox3.Text = "Adress";
             // 
             // label22
             // 
@@ -111,9 +111,9 @@
             this.label22.ForeColor = System.Drawing.Color.Black;
             this.label22.Location = new System.Drawing.Point(527, 37);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(37, 25);
+            this.label22.Size = new System.Drawing.Size(42, 25);
             this.label22.TabIndex = 9;
-            this.label22.Text = "Nr.";
+            this.label22.Text = "No.";
             // 
             // label21
             // 
@@ -121,9 +121,9 @@
             this.label21.ForeColor = System.Drawing.Color.Black;
             this.label21.Location = new System.Drawing.Point(222, 36);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(70, 25);
+            this.label21.Size = new System.Drawing.Size(64, 25);
             this.label21.TabIndex = 8;
-            this.label21.Text = "Strada";
+            this.label21.Text = "Street";
             // 
             // label20
             // 
@@ -131,9 +131,9 @@
             this.label20.ForeColor = System.Drawing.Color.Black;
             this.label20.Location = new System.Drawing.Point(7, 36);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(55, 25);
+            this.label20.Size = new System.Drawing.Size(46, 25);
             this.label20.TabIndex = 7;
-            this.label20.Text = "Oras";
+            this.label20.Text = "City";
             // 
             // addressNumberTextBox
             // 
@@ -169,7 +169,7 @@
             this.groupBox6.Size = new System.Drawing.Size(646, 74);
             this.groupBox6.TabIndex = 30;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Adresă de E-mail";
+            this.groupBox6.Text = "E-mail";
             // 
             // emailTextBox
             // 
@@ -224,7 +224,7 @@
             this.groupBox4.Size = new System.Drawing.Size(646, 74);
             this.groupBox4.TabIndex = 27;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Adresă de resedinta";
+            this.groupBox4.Text = "Residence address";
             // 
             // label23
             // 
@@ -232,9 +232,9 @@
             this.label23.ForeColor = System.Drawing.Color.Black;
             this.label23.Location = new System.Drawing.Point(527, 39);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(37, 25);
+            this.label23.Size = new System.Drawing.Size(42, 25);
             this.label23.TabIndex = 15;
-            this.label23.Text = "Nr.";
+            this.label23.Text = "No.";
             // 
             // label24
             // 
@@ -242,9 +242,9 @@
             this.label24.ForeColor = System.Drawing.Color.Black;
             this.label24.Location = new System.Drawing.Point(222, 39);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(70, 25);
+            this.label24.Size = new System.Drawing.Size(64, 25);
             this.label24.TabIndex = 14;
-            this.label24.Text = "Strada";
+            this.label24.Text = "Street";
             // 
             // label25
             // 
@@ -252,9 +252,9 @@
             this.label25.ForeColor = System.Drawing.Color.Black;
             this.label25.Location = new System.Drawing.Point(7, 39);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(55, 25);
+            this.label25.Size = new System.Drawing.Size(46, 25);
             this.label25.TabIndex = 13;
-            this.label25.Text = "Oras";
+            this.label25.Text = "City";
             // 
             // resiNumberTextBox
             // 
@@ -295,7 +295,7 @@
             this.groupBox2.Size = new System.Drawing.Size(646, 74);
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Data nasterii";
+            this.groupBox2.Text = "Date of birth";
             // 
             // label19
             // 
@@ -303,9 +303,9 @@
             this.label19.ForeColor = System.Drawing.Color.Black;
             this.label19.Location = new System.Drawing.Point(440, 40);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(37, 25);
+            this.label19.Size = new System.Drawing.Size(53, 25);
             this.label19.TabIndex = 6;
-            this.label19.Text = "An";
+            this.label19.Text = "Year";
             // 
             // label18
             // 
@@ -313,19 +313,19 @@
             this.label18.ForeColor = System.Drawing.Color.Black;
             this.label18.Location = new System.Drawing.Point(222, 40);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(56, 25);
+            this.label18.Size = new System.Drawing.Size(67, 25);
             this.label18.TabIndex = 5;
-            this.label18.Text = "Luna";
+            this.label18.Text = "Month";
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.ForeColor = System.Drawing.Color.Black;
-            this.label17.Location = new System.Drawing.Point(29, 40);
+            this.label17.Location = new System.Drawing.Point(15, 40);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(28, 25);
+            this.label17.Size = new System.Drawing.Size(47, 25);
             this.label17.TabIndex = 4;
-            this.label17.Text = "Zi";
+            this.label17.Text = "Day";
             // 
             // birthDateDayTextBox
             // 
@@ -336,14 +336,14 @@
             // 
             // bithDateYearTextBox
             // 
-            this.bithDateYearTextBox.Location = new System.Drawing.Point(483, 37);
+            this.bithDateYearTextBox.Location = new System.Drawing.Point(499, 37);
             this.bithDateYearTextBox.Name = "bithDateYearTextBox";
-            this.bithDateYearTextBox.Size = new System.Drawing.Size(155, 30);
+            this.bithDateYearTextBox.Size = new System.Drawing.Size(139, 30);
             this.bithDateYearTextBox.TabIndex = 2;
             // 
             // birthDateMonthTextBox
             // 
-            this.birthDateMonthTextBox.Location = new System.Drawing.Point(298, 35);
+            this.birthDateMonthTextBox.Location = new System.Drawing.Point(298, 37);
             this.birthDateMonthTextBox.Name = "birthDateMonthTextBox";
             this.birthDateMonthTextBox.Size = new System.Drawing.Size(136, 30);
             this.birthDateMonthTextBox.TabIndex = 1;
@@ -361,7 +361,7 @@
             this.groupBox5.Size = new System.Drawing.Size(646, 74);
             this.groupBox5.TabIndex = 26;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Nume si prenume";
+            this.groupBox5.Text = "Name and surname";
             // 
             // donorNameTextBox
             // 
@@ -379,7 +379,7 @@
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(136, 45);
             this.saveButton.TabIndex = 1;
-            this.saveButton.Text = "Salvare";
+            this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = false;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
@@ -390,7 +390,7 @@
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(136, 45);
             this.cancelButton.TabIndex = 2;
-            this.cancelButton.Text = "Anulare";
+            this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 

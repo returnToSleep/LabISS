@@ -88,5 +88,28 @@ namespace Client.GUIs.DonorGUI
             DialogResult = DialogResult.Cancel;
             Close();
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                VisitLink();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to open link that was clicked.");
+            }
+        }
+
+        private void VisitLink()
+        {
+            linkLabel1.LinkVisited = true;
+            System.Diagnostics.Process.Start("https://sieudonez.ro/cum-donezi/");
+        }
     }
 }

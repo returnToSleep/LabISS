@@ -1,4 +1,6 @@
-﻿namespace Client.GUIs
+﻿using Client.Utils;
+
+namespace Client.GUIs
 {
     partial class DonationCenterGUI
     {
@@ -33,22 +35,23 @@
             this.selectionTab = new System.Windows.Forms.TabControl();
             this.donorPage = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.donorList = new NishBox.MultiLineListBox();
+            this.donorList = new Client.Utils.SafeNishBox();
             this.gMapDonors = new GMap.NET.WindowsForms.GMapControl();
             this.pendingPage = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.pendingDonorList = new NishBox.MultiLineListBox();
+            this.pendingDonorList = new Client.Utils.SafeNishBox();
             this.donorNotOkButton = new System.Windows.Forms.Button();
             this.donorOkButton = new System.Windows.Forms.Button();
             this.gMapPendingDonors = new GMap.NET.WindowsForms.GMapControl();
             this.doctorPage = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.doctorRequestList = new NishBox.MultiLineListBox();
+            this.doctorRequestList = new Client.Utils.SafeNishBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gMapRouteToDoctor = new GMap.NET.WindowsForms.GMapControl();
             this.sendBloodButton = new System.Windows.Forms.Button();
             this.potentialBloodTextBox = new System.Windows.Forms.RichTextBox();
             this.bloodStockPage = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
             this.stocksDataGridView = new System.Windows.Forms.DataGridView();
             this.compoenetSelectComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -98,7 +101,7 @@
             this.donorPage.Padding = new System.Windows.Forms.Padding(3);
             this.donorPage.Size = new System.Drawing.Size(1145, 556);
             this.donorPage.TabIndex = 0;
-            this.donorPage.Text = "Donatori";
+            this.donorPage.Text = "Donors";
             // 
             // groupBox4
             // 
@@ -112,14 +115,14 @@
             this.groupBox4.Size = new System.Drawing.Size(450, 540);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Donatori";
+            this.groupBox4.Text = "Donors";
             // 
             // donorList
             // 
             this.donorList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.donorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.donorList.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.donorList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.donorList.FormattingEnabled = true;
             this.donorList.Location = new System.Drawing.Point(6, 39);
             this.donorList.Name = "donorList";
@@ -167,7 +170,7 @@
             this.pendingPage.Padding = new System.Windows.Forms.Padding(3);
             this.pendingPage.Size = new System.Drawing.Size(1145, 556);
             this.pendingPage.TabIndex = 2;
-            this.pendingPage.Text = "Persoane in asteptare";
+            this.pendingPage.Text = "Pending persons";
             // 
             // groupBox3
             // 
@@ -183,14 +186,14 @@
             this.groupBox3.Size = new System.Drawing.Size(450, 540);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Persoane in asteptare";
+            this.groupBox3.Text = "Pending persons";
             // 
             // pendingDonorList
             // 
             this.pendingDonorList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pendingDonorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.pendingDonorList.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pendingDonorList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.pendingDonorList.FormattingEnabled = true;
             this.pendingDonorList.Location = new System.Drawing.Point(6, 71);
             this.pendingDonorList.Name = "pendingDonorList";
@@ -207,7 +210,7 @@
             this.donorNotOkButton.Name = "donorNotOkButton";
             this.donorNotOkButton.Size = new System.Drawing.Size(86, 34);
             this.donorNotOkButton.TabIndex = 3;
-            this.donorNotOkButton.Text = "Neapt";
+            this.donorNotOkButton.Text = "Unfit";
             this.donorNotOkButton.UseVisualStyleBackColor = false;
             this.donorNotOkButton.Click += new System.EventHandler(this.donorNotOkButton_Click);
             // 
@@ -219,7 +222,7 @@
             this.donorOkButton.Name = "donorOkButton";
             this.donorOkButton.Size = new System.Drawing.Size(92, 34);
             this.donorOkButton.TabIndex = 2;
-            this.donorOkButton.Text = "Apt";
+            this.donorOkButton.Text = "Fit";
             this.donorOkButton.UseVisualStyleBackColor = false;
             this.donorOkButton.Click += new System.EventHandler(this.donorOkButton_Click);
             // 
@@ -262,7 +265,7 @@
             this.doctorPage.Padding = new System.Windows.Forms.Padding(3);
             this.doctorPage.Size = new System.Drawing.Size(1145, 556);
             this.doctorPage.TabIndex = 1;
-            this.doctorPage.Text = "Cereri de la doctori";
+            this.doctorPage.Text = "Requests from doctors";
             this.doctorPage.Click += new System.EventHandler(this.doctorPage_Click);
             // 
             // groupBox2
@@ -277,14 +280,14 @@
             this.groupBox2.Size = new System.Drawing.Size(450, 540);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Cereri de la doctori";
+            this.groupBox2.Text = "Requests from doctors";
             // 
             // doctorRequestList
             // 
             this.doctorRequestList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.doctorRequestList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.doctorRequestList.Font = new System.Drawing.Font("Arial Unicode MS", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.doctorRequestList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.doctorRequestList.FormattingEnabled = true;
             this.doctorRequestList.Location = new System.Drawing.Point(6, 37);
             this.doctorRequestList.Name = "doctorRequestList";
@@ -307,7 +310,7 @@
             this.groupBox1.Size = new System.Drawing.Size(677, 540);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Componente care satisfac cererea";
+            this.groupBox1.Text = "Components which match the request";
             // 
             // gMapRouteToDoctor
             // 
@@ -343,13 +346,13 @@
             // 
             this.sendBloodButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.sendBloodButton.Enabled = false;
-            this.sendBloodButton.Font = new System.Drawing.Font("Arial Unicode MS", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sendBloodButton.Font = new System.Drawing.Font("Arial Unicode MS", 9.2F);
             this.sendBloodButton.ForeColor = System.Drawing.Color.Black;
             this.sendBloodButton.Location = new System.Drawing.Point(6, 37);
             this.sendBloodButton.Name = "sendBloodButton";
             this.sendBloodButton.Size = new System.Drawing.Size(152, 46);
             this.sendBloodButton.TabIndex = 2;
-            this.sendBloodButton.Text = "Trimitere";
+            this.sendBloodButton.Text = "Send";
             this.sendBloodButton.UseVisualStyleBackColor = false;
             this.sendBloodButton.Click += new System.EventHandler(this.sendBloodButton_Click);
             // 
@@ -367,6 +370,7 @@
             // bloodStockPage
             // 
             this.bloodStockPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.bloodStockPage.Controls.Add(this.label3);
             this.bloodStockPage.Controls.Add(this.stocksDataGridView);
             this.bloodStockPage.Controls.Add(this.compoenetSelectComboBox);
             this.bloodStockPage.Controls.Add(this.label2);
@@ -375,7 +379,17 @@
             this.bloodStockPage.Padding = new System.Windows.Forms.Padding(3);
             this.bloodStockPage.Size = new System.Drawing.Size(1145, 556);
             this.bloodStockPage.TabIndex = 3;
-            this.bloodStockPage.Text = "Stocuri";
+            this.bloodStockPage.Text = "Component stocks";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.DarkRed;
+            this.label3.Location = new System.Drawing.Point(258, 13);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(68, 25);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "stocks";
             // 
             // stocksDataGridView
             // 
@@ -396,10 +410,10 @@
             // 
             this.compoenetSelectComboBox.FormattingEnabled = true;
             this.compoenetSelectComboBox.Items.AddRange(new object[] {
-            "Celule Rosii",
-            "Trombocite",
+            "Red cells",
+            "Trombocytes",
             "Plasma"});
-            this.compoenetSelectComboBox.Location = new System.Drawing.Point(209, 10);
+            this.compoenetSelectComboBox.Location = new System.Drawing.Point(66, 10);
             this.compoenetSelectComboBox.Name = "compoenetSelectComboBox";
             this.compoenetSelectComboBox.Size = new System.Drawing.Size(186, 32);
             this.compoenetSelectComboBox.TabIndex = 2;
@@ -409,11 +423,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.DarkRed;
-            this.label2.Location = new System.Drawing.Point(6, 10);
+            this.label2.Location = new System.Drawing.Point(6, 13);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(197, 25);
+            this.label2.Size = new System.Drawing.Size(54, 25);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Vizualizati stocurie de";
+            this.label2.Text = "View";
             // 
             // label1
             // 
@@ -421,22 +435,22 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(8, 690);
+            this.label1.Location = new System.Drawing.Point(8, 680);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(282, 20);
+            this.label1.Size = new System.Drawing.Size(208, 20);
             this.label1.TabIndex = 3;
-            this.label1.Text = "*Cererile sunt sortate in functie de urgenta";
+            this.label1.Text = "*Request are sorted by priority";
             // 
             // refreshButton
             // 
             this.refreshButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.refreshButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.refreshButton.ForeColor = System.Drawing.Color.Black;
-            this.refreshButton.Location = new System.Drawing.Point(1026, 12);
+            this.refreshButton.Location = new System.Drawing.Point(1032, 12);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(129, 41);
             this.refreshButton.TabIndex = 3;
-            this.refreshButton.Text = "Reinprospatare";
+            this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = false;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
@@ -455,11 +469,11 @@
             // 
             this.logOutButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.logOutButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.logOutButton.Location = new System.Drawing.Point(937, 675);
+            this.logOutButton.Location = new System.Drawing.Point(1042, 677);
             this.logOutButton.Name = "logOutButton";
-            this.logOutButton.Size = new System.Drawing.Size(228, 32);
+            this.logOutButton.Size = new System.Drawing.Size(123, 29);
             this.logOutButton.TabIndex = 5;
-            this.logOutButton.Text = "Inapoi la fereastra de logare";
+            this.logOutButton.Text = "Log out";
             this.logOutButton.UseVisualStyleBackColor = false;
             this.logOutButton.Click += new System.EventHandler(this.logOutButton_Click);
             // 
@@ -474,9 +488,9 @@
             this.label33.AutoSize = true;
             this.label33.Location = new System.Drawing.Point(9, 56);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(311, 17);
+            this.label33.Size = new System.Drawing.Size(275, 17);
             this.label33.TabIndex = 10;
-            this.label33.Text = "Atentie! Toate cantitatile sunt masurate in mililitri";
+            this.label33.Text = "NB! All quantities are measured in mililiters";
             // 
             // DonationCenterGUI
             // 
@@ -521,10 +535,10 @@
         private System.Windows.Forms.Button donorNotOkButton;
         private System.Windows.Forms.Button donorOkButton;
         private System.Windows.Forms.Button refreshButton;
-        private NishBox.MultiLineListBox donorList;
+        private SafeNishBox donorList;
         private System.Windows.Forms.Label nameLabel;
-        private NishBox.MultiLineListBox pendingDonorList;
-        private NishBox.MultiLineListBox doctorRequestList;
+        private SafeNishBox pendingDonorList;
+        private SafeNishBox doctorRequestList;
         private System.Windows.Forms.Button sendBloodButton;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -540,5 +554,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Label label3;
     }
 }

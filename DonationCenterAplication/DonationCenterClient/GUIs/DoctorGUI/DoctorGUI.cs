@@ -1,4 +1,5 @@
-﻿using Common.Model;
+﻿using Client.Utils;
+using Common.Model;
 using Common.Validators;
 using Controller;
 using GMap.NET;
@@ -42,7 +43,6 @@ namespace Client.GUIs.DoctorGUIs
             avaibleComponentsDonationCenterComboBox.SelectedIndex = 0;
 
             comboBox4.SelectedIndex = 0;
-
             
             populateRequestList();
 
@@ -133,6 +133,7 @@ namespace Client.GUIs.DoctorGUIs
             this.donatedForComboBox.Items.Clear();
             this.avaibleComponentsDonationCenterComboBox.Items.Clear();
 
+
             GMapOverlay markersStock = new GMapOverlay("markersStock");
             GMapOverlay markersRequest = new GMapOverlay("markersRequest");
 
@@ -178,7 +179,13 @@ namespace Client.GUIs.DoctorGUIs
             gMapStocks.Overlays.Add(markersStock);
         }
         private void RefreshLists()
-        { 
+        {
+
+            if (requestList.Items.Count == 0)
+            {
+                deliveredBloodList.Items.Clear();
+            }
+            
             controller.refresh();
             populateRequestList();
             populatePacientList();
@@ -338,7 +345,7 @@ namespace Client.GUIs.DoctorGUIs
 
             RefreshLists();
 
-            MessageBox.Show("Comanda a fost retrimisa!", "Ne cerem scuze");
+            MessageBox.Show("Delivered component has been sent back to the donation center!", "We apologize");
 
         }
 
@@ -583,13 +590,13 @@ namespace Client.GUIs.DoctorGUIs
 
                     string priority = this.priority.Items[this.priority.SelectedIndex].ToString();
 
-                    if (priority == "Mare")
+                    if (priority == "High")
                         priority = "1";
 
-                    if (priority == "Medie")
+                    if (priority == "Medium")
                         priority = "2";
 
-                    if (priority == "Scazuta")
+                    if (priority == "Low")
                         priority = "3";
 
                     string pacientName = this.cnp.Text.ToString();
@@ -620,6 +627,7 @@ namespace Client.GUIs.DoctorGUIs
                 });
 
                 MessageBox.Show("All the requests have been sent!", "Succes!");
+                RefreshLists();
 
                 this.priority.SelectedIndex = 0;
                 this.component.SelectedIndex = 0;
@@ -898,6 +906,54 @@ namespace Client.GUIs.DoctorGUIs
 
         }
 
-       
+        private void nonpendingOnTopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void requestList_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                return;
+            }
+        }
+
+        private void requestList_MouseUp(object sender, MouseEventArgs e)
+        {
+            return;
+        }
+
+        private void deleteSingleRequestMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                controller.deleteRequest((DoctorRequest)requestList.SelectedItem);
+                RefreshLists();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Oops!");
+            }
+        }
+
+        private void deleteAllRequests_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                controller.deleteAllRequests((DoctorRequest)requestList.SelectedItem);
+                RefreshLists();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Oops!");
+            }
+        }
+
+        private void showOnlyForAComponentntToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            controller.sortRequests();
+            RefreshLists();
+        }
     }
 }

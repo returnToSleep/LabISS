@@ -30,7 +30,7 @@ namespace Client.GUIs.DonationCenter
             InitializeComponent();
 
             gMapAvailableDonors.Manager.Mode = AccessMode.ServerOnly;
-            gMapAvailableDonors.MapProvider = GMapProviders.GoogleMap;
+            gMapAvailableDonors.MapProvider = GMapProviders.BingMap;
             gMapAvailableDonors.DragButton = MouseButtons.Left;
 
             warningLabel.Text += " " + request.ToString();
@@ -83,6 +83,11 @@ namespace Client.GUIs.DonationCenter
 
             gMapAvailableDonors.Position = new PointLatLng(lat, lon);
             gMapAvailableDonors.Zoom = 15;
+
+        }
+
+        private void gMapAvailableDonors_Load(object sender, EventArgs e)
+        {
 
         }
     }

@@ -56,11 +56,11 @@
             // logInButton
             // 
             this.logInButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.logInButton.Location = new System.Drawing.Point(175, 121);
+            this.logInButton.Location = new System.Drawing.Point(159, 121);
             this.logInButton.Name = "logInButton";
-            this.logInButton.Size = new System.Drawing.Size(151, 29);
+            this.logInButton.Size = new System.Drawing.Size(167, 29);
             this.logInButton.TabIndex = 2;
-            this.logInButton.Text = "Logare";
+            this.logInButton.Text = "Log In";
             this.logInButton.UseVisualStyleBackColor = false;
             this.logInButton.Click += new System.EventHandler(this.logInButton_Click);
             // 
@@ -68,11 +68,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label1.Location = new System.Drawing.Point(38, 43);
+            this.label1.Location = new System.Drawing.Point(55, 43);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 20);
+            this.label1.Size = new System.Drawing.Size(45, 20);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Utilizator";
+            this.label1.Text = "User";
             // 
             // label2
             // 
@@ -80,18 +80,18 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label2.Location = new System.Drawing.Point(38, 71);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 20);
+            this.label2.Size = new System.Drawing.Size(83, 20);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Parola";
+            this.label2.Text = "Password";
             // 
             // cancelButton
             // 
             this.cancelButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.cancelButton.Location = new System.Drawing.Point(22, 121);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(136, 29);
+            this.cancelButton.Size = new System.Drawing.Size(131, 29);
             this.cancelButton.TabIndex = 5;
-            this.cancelButton.Text = "Anulare";
+            this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
@@ -102,7 +102,7 @@
             this.createAccountButton.Name = "createAccountButton";
             this.createAccountButton.Size = new System.Drawing.Size(304, 41);
             this.createAccountButton.TabIndex = 6;
-            this.createAccountButton.Text = "Creare cont";
+            this.createAccountButton.Text = "Sign Up";
             this.createAccountButton.UseVisualStyleBackColor = false;
             this.createAccountButton.Click += new System.EventHandler(this.createAccountButton_Click);
             // 
@@ -121,7 +121,6 @@
             this.Controls.Add(this.userTextBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LogInForm";
-            this.Text = "Logare";
             this.ResumeLayout(false);
             this.PerformLayout();
 

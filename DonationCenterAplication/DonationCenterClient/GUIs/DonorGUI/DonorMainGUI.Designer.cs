@@ -1,4 +1,6 @@
-﻿namespace Client.GUIs.DonorGUI
+﻿using Client.Utils;
+
+namespace Client.GUIs.DonorGUI
 {
     partial class DonorMainGUI
     {
@@ -30,7 +32,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DonorMainGUI));
-            this.donationHistoryList = new NishBox.MultiLineListBox();
+            this.donationHistoryList = new SafeNishBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.noOfDonationsLabel = new System.Windows.Forms.Label();
             this.donorBloodTypeLabel = new System.Windows.Forms.Label();
@@ -82,7 +84,7 @@
             this.groupBox1.Size = new System.Drawing.Size(1081, 508);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Istoric donatii";
+            this.groupBox1.Text = "Donation history";
             // 
             // noOfDonationsLabel
             // 
@@ -92,9 +94,9 @@
             this.noOfDonationsLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.noOfDonationsLabel.Location = new System.Drawing.Point(315, 48);
             this.noOfDonationsLabel.Name = "noOfDonationsLabel";
-            this.noOfDonationsLabel.Size = new System.Drawing.Size(104, 17);
+            this.noOfDonationsLabel.Size = new System.Drawing.Size(148, 17);
             this.noOfDonationsLabel.TabIndex = 8;
-            this.noOfDonationsLabel.Text = "Numar donatii: ";
+            this.noOfDonationsLabel.Text = "Number of donations: ";
             // 
             // donorBloodTypeLabel
             // 
@@ -104,9 +106,9 @@
             this.donorBloodTypeLabel.ForeColor = System.Drawing.Color.Black;
             this.donorBloodTypeLabel.Location = new System.Drawing.Point(6, 48);
             this.donorBloodTypeLabel.Name = "donorBloodTypeLabel";
-            this.donorBloodTypeLabel.Size = new System.Drawing.Size(118, 17);
+            this.donorBloodTypeLabel.Size = new System.Drawing.Size(79, 17);
             this.donorBloodTypeLabel.TabIndex = 3;
-            this.donorBloodTypeLabel.Text = "Grupa sanguina: ";
+            this.donorBloodTypeLabel.Text = "Blood type:";
             // 
             // donorNameLabel
             // 
@@ -117,7 +119,7 @@
             this.donorNameLabel.Name = "donorNameLabel";
             this.donorNameLabel.Size = new System.Drawing.Size(53, 17);
             this.donorNameLabel.TabIndex = 2;
-            this.donorNameLabel.Text = "Nume: ";
+            this.donorNameLabel.Text = "Name: ";
             // 
             // fillFormButton
             // 
@@ -129,7 +131,7 @@
             this.fillFormButton.Name = "fillFormButton";
             this.fillFormButton.Size = new System.Drawing.Size(238, 60);
             this.fillFormButton.TabIndex = 4;
-            this.fillFormButton.Text = "Completare formular pentru donatie";
+            this.fillFormButton.Text = "Fill in donation\r\nform\r\n";
             this.fillFormButton.UseVisualStyleBackColor = false;
             this.fillFormButton.Click += new System.EventHandler(this.fillFormButton_Click);
             // 
@@ -142,7 +144,7 @@
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(190, 60);
             this.refreshButton.TabIndex = 5;
-            this.refreshButton.Text = "Reinprospatare";
+            this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = false;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
@@ -173,7 +175,7 @@
             this.groupBox2.Size = new System.Drawing.Size(635, 199);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Informatii";
+            this.groupBox2.Text = "Info";
             // 
             // emailLabel
             // 
@@ -193,9 +195,9 @@
             this.residenceLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.residenceLabel.Location = new System.Drawing.Point(6, 164);
             this.residenceLabel.Name = "residenceLabel";
-            this.residenceLabel.Size = new System.Drawing.Size(76, 17);
+            this.residenceLabel.Size = new System.Drawing.Size(83, 17);
             this.residenceLabel.TabIndex = 9;
-            this.residenceLabel.Text = "Resedinta:";
+            this.residenceLabel.Text = "Residentce:";
             // 
             // button1
             // 
@@ -207,7 +209,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(97, 35);
             this.button1.TabIndex = 7;
-            this.button1.Text = "Editare";
+            this.button1.Text = "Edit";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -222,7 +224,7 @@
             this.groupBox3.Size = new System.Drawing.Size(434, 119);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Urmatoarea donatie";
+            this.groupBox3.Text = "Next donation";
             // 
             // donationInformationLabel
             // 
@@ -238,11 +240,11 @@
             // logOutButton
             // 
             this.logOutButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.logOutButton.Location = new System.Drawing.Point(871, 731);
+            this.logOutButton.Location = new System.Drawing.Point(970, 731);
             this.logOutButton.Name = "logOutButton";
-            this.logOutButton.Size = new System.Drawing.Size(222, 29);
+            this.logOutButton.Size = new System.Drawing.Size(123, 29);
             this.logOutButton.TabIndex = 9;
-            this.logOutButton.Text = "Inapoi la fereastra de logare";
+            this.logOutButton.Text = "Log out";
             this.logOutButton.UseVisualStyleBackColor = false;
             this.logOutButton.Click += new System.EventHandler(this.logOutButton_Click);
             // 
@@ -293,7 +295,7 @@
 
         #endregion
 
-        private NishBox.MultiLineListBox donationHistoryList;
+        private SafeNishBox donationHistoryList;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label donorNameLabel;
         private System.Windows.Forms.Label donorBloodTypeLabel;
