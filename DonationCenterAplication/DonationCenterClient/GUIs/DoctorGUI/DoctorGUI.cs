@@ -14,7 +14,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace Client.GUIs
+namespace Client.GUIs.DoctorGUIs
 {
     public partial class DoctorGUI : Form
     {
@@ -521,14 +521,21 @@ namespace Client.GUIs
 
                     
                     //Message.SmartRequestMessageBox diag = new Message.SmartRequestMessageBox("Not enough blood mathing your request has been found across all dontaion centers.\nOnly " + gatheredAmmount + "ml have been found\nWhat would you like to do?");
-                    //TODO Smart request dialog
-                   
+                    
+                    SmartRequestDialog reqDiag = new SmartRequestDialog("Not enough blood mathing your request has been found across all dontaion centers.\nOnly " + gatheredAmmount + "ml have been found\nWhat would you like to do?", false);
+                    reqDiag.ShowDialog();
 
-                    if (false)
+                    if (reqDiag.DialogResult == DialogResult.Cancel)
                     {
                         resetSmartRequest();
                         return;
                     }
+
+                    if (reqDiag.DialogResult == DialogResult.No)
+                    {
+                        smartRequestList = controller.getBestRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, (float)gatheredAmmount);
+                    }
+
                 }
                 
 

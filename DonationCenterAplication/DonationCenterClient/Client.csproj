@@ -159,6 +159,12 @@
     <Compile Include="GUIs\DoctorGUI\DoctorGUI.Designer.cs">
       <DependentUpon>DoctorGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUIs\DoctorGUI\SmartRequestDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIs\DoctorGUI\SmartRequestDialog.Designer.cs">
+      <DependentUpon>SmartRequestDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUIs\DonationCenterGUI\BloodInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -233,6 +239,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\DoctorGUI\DoctorGUI.resx">
       <DependentUpon>DoctorGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIs\DoctorGUI\SmartRequestDialog.resx">
+      <DependentUpon>SmartRequestDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIs\DonationCenterGUI\BloodInput.resx">
       <DependentUpon>BloodInput.cs</DependentUpon>

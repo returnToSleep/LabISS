@@ -89,7 +89,7 @@ namespace Client.GUIs.LogIn
                     Doctor doctor = service.GetOneFromDatabase<Doctor>(info.intId);
                     DoctorController doctorController = new DoctorController(service, doctor);
                     Hide();
-                    DoctorGUI form = new DoctorGUI(doctorController);
+                    DoctorGUIs.DoctorGUI form = new DoctorGUIs.DoctorGUI(doctorController);
 
                     form.ShowDialog();
 

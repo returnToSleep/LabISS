@@ -61,7 +61,16 @@ namespace Controller
                 case "Plasma":
                     {
 
-                        foreach (DonationCenter donationCenter in donList)
+
+                        List<DonationCenter> sortedList = donList.ToList()
+                            .OrderByDescending(x => x.plasmaList
+                                 .Where(plasma => plasma.antibody == type)
+                                 .Select(y => y.ammount)
+                                 .Sum())
+                                 .ToList();
+                      
+
+                        foreach (DonationCenter donationCenter in sortedList)
                         {
 
                             localAmmount = 0.0f;
@@ -83,7 +92,7 @@ namespace Controller
 
                         }
 
-                        foreach (DonationCenter donationCenter in donList)
+                        foreach (DonationCenter donationCenter in sortedList)
                         {
 
                             localAmmount = 0.0f;
@@ -109,7 +118,15 @@ namespace Controller
 
                 case "Red":
                     {
-                        foreach (DonationCenter donationCenter in donList)
+
+                        List<DonationCenter> sortedList = donList.ToList()
+                           .OrderByDescending(x => x.redBloodCellList
+                                .Where(red => red.antigen == type && red.rh == rh)
+                                .Select(y => y.ammount)
+                                .Sum())
+                                .ToList();
+
+                        foreach (DonationCenter donationCenter in sortedList)
                         {
 
                             localAmmount = 0.0f;
@@ -131,7 +148,7 @@ namespace Controller
 
                         }
 
-                        foreach (DonationCenter donationCenter in donList)
+                        foreach (DonationCenter donationCenter in sortedList)
                         {
 
                             localAmmount = 0.0f;
@@ -155,7 +172,14 @@ namespace Controller
                     }
                 case "Tromb":
                     {
-                        foreach (DonationCenter donationCenter in donList)
+
+                        List<DonationCenter> sortedList = donList.ToList()
+                           .OrderByDescending(x => x.redBloodCellList
+                                .Select(y => y.ammount)
+                                .Sum())
+                                .ToList();
+
+                        foreach (DonationCenter donationCenter in sortedList) 
                         {
 
                             localAmmount = 0.0f;
@@ -176,7 +200,7 @@ namespace Controller
                             returnList.Add(Tuple.Create(donationCenter.name, localAmmount, donationCenter.id));
                         }
 
-                        foreach (DonationCenter donationCenter in donList)
+                        foreach (DonationCenter donationCenter in sortedList)
                         {
 
                             localAmmount = 0.0f;
@@ -282,6 +306,9 @@ namespace Controller
                 throw new ControllerException("getBloodDonatedForPacient", rmE);
             }
         }
+
+        
+
 
 
         /*

@@ -88,7 +88,7 @@ namespace Test.Tests
 
             string compString = dcc.getAvailableBloodForRequest(req);
 
-            Assert.AreEqual(compString.Split(';')[0], "Trombocite");
+            Assert.AreEqual(compString.Split(';')[0], "Trombocyte");
             Assert.AreEqual(compString.Split(';')[1].Split(',')[1], "112");
             #endregion
 
@@ -132,49 +132,49 @@ namespace Test.Tests
 
             compString = dcc.getAvailableBloodForRequest(req);
 
-            Assert.AreEqual(compString.Split(';')[0], "Celule rosii");
+            Assert.AreEqual(compString.Split(';')[0], "Red Cells");
             Assert.AreEqual(compString.Split(';')[1].Split(',')[1], "104");
 
             req = new DoctorRequest(doctor_id, dcc.donationCenter.id, 0, "test", "Red,A,true,105", "test");
 
             compString = dcc.getAvailableBloodForRequest(req);
 
-            Assert.AreEqual(compString.Split(';')[0], "Celule rosii");
+            Assert.AreEqual(compString.Split(';')[0], "Red Cells");
             Assert.AreEqual(compString.Split(';')[1].Split(',')[1], "105");
 
             req = new DoctorRequest(doctor_id, dcc.donationCenter.id, 0, "test", "Red,B,true,106", "test");
 
             compString = dcc.getAvailableBloodForRequest(req);
 
-            Assert.AreEqual(compString.Split(';')[0], "Celule rosii");
+            Assert.AreEqual(compString.Split(';')[0], "Red Cells");
             Assert.AreEqual(compString.Split(';')[1].Split(',')[1], "106");
 
             req = new DoctorRequest(doctor_id, dcc.donationCenter.id, 0, "test", "Red,AB,true,107", "test");
 
             compString = dcc.getAvailableBloodForRequest(req);
 
-            Assert.AreEqual(compString.Split(';')[0], "Celule rosii");
+            Assert.AreEqual(compString.Split(';')[0], "Red Cells");
             Assert.AreEqual(compString.Split(';')[1].Split(',')[1], "107");
 
             req = new DoctorRequest(doctor_id, dcc.donationCenter.id, 0, "test", "Red,0,false,108", "test");
 
             compString = dcc.getAvailableBloodForRequest(req);
 
-            Assert.AreEqual(compString.Split(';')[0], "Celule rosii");
+            Assert.AreEqual(compString.Split(';')[0], "Red Cells");
             Assert.AreEqual(compString.Split(';')[1].Split(',')[1], "108");
 
             req = new DoctorRequest(doctor_id, dcc.donationCenter.id, 0, "test", "Red,A,false,109", "test");
 
             compString = dcc.getAvailableBloodForRequest(req);
 
-            Assert.AreEqual(compString.Split(';')[0], "Celule rosii");
+            Assert.AreEqual(compString.Split(';')[0], "Red Cells");
             Assert.AreEqual(compString.Split(';')[1].Split(',')[1], "109");
 
             req = new DoctorRequest(doctor_id, dcc.donationCenter.id, 0, "test", "Red,B,false,110", "test");
 
             compString = dcc.getAvailableBloodForRequest(req);
 
-            Assert.AreEqual(compString.Split(';')[0], "Celule rosii");
+            Assert.AreEqual(compString.Split(';')[0], "Red Cells");
             Assert.AreEqual(compString.Split(';')[1].Split(',')[1], "110");
 
 
@@ -182,7 +182,7 @@ namespace Test.Tests
 
             compString = dcc.getAvailableBloodForRequest(req);
 
-            Assert.AreEqual(compString.Split(';')[0], "Celule rosii");
+            Assert.AreEqual(compString.Split(';')[0], "Red Cells");
             Assert.AreEqual(compString.Split(';')[1].Split(',')[1], "111");
 
             #endregion
@@ -193,7 +193,7 @@ namespace Test.Tests
 
             compString = dcc.getAvailableBloodForRequest(req);
 
-            Assert.AreEqual("Comanda este in curs de livrare", compString);
+            Assert.AreEqual("Package is beeing delivered to the doctor", compString);
 
             req = new DoctorRequest(doctor_id, dcc.donationCenter.id, 0, "test", "Red,AB,false,200", "test");
            

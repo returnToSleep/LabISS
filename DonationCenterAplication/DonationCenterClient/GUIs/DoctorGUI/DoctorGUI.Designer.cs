@@ -1,4 +1,4 @@
-﻿namespace Client.GUIs
+﻿namespace Client.GUIs.DoctorGUIs
 {
     partial class DoctorGUI
     {

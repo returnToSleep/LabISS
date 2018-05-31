@@ -26,7 +26,6 @@ namespace Test
         }
 
 
-
         [TestMethod]
         public void Test_getBloodDonatedForPacient()
         {
@@ -60,7 +59,7 @@ namespace Test
             doctorController.service.AddToDatabase(red);
             doctorController.service.AddToDatabase(plasma);
 #endregion
-            var result = doctorController.getBloodDonatedForPacient("TestDonatedFor");
+            var result = doctorController.getBloodDonatedForPacient("TestDonatedFor", "46.751727,23.594825");
             Assert.AreEqual(result.Item1, 10);
             Assert.AreEqual(result.Item2, 23);
             Assert.AreEqual(result.Item3, 53);
@@ -75,7 +74,7 @@ namespace Test
         public void Test_getRequiredBloodForPacient()
         {
             var doctorController = this.doctorControllerFactory();
-            doctorController.doctor = doctorController.service.GetOneFromDatabase<Doctor>(1);
+            //doctorController.doctor = doctorController.service.GetOneFromDatabase<Doctor>(1);
             #region FillData
             doctorController.makeRequest(
                 new Location
