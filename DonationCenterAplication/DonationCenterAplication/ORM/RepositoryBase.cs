@@ -30,7 +30,7 @@ namespace Repository
                     }
                     catch (Exception e)
                     {
-                        throw new DataBaseException("Baza de date a intampinat o eroare", e);
+                        throw new DataBaseException("The repository caught an exception", e);
                     }
                  }
             }
@@ -51,7 +51,7 @@ namespace Repository
                     }
                     catch (Exception e)
                     {
-                        throw new DataBaseException("Baza de date a intampinat o eroare", e);
+                        throw new DataBaseException("The repository caught an exception", e);
                     }
                 }
             }
@@ -74,7 +74,7 @@ namespace Repository
                     }
                     catch (Exception e)
                     {
-                        throw new DataBaseException("Baza de date a intampinat o eroare", e);
+                        throw new DataBaseException("The repository caught an exception", e);
                     }
                 }
             }
@@ -92,7 +92,7 @@ namespace Repository
                 }
                 catch (Exception e)
                 {
-                    throw new DataBaseException("Baza de date a intampinat o eroare", e);
+                    throw new DataBaseException("The repository caught an exception", e);
                 }
             }
          
@@ -117,7 +117,7 @@ namespace Repository
                 }
                 catch (Exception e)
                 {
-                    throw new DataBaseException("Baza de date a intampinat o eroare", e);
+                    throw new DataBaseException("The repository caught an exception", e);
                 }
             }
         }

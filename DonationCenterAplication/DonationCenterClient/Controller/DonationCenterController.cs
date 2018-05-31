@@ -124,7 +124,7 @@ namespace Client.Controller
             }
             catch (RemotingException rmE)
             {
-                throw new ControllerException("A aparut o problema!", rmE);
+                throw new ControllerException("An error has occured", rmE);
             }
             Refresh();
         }
@@ -144,7 +144,7 @@ namespace Client.Controller
             }
             catch (RemotingException rmE)
             {
-                throw new ControllerException("A aparut o problema!", rmE);
+                throw new ControllerException("An error has occured", rmE);
             }
         }
 
@@ -162,7 +162,7 @@ namespace Client.Controller
             }
             catch (RemotingException rmE)
             {
-                throw new ControllerException("A aparut o problema!", rmE);
+                throw new ControllerException("An error has occured", rmE);
             }
         }
 
@@ -181,7 +181,7 @@ namespace Client.Controller
                 }
                 catch (RemotingException rmE)
                 {
-                    throw new ControllerException("A aparut o problema!", rmE);
+                    throw new ControllerException("An error has occured", rmE);
                 }
                 Refresh();
             }
@@ -193,7 +193,7 @@ namespace Client.Controller
                 }
                 catch (RemotingException rmE)
                 {
-                    throw new ControllerException("A aparut o problema!", rmE);
+                    throw new ControllerException("An error has occured", rmE);
                 }
                 Refresh();
             }
@@ -213,7 +213,7 @@ namespace Client.Controller
             }
             catch (RemotingException rmE)
             {
-                throw new ControllerException("A aparut o problema!", rmE);
+                throw new ControllerException("An error has occured", rmE);
             }
             return priorityQueueRequests;
         }
@@ -328,7 +328,7 @@ namespace Client.Controller
                     maxDate = comp.donationDate;
                 }
                 gatheredAmount +=  comp.ammount;
-                combinedBlood += comp.id.ToString() + "," + comp.ammount + ";\n"; 
+                combinedBlood += comp.id.ToString() + "," + comp.ammount + ";"; 
 
             }
 
@@ -341,7 +341,7 @@ namespace Client.Controller
 
             if (type == "RedBloodCell")
             {
-                return "Celule rosii;" + combinedBlood;
+                return "Red Cells;" + combinedBlood;
             }
 
             if (type == "Plasma")
@@ -351,7 +351,7 @@ namespace Client.Controller
 
             if (type == "Trombocyte")
             {
-                return "Trombocite;" + combinedBlood;
+                return "Trombocyte;" + combinedBlood;
             }
 
             return null; 
@@ -364,7 +364,7 @@ namespace Client.Controller
 
             if (request.isBeeingDelivered)
             {
-                return "Comanda este in curs de livrare";
+                return "Package is beeing delivered to the doctor";
             }
 
             string[] splitRequest = request.requestString.Split(',');
@@ -494,7 +494,7 @@ namespace Client.Controller
 
             catch (RemotingException rmE)
             {
-                throw new ControllerException("A aparut o problema!", rmE);
+                throw new ControllerException("An error has occured", rmE);
             }
        }
 

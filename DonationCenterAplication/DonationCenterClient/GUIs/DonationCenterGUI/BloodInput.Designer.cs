@@ -260,7 +260,7 @@
             // 
             // bloodPulse
             // 
-            this.bloodPulse.Location = new System.Drawing.Point(329, 70);
+            this.bloodPulse.Location = new System.Drawing.Point(328, 70);
             this.bloodPulse.Name = "bloodPulse";
             this.bloodPulse.Size = new System.Drawing.Size(126, 22);
             this.bloodPulse.TabIndex = 10;
@@ -290,21 +290,21 @@
             // 
             // plasmaQuantity
             // 
-            this.plasmaQuantity.Location = new System.Drawing.Point(324, 108);
+            this.plasmaQuantity.Location = new System.Drawing.Point(328, 108);
             this.plasmaQuantity.Name = "plasmaQuantity";
             this.plasmaQuantity.Size = new System.Drawing.Size(126, 22);
             this.plasmaQuantity.TabIndex = 9;
             // 
             // redQuantity
             // 
-            this.redQuantity.Location = new System.Drawing.Point(325, 71);
+            this.redQuantity.Location = new System.Drawing.Point(328, 71);
             this.redQuantity.Name = "redQuantity";
             this.redQuantity.Size = new System.Drawing.Size(125, 22);
             this.redQuantity.TabIndex = 8;
             // 
             // trombQuantity
             // 
-            this.trombQuantity.Location = new System.Drawing.Point(325, 33);
+            this.trombQuantity.Location = new System.Drawing.Point(328, 33);
             this.trombQuantity.Name = "trombQuantity";
             this.trombQuantity.Size = new System.Drawing.Size(126, 22);
             this.trombQuantity.TabIndex = 7;

@@ -41,7 +41,7 @@ namespace Common.Model
 
             string status = isBeeingDelivered ? "In curs de livrare" : "In asteptare";
 
-            return "Statut: " + status + "\nDoctor: " + doctor_name + "\nPatient name: " + pacientName + "\n" + requestString + "\nSpital: " + hospital + "\nCentru de donatie: " + donationCenterName + "\nPacient: " + pacientName;
+            return "Status: " + status +"\nPriority: " + priority + "\nDoctor: " + doctor_name + "\nPatient name: " + pacientName + "\n" + requestString + "\nHospital: " + hospital + "\nDonation Center: " + donationCenterName + "\nPacient: " + pacientName;
 
         }
 

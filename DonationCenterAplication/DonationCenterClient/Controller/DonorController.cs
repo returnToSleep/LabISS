@@ -55,7 +55,7 @@ namespace Controller{
 
             if (donor.isPending == true)
             {
-                return "Momentan nu avem rezultatele analizelor";
+                return "Medical results pending";
             }
 
             DateTime lastDonationDate;
@@ -71,11 +71,11 @@ namespace Controller{
 
             if (lastDonationDate.AddMonths(2).CompareTo(DateTime.Today) > 0)
             {
-                return "Puteti dona din nou incepand din " + lastDonationDate.AddMonths(2).Date.ToString();
+                return "You cand donate again starting from " + lastDonationDate.AddMonths(2).Date.ToString();
             }
             
 
-            return "Puteti dona!";
+            return "Good to go!";
 
         }
         
@@ -95,7 +95,7 @@ namespace Controller{
                 service.UpdateOneFromDatabase(donor);
             }catch (RemotingException rmE)
             {
-                throw new ControllerException("A aparut o problema!", rmE);
+                throw new ControllerException("An error has occured", rmE);
             }
         }
         #endregion
@@ -119,7 +119,7 @@ namespace Controller{
             {
                 donor = service.GetOneFromDatabase<Donor>(donor.cnp);
             }catch (RemotingException rmE){
-                throw new ControllerException("A aparut o problema!", rmE);
+                throw new ControllerException("An error has occured", rmE);
             }
         }
 

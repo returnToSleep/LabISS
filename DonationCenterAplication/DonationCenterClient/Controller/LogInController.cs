@@ -39,11 +39,11 @@ namespace Client.Controller
             }
             catch (SocketException)
             {
-                throw new ControllerException("Nu se poate efectua conexiunea la server\nIncercati din nou mai taziu");
+                throw new ControllerException("Nu se poate efectua conexiunea la server\nIncercati din nou mai taziu.");
             }
             catch (Exception rmE)
             {
-                throw new ControllerException("A aparut o problema!", rmE);
+                throw new NoSuchUserException("Numele de utilizator este introdus gresit.", rmE);
             }
         }
     }

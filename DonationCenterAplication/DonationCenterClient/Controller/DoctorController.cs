@@ -47,42 +47,296 @@ namespace Controller
         }
 
 
+        public List<Tuple<string, double, string>> getBestRequest(string pacientName, string component, string type = null, bool rh = false, float ammount = 0)
+        {
+            List<DonationCenter> donList = service.GetAllFromDatabase<DonationCenter>().ToList();
+            
+            List<Tuple<string, double, string>> returnList = new List<Tuple<string, double, string>>();
+            
+            double gatheredAmmount = 0.0f;
+            double localAmmount = 0.0f;
+
+            switch (component)
+            {
+                case "Plasma":
+                    {
+
+                        foreach (DonationCenter donationCenter in donList)
+                        {
+
+                            localAmmount = 0.0f;
+
+                            localAmmount += donationCenter.plasmaList
+                                .Where(plasma => plasma.antibody == type && plasma.donatedFor == pacientName)
+                                .Select(plasma => plasma.ammount)
+                                .Sum();
+
+                            gatheredAmmount += localAmmount;
+
+                            if (gatheredAmmount >= ammount)
+                            {
+                                returnList.Add(Tuple.Create(donationCenter.name, Math.Abs(ammount - (gatheredAmmount - localAmmount)), donationCenter.id));
+                                return returnList;
+                            }
+
+                            returnList.Add(Tuple.Create(donationCenter.name, localAmmount, donationCenter.id));
+
+                        }
+
+                        foreach (DonationCenter donationCenter in donList)
+                        {
+
+                            localAmmount = 0.0f;
+
+                            localAmmount += donationCenter.plasmaList
+                                .Where(plasma => plasma.antibody == type && plasma.donatedFor != pacientName)
+                                .Select(plasma => plasma.ammount)
+                                .Sum();
+
+                            gatheredAmmount += localAmmount;
+
+                            if (gatheredAmmount >= ammount)
+                            {
+                                returnList.Add(Tuple.Create(donationCenter.name, Math.Abs(ammount - (gatheredAmmount - localAmmount)), donationCenter.id));
+                                return returnList;
+                            }
+
+                            returnList.Add(Tuple.Create(donationCenter.name, localAmmount, donationCenter.id));
+
+                        }
+                        break;
+                    }
+
+                case "Red":
+                    {
+                        foreach (DonationCenter donationCenter in donList)
+                        {
+
+                            localAmmount = 0.0f;
+
+                            localAmmount += donationCenter.redBloodCellList
+                              .Where(red => red.antigen == type && red.rh == rh && red.donatedFor == pacientName)
+                              .Select(plasma => plasma.ammount)
+                              .Sum();
+
+                            gatheredAmmount += localAmmount;
+
+                            if (gatheredAmmount >= ammount)
+                            {
+                                returnList.Add(Tuple.Create(donationCenter.name, Math.Abs(ammount - (gatheredAmmount - localAmmount)), donationCenter.id));
+                                return returnList;
+                            }
+
+                            returnList.Add(Tuple.Create(donationCenter.name, localAmmount, donationCenter.id));
+
+                        }
+
+                        foreach (DonationCenter donationCenter in donList)
+                        {
+
+                            localAmmount = 0.0f;
+
+                            localAmmount += donationCenter.redBloodCellList
+                                .Where(red => red.antigen == type && red.rh == rh && red.donatedFor != pacientName)
+                                .Select(plasma => plasma.ammount)
+                                .Sum();
+
+                            gatheredAmmount += localAmmount;
+
+                            if (gatheredAmmount >= ammount)
+                            {
+                                returnList.Add(Tuple.Create(donationCenter.name, Math.Abs(ammount - (gatheredAmmount - localAmmount)), donationCenter.id));
+                                return returnList;
+                            }
+
+                            returnList.Add(Tuple.Create(donationCenter.name, localAmmount, donationCenter.id));
+                        }
+                        break;
+                    }
+                case "Tromb":
+                    {
+                        foreach (DonationCenter donationCenter in donList)
+                        {
+
+                            localAmmount = 0.0f;
+
+                            localAmmount += donationCenter.trombocyteList
+                                .Where(tromb => tromb.donatedFor == pacientName)
+                                .Select(tromb => tromb.ammount)
+                                .Sum();
+
+                            gatheredAmmount += localAmmount;
+
+                            if (gatheredAmmount >= ammount)
+                            {
+                                returnList.Add(Tuple.Create(donationCenter.name, Math.Abs(ammount - (gatheredAmmount - localAmmount)), donationCenter.id));
+                                return returnList;
+                            }
+
+                            returnList.Add(Tuple.Create(donationCenter.name, localAmmount, donationCenter.id));
+                        }
+
+                        foreach (DonationCenter donationCenter in donList)
+                        {
+
+                            localAmmount = 0.0f;
+
+                            localAmmount += donationCenter.trombocyteList
+                                .Where(tromb => tromb.donatedFor != pacientName)
+                                .Select(tromb => tromb.ammount)
+                                .Sum();
+
+                            gatheredAmmount += localAmmount;
+
+                            if (gatheredAmmount >= ammount)
+                            {
+                                returnList.Add(Tuple.Create(donationCenter.name, Math.Abs(ammount - (gatheredAmmount - localAmmount)), donationCenter.id));
+                                return returnList;
+                            }
+
+                            returnList.Add(Tuple.Create(donationCenter.name, localAmmount, donationCenter.id));
+                        }
+                        break;
+                    }
+            }
+            return returnList;
+
+        }
+
+        public Tuple<double, double, double> getAvailableBloodForPacient(string pacientName, string donationCenterId)
+        {
+            try
+            {
+                DonationCenter don = service.GetOneFromDatabase<DonationCenter>(donationCenterId);
+
+                List<DoctorRequest> req = doctor.requests.Where(x => x.pacientName == pacientName && x.donationCenter_id == don.id).ToList();
+
+                double trombQ = 0.0;
+                double plasmaQ = 0.0;
+                double redQ = 0.0;
+
+
+                req.ForEach(r => {
+
+                    string[] splitRequest = r.requestString.Split(',');
+
+                    if (splitRequest[0] == "Plasma")
+                    {
+
+
+                        plasmaQ += don.plasmaList
+                            .Where(x => x.donatedFor == null)
+                            .Where(x => x.antibody == splitRequest[1])
+                            .Select(x => x.ammount)
+                            .Sum();
+
+                        /*
+                        plasmaQ += doctor.plasmaList
+                           .Where(x => x.antibody == splitRequest[1])
+                           .Select(x => x.ammount)
+                           .Sum();
+                           */
+                    }
+
+                    if (splitRequest[0] == "Red")
+                    {
+
+                        redQ += don.redBloodCellList
+                            .Where(x => x.donatedFor == null)
+                            .Where(x => x.antigen == splitRequest[1] && x.rh == bool.Parse(splitRequest[2]))
+                            .Select(x => x.ammount)
+                            .Sum();
+
+                        /*
+                        redQ += doctor.redBloodCellList
+                            .Where(x => x.antigen == splitRequest[1] && x.rh == bool.Parse(splitRequest[2]))
+                            .Select(x => x.ammount)
+                            .Sum();
+                            */
+                    }
+
+                    if (splitRequest[0] == "Tromb")
+                    {
+
+                        trombQ += don.trombocyteList
+                            .Where(x => x.donatedFor == null)
+                            .Select(x => x.ammount)
+                            .Sum();
+
+                        /*
+                        trombQ += doctor.trombocyteList
+                           .Select(x => x.ammount)
+                           .Sum();
+                           */
+                    }
+
+                });
+
+
+                return new Tuple<double, double, double>(trombQ, plasmaQ, redQ);
+
+
+            }
+            catch (RemotingException rmE)
+            {
+                throw new ControllerException("getBloodDonatedForPacient", rmE);
+            }
+        }
+
+
         /*
-         * Returns a tuple with all the components donated for the pacient
+         * Returns a tuple with all the components donated for the pacient at the donation centersecified
          *  item1 - tromb
          *  item2 - plasma
          *  item3 - red
          *  
          *  Blood components have a field called "donated for" which is used for this method 
          */
-        public Tuple<double, double, double> getBloodDonatedForPacient(string pacientName)
+        public Tuple<double, double, double> getBloodDonatedForPacient(string pacientName, string donationCenterId)
         {
             try
             {
-                IList<DonationCenter> donationCenterList = service.GetAllFromDatabase<DonationCenter>();
+                DonationCenter don = service.GetOneFromDatabase<DonationCenter>(donationCenterId);
 
                 double trombQ = 0.0;
                 double plasmaQ = 0.0;
                 double redQ = 0.0;
 
-                foreach (DonationCenter don in donationCenterList)
-                {
-                    plasmaQ += don.plasmaList
+                
+                plasmaQ += don.plasmaList
+                    .Where(x => x.donatedFor == pacientName)
+                    .Select(x => x.ammount)
+                    .Sum();
+
+                redQ += don.redBloodCellList
+                    .Where(x => x.donatedFor == pacientName)
+                    .Select(x => x.ammount)
+                    .Sum();
+
+                trombQ += don.trombocyteList
+                    .Where(x => x.donatedFor == pacientName)
+                    .Select(x => x.ammount)
+                    .Sum();
+
+                
+
+                plasmaQ += doctor.plasmaList
+                    .Where(x => x.donatedFor == pacientName)
+                    .Select(x => x.ammount)
+                    .Sum();
+
+                redQ += doctor.redBloodCellList
                         .Where(x => x.donatedFor == pacientName)
                         .Select(x => x.ammount)
                         .Sum();
 
-                    redQ += don.redBloodCellList
-                        .Where(x => x.donatedFor == pacientName)
-                        .Select(x => x.ammount)
-                        .Sum();
+                trombQ += doctor.trombocyteList
+                    .Where(x => x.donatedFor == pacientName)
+                    .Select(x => x.ammount)
+                    .Sum();
 
-                    trombQ += don.trombocyteList
-                        .Where(x => x.donatedFor == pacientName)
-                        .Select(x => x.ammount)
-                        .Sum();
 
-                }
+
                 return new Tuple<double, double, double>(trombQ, plasmaQ, redQ);
 
 
@@ -201,7 +455,7 @@ namespace Controller
                                     }
                                     catch (RemotingException rmE)
                                     {
-                                        throw new ControllerException("A aparut o problema!", rmE);
+                                        throw new ControllerException("An error has occured!", rmE);
                                     }
                                 }
                             }
@@ -229,7 +483,7 @@ namespace Controller
                                     }
                                     catch (RemotingException rmE)
                                     {
-                                        throw new ControllerException("A aparut o problema!", rmE);
+                                        throw new ControllerException("An error has occured", rmE);
                                     }
                                 }
                             }
@@ -258,7 +512,7 @@ namespace Controller
                                     }
                                     catch (RemotingException rmE)
                                     {
-                                        throw new ControllerException("A aparut o problema!", rmE);
+                                        throw new ControllerException("An error has occured!", rmE);
                                     }
                                 }
                             }
@@ -288,7 +542,7 @@ namespace Controller
             }
             catch (RemotingException rmE)
             {
-                throw new ControllerException("A aparut o problema!", rmE);
+                throw new ControllerException("An error has occured!", rmE);
             }
         }
 

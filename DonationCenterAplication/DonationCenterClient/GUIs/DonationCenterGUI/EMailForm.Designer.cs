@@ -93,9 +93,9 @@
             // emailTextBox
             // 
             this.emailTextBox.AcceptsReturn = true;
-            this.emailTextBox.Location = new System.Drawing.Point(78, 59);
+            this.emailTextBox.Location = new System.Drawing.Point(96, 59);
             this.emailTextBox.Name = "emailTextBox";
-            this.emailTextBox.Size = new System.Drawing.Size(777, 22);
+            this.emailTextBox.Size = new System.Drawing.Size(759, 22);
             this.emailTextBox.TabIndex = 5;
             // 
             // label3

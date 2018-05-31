@@ -40,15 +40,15 @@ namespace Common.Model
         public override string ToString()
         {
 
-            string donatedFor = pacientName != null ? "\nDonat pentru: " + pacientName : "";
+            string donatedFor = pacientName != null ? "\nDonated for: " + pacientName : "";
 
-            return "Donatia din: " + donationDate.Date.ToString()
-                + "\nCantitate recoltata: " + quantity.ToString() + " ml dintre care: \n"
-                + "    Celule rosii: " + redQuantity.ToString() + " ml\n"
-                + "    Trombocite: " + trombQuantity.ToString() + " ml\n"
+            return "Donated on: " + donationDate.Date.ToString()
+                + "\nHarvested quantity: " + quantity.ToString() + " ml of which: \n"
+                + "    Red Cells: " + redQuantity.ToString() + " ml\n"
+                + "    Trombocytes: " + trombQuantity.ToString() + " ml\n"
                 + "    Plasma: " + plasmaQuantity.ToString() + " ml\n"
-                + "Presiunea sistolica: " + bloodPressure.ToString() + "mmHg\n"
-                + "Puls: " + pulse.ToString() + "bpm"
+                + "Sistolic pressure: " + bloodPressure.ToString() + "mmHg\n"
+                + "Pulse: " + pulse.ToString() + "bpm"
                 + donatedFor;
         }
 

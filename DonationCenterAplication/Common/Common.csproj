@@ -66,7 +66,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\ControllerException.cs" />
     <Compile Include="Exceptions\DataBaseException.cs" />
-    <Compile Include="Exceptions\NoSuchUser.cs" />
+    <Compile Include="Exceptions\NoSuchUserException.cs" />
     <Compile Include="Exceptions\RemotingException.cs" />
     <Compile Include="Model\Blood\BloodComponent.cs" />
     <Compile Include="Model\DoctorRequest.cs" />
