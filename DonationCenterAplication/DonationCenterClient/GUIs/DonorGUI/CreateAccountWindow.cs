@@ -87,6 +87,7 @@ namespace Client.GUIs.DonorGUI
         {
             DialogResult = DialogResult.Cancel;
             Close();
+            //this.Hide();
         }
 
         private void label2_Click(object sender, EventArgs e)
