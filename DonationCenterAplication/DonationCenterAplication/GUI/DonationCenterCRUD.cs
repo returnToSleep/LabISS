@@ -22,9 +22,10 @@ namespace DonationCenterServer.Forms
             InitializeComponent();
 
             gMapDonationCenterSelect.Manager.Mode = AccessMode.ServerOnly;
-            gMapDonationCenterSelect.MapProvider = GMapProviders.OpenStreetMap;
+            gMapDonationCenterSelect.MapProvider = GMapProviders.BingMap;
             gMapDonationCenterSelect.Zoom = 15;
             gMapDonationCenterSelect.SetPositionByKeywords("Cluj-Napoca");
+            gMapDonationCenterSelect.DragButton = MouseButtons.Left;
 
             //TODO Foarte faina card-urile dom DoctorCRUD
             //Astea de aici mai putin
@@ -37,31 +38,55 @@ namespace DonationCenterServer.Forms
             update(repo);
         }
 
-        private void ContextMenu1_Click(object sender, EventArgs e)
-        {
-            MenuItem item = (MenuItem)sender;
-            RepositoryBase repo = new RepositoryBase();
-            if (MessageBox.Show(
-                "Are you sure you want to delete this donation center?",
-                "Delete donation center",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-
-                repo.Delete(item.Tag);
-                update(new RepositoryBase());
-            }
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DonationCenter dc = this.read();
+
+
+
+            DonationCenter dc = read();
             clearTextBoxes();
-            if (dc != null)
+
+            if (addButton.Text == "Add")
             {
-                RepositoryBase repo = new RepositoryBase();
-                repo.Save(dc);
-                update(repo);
+                if (dc != null)
+                {
+                    RepositoryBase repo = new RepositoryBase();
+
+                    int no = 0;
+                    bool goOn = true;
+                    string username = "";
+                    string name = dc.name.Replace(" ", "");
+
+                    while (goOn)
+                    {
+                        try
+                        { 
+                            username = name + no.ToString();
+                            repo.Save(new LogInfo(username, "1234", dc.id, "Donation"));
+                            goOn = false;
+                        }
+                        catch (Exception) { }
+                    }
+                    repo.Save(dc);
+
+                    MessageBox.Show("New donation center account created.\nUser: " + username + "\nPassword: 1234", "Success");
+
+                    update(repo);
+                }
+            }
+            else
+            {
+                if (dc != null)
+                {
+                    RepositoryBase repo = new RepositoryBase();
+                    repo.Delete(dc);
+                    repo.Save(dc);
+
+                    MessageBox.Show("The donation center has been updated", "Success");
+
+                    update(repo);
+                }
             }
         }
 
@@ -118,39 +143,43 @@ namespace DonationCenterServer.Forms
 
         private void update(RepositoryBase repo)
         {
-            flowLayoutPanel1.Controls.Clear();
-            foreach (DonationCenter dc in repo.FindAll<DonationCenter>())
-            {
-                GroupBox box = new GroupBox();
-                #region Card Creation
-                box.Size = new Size(280, 120);
-                Label name = new Label
-                {
-                    Font = new Font(FontFamily.GenericSansSerif, 24.0f, FontStyle.Bold),
-                    AutoSize = true,
-                    Location = new Point(5, 15),
-                    Text = dc.name
-                };
-                box.Controls.Add(name);
-                Font smallFont = new Font(FontFamily.GenericSansSerif, 11.0f);
+            donationCenterList.Items.Clear();
 
-                MenuItem item = new MenuItem("Delete");
-                item.Click += ContextMenu1_Click;
-                item.Tag = dc;
-                ContextMenu cm = new ContextMenu();
-                cm.MenuItems.Add(item);
-                box.ContextMenu = cm;
-                box.Click += new EventHandler(delegate (Object o, EventArgs a) { box.Focus(); box.BackColor = Color.AliceBlue; fill(dc.id); });
-                //box.GotFocus += new EventHandler(delegate (Object o, EventArgs a) { });
-                box.LostFocus += new EventHandler(delegate (Object o, EventArgs a) { box.BackColor = Color.Empty; });
-                #endregion
-                flowLayoutPanel1.Controls.Add(box);
-            }
+            List<DonationCenter> donList = repo.FindAll<DonationCenter>().ToList();
+            donList.ForEach(x => donationCenterList.Items.Add(x));
+
+            donationCenterList.Items.Add("Add new..");
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            clearTextBoxes();
+
+            if (MessageBox.Show(
+                "Are you sure you want to delete this donation center?\nNote that deleting the donation center will also delete the account\nassociated with it.",
+                "Delete donation center",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+
+
+
+                RepositoryBase repo = new RepositoryBase();
+
+                DonationCenter selected = (DonationCenter)donationCenterList.SelectedItem;
+
+                LogInfo log = repo.FindAll<LogInfo>()
+                                    .Where(x => x.type == "Donation")
+                                    .First(x => x.varId == selected.id);
+
+                clearTextBoxes();
+                repo.Delete(selected);
+                repo.Delete(log);
+                update(repo);
+            }
+            else
+                return;
+
         }
 
         private void locXTextbox_TextChanged(object sender, EventArgs e)
@@ -182,6 +211,69 @@ namespace DonationCenterServer.Forms
             locXTextbox.Text = gMapDonationCenterSelect.Position.Lat.ToString();
             locYTextbox.Text = gMapDonationCenterSelect.Position.Lng.ToString();
             gMapDonationCenterSelect.Zoom = 15;
+        }
+
+        private void locYTextbox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void donationCenterList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                DonationCenter don = (DonationCenter)donationCenterList.SelectedItem;
+                fill(don.id);
+
+                don.setLatLon();
+
+                gMapDonationCenterSelect.Position = new PointLatLng(don.lat, don.lon);
+
+                addButton.Text = "Update";
+                deleteButton.Visible = true;
+                
+            }
+            catch (Exception) {
+
+                clearTextBoxes();
+                addButton.Text = "Add";
+                deleteButton.Visible = false;
+
+                gMapDonationCenterSelect.SetPositionByKeywords("Cluj-Napoca");
+
+            }
+
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

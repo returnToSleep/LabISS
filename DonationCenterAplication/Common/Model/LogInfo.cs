@@ -18,8 +18,8 @@ namespace Common.Model
         public LogInfo() { }
 
 
-        //For donation doctors and donors
-        public LogInfo(string username, string password, int id, string type)
+        //For doctors
+        public LogInfo(string username, string password, int? id, string type)
         {
             this.username = username;
             this.password = password;
@@ -27,7 +27,7 @@ namespace Common.Model
             this.type = type;
         }
 
-        //For donation centers
+        //For donation centers and donors
         public LogInfo(string username, string password, string id, string type)
         {
             this.username = username;

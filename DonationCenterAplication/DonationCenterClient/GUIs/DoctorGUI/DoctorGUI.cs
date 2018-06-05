@@ -540,11 +540,15 @@ namespace Client.GUIs.DoctorGUIs
                         return;
                     }
 
-                    if (reqDiag.DialogResult == DialogResult.No)
+                    if (reqDiag.DialogResult == DialogResult.Yes)
                     {
                         smartRequestList = controller.getBestRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, (float)gatheredAmmount);
                     }
-
+                    if (reqDiag.DialogResult == DialogResult.No)
+                    {
+                        smartRequestList = controller.getBestRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, (float)gatheredAmmount);
+                        smartRequestList.AddRange(controller.getOriginalAmmountRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, float.Parse(quantity.Text) - (float)gatheredAmmount));
+                    }
                 }
                 
 

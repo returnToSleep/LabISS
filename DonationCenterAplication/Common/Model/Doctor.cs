@@ -53,7 +53,7 @@ namespace Common.Model{
 
         public override string ToString()
         {
-            return "Doctor: " + name + "\nSpeciality: " + speciality + "\nWorking at: " + hospital;
+            return "Id: " + id + " Name: " + name;
         }
     }
 }

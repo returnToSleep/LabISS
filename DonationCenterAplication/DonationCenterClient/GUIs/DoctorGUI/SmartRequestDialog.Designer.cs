@@ -51,7 +51,7 @@
             this.gatheredButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gatheredButton.Location = new System.Drawing.Point(17, 103);
             this.gatheredButton.Name = "gatheredButton";
-            this.gatheredButton.Size = new System.Drawing.Size(556, 35);
+            this.gatheredButton.Size = new System.Drawing.Size(611, 35);
             this.gatheredButton.TabIndex = 1;
             this.gatheredButton.Text = "Send requests for the gathered ammount";
             this.gatheredButton.UseVisualStyleBackColor = false;
@@ -63,7 +63,7 @@
             this.originalButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.originalButton.Location = new System.Drawing.Point(17, 144);
             this.originalButton.Name = "originalButton";
-            this.originalButton.Size = new System.Drawing.Size(556, 35);
+            this.originalButton.Size = new System.Drawing.Size(611, 35);
             this.originalButton.TabIndex = 2;
             this.originalButton.Text = "Send requests for the original ammount";
             this.originalButton.UseVisualStyleBackColor = false;
@@ -75,7 +75,7 @@
             this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelButton.Location = new System.Drawing.Point(17, 185);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(556, 35);
+            this.cancelButton.Size = new System.Drawing.Size(611, 35);
             this.cancelButton.TabIndex = 3;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
@@ -86,7 +86,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(585, 237);
+            this.ClientSize = new System.Drawing.Size(640, 237);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.originalButton);
             this.Controls.Add(this.gatheredButton);

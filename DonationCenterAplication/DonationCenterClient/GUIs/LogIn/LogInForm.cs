@@ -212,9 +212,9 @@ namespace Client.GUIs.LogIn
 
             a.ShowDialog();
 
-            if (a.DialogResult == DialogResult.Abort)
+            if (a.DialogResult == DialogResult.Cancel)
             {
-                Close();
+                Show();
             }
 
             if (a.DialogResult == DialogResult.OK)

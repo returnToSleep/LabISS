@@ -28,11 +28,6 @@ namespace Common.Model{
             this.addressString = addressString;
         }
 
-
-
-   
-
-
         public override bool Equals(object obj)
         {
             Location l;
@@ -46,8 +41,8 @@ namespace Common.Model{
                 return false;
             }
 
-            return l.latitude == latitude && l.longitude == longitude;
-
+            return Math.Abs(l.latitude - latitude) <= 0.00000001 && Math.Abs(l.longitude - longitude) <= 0.00000001;
+            
         }
 
         public override int GetHashCode()

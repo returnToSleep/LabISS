@@ -55,7 +55,70 @@ namespace Controller
             return Math.Sqrt(Math.Pow(exp1, 2) - Math.Pow(exp2, 2));
         }
 
-  
+
+
+        public List<Tuple<string, double, string>> getOriginalAmmountRequest(string pacientName, string component, string type = null, bool rh = false, float ammount = 0)
+        {
+
+            List<DonationCenter> donList = service.GetAllFromDatabase<DonationCenter>().ToList();
+            List<Tuple<string, double, string>> returnList = new List<Tuple<string, double, string>>();
+            
+            switch (component)
+            {
+                case "Plasma":
+                    {
+
+                        List<DonationCenter> sortedList = donList.ToList()
+                                .OrderByDescending(x => x.plasmaList
+                                        .Where(plasma => plasma.antibody == type)
+                                        .Select(y => y.ammount)
+                                        .Sum() - getDistanceFromDoctor(x))
+                                        .ToList();
+
+
+                        returnList.Add(Tuple.Create(sortedList[0].name, (double)ammount, sortedList[0].id));
+                        
+                        break;
+                    }
+
+                case "Red":
+                    {
+
+                        List<DonationCenter> sortedList = donList.ToList()
+                           .OrderByDescending(x => x.redBloodCellList
+                                .Where(red => red.antigen == type && red.rh == rh)
+                                .Select(y => y.ammount)
+                                .Sum() - getDistanceFromDoctor(x))
+                                .ToList();
+
+                        returnList.Add(Tuple.Create(sortedList[0].name, (double)ammount, sortedList[0].id));
+                        break;
+                    }
+
+                case "Tromb":
+                    {
+
+                        List<DonationCenter> sortedList = donList.ToList()
+                           .OrderByDescending(x => x.redBloodCellList
+                                .Select(y => y.ammount)
+                                .Sum() - getDistanceFromDoctor(x))
+                                .ToList();
+
+                        returnList.Add(Tuple.Create(sortedList[0].name, (double)ammount, sortedList[0].id));
+                        break;
+                    }
+            }
+            return returnList;
+
+        }
+
+
+        /*
+         *  Returns the best way to send requests
+         *  Tuple<string, double, string>
+         *  Tuple<Donation center name, ammount to request from the donation center, donation center id>
+         *
+         */
 
 
         public List<Tuple<string, double, string>> getBestRequest(string pacientName, string component, string type = null, bool rh = false, float ammount = 0)
@@ -237,6 +300,7 @@ namespace Controller
 
         }
 
+        
         public Tuple<double, double, double> getAvailableBloodForPacient(string pacientName, string donationCenterId)
         {
             try

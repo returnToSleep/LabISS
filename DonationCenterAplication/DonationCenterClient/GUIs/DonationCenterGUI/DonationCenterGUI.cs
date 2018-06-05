@@ -260,6 +260,14 @@ namespace Client.GUIs
 
         private void donorOkButton_Click(object sender, EventArgs e)
         {
+
+            if (pendingDonorList.SelectedIndex == -1)
+            {
+                MessageBox.Show("No one was selected", "Selection error");
+                return;
+            }
+
+
             Donor selected = (Donor)pendingDonorList.SelectedItem;
             
             
