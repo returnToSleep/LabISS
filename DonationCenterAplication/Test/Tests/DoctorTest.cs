@@ -7,6 +7,7 @@ using Test.TestService;
 using Controller;
 using Common.Model;
 using Client.Controller;
+using System.Linq;
 
 namespace Test
 {
@@ -22,6 +23,26 @@ namespace Test
             var doctorList = testService.GetAllFromDatabase<Doctor>();
             Doctor doctor = doctorList[rng.Next(doctorList.Count - 1)];
 
+            List<DonationCenter> donList = testService.GetAllFromDatabase<DonationCenter>().ToList();
+
+
+            doctor.requests.ToList()
+                .ForEach(x => testService.DeleteFromDatabase(x));
+
+            donList.ForEach(donationCenter =>
+           {
+               /*
+               donationCenter.plasmaList.ToList()
+                 .ForEach(x => testService.DeleteFromDatabase(x));
+
+               donationCenter.trombocyteList.ToList()
+                  .ForEach(x => testService.DeleteFromDatabase(x));
+
+               donationCenter.redBloodCellList.ToList()
+                  .ForEach(x => testService.DeleteFromDatabase(x));
+                  */
+               testService.DeleteFromDatabase(donationCenter);
+           });
             return new DoctorController(testService, doctor);
         }
 
@@ -36,15 +57,15 @@ namespace Test
                 ammount = 10,
                 donatedFor = "TestDonatedFor",
                 donationDate = DateTime.Parse("2018-05-30"),
-                donationCenter_id = "46.751727,23.594825"
+                donationCenter_id = "1,1"
             };
             var red = new RedBloodCell
             {
                 ammount = 53,
                 donatedFor = "TestDonatedFor",
                 donationDate = DateTime.Parse("2018-05-30"),
-                donationCenter_id = "46.751727,23.594825",
-                antigen="B",
+                donationCenter_id = "1,1",
+                antigen ="B",
                 rh=false
             };
             var plasma = new Plasma
@@ -52,14 +73,19 @@ namespace Test
                 ammount = 23,
                 donatedFor = "TestDonatedFor",
                 donationDate = DateTime.Parse("2018-05-30"),
-                donationCenter_id = "46.751727,23.594825",
-                antibody="B"
+                donationCenter_id = "1,1",
+                antibody ="B"
             };
+
+            DonationCenter don = new DonationCenter("1,1", "test");
+
+            doctorController.service.AddToDatabase(don);
             doctorController.service.AddToDatabase(tromb);
             doctorController.service.AddToDatabase(red);
             doctorController.service.AddToDatabase(plasma);
+     
 #endregion
-            var result = doctorController.getBloodDonatedForPacient("TestDonatedFor", "46.751727,23.594825");
+            var result = doctorController.getBloodDonatedForPacient("TestDonatedFor", "1,1");
             Assert.AreEqual(result.Item1, 10);
             Assert.AreEqual(result.Item2, 23);
             Assert.AreEqual(result.Item3, 53);
@@ -68,6 +94,7 @@ namespace Test
             doctorController.service.DeleteFromDatabase(tromb);
             doctorController.service.DeleteFromDatabase(red);
             doctorController.service.DeleteFromDatabase(plasma);
+            doctorController.service.DeleteFromDatabase(don);
         }
 
         [TestMethod]
@@ -76,13 +103,16 @@ namespace Test
             var doctorController = this.doctorControllerFactory();
             //doctorController.doctor = doctorController.service.GetOneFromDatabase<Doctor>(1);
             #region FillData
+
+            doctorController.service.AddToDatabase(new DonationCenter("1,1", "test"));
+
             doctorController.makeRequest(
                 new Location
                 {
                     addressString = "Test",
                     id = 1001,
-                    latitude = 46.766539,
-                    longitude = 23.62596
+                    latitude = 1,
+                    longitude = 1
                 },
                 1,
                 "TestPacient",
@@ -96,8 +126,8 @@ namespace Test
                 {
                     addressString = "Test",
                     id = 1001,
-                    latitude = 46.766539,
-                    longitude = 23.62596
+                    latitude = 1,
+                    longitude = 1
                 },
                 1,
                 "TestPacient",
@@ -110,8 +140,8 @@ namespace Test
                 {
                     addressString = "Test",
                     id = 1001,
-                    latitude = 46.766539,
-                    longitude = 23.62596
+                    latitude = 1,
+                    longitude = 1
                 },
                 1,
                 "TestPacient",
@@ -124,8 +154,8 @@ namespace Test
                 {
                     addressString = "Test",
                     id = 1001,
-                    latitude = 46.766539,
-                    longitude = 23.62596
+                    latitude = 1,
+                    longitude = 1
                 },
                 1,
                 "TestPacient",
@@ -138,8 +168,8 @@ namespace Test
                 {
                     addressString = "Test",
                     id = 1001,
-                    latitude = 46.766539,
-                    longitude = 23.62596
+                    latitude = 1,
+                    longitude = 1
                 },
                 1,
                 "TestPacient",
@@ -152,8 +182,8 @@ namespace Test
                 {
                     addressString = "Test",
                     id = 1001,
-                    latitude = 46.766539,
-                    longitude = 23.62596
+                    latitude = 1,
+                    longitude = 1
                 },
                 1,
                 "TestPacient",
@@ -166,7 +196,8 @@ namespace Test
             Assert.AreEqual(result.Item1, 41.5);
             Assert.AreEqual(result.Item2, 24);
             Assert.AreEqual(result.Item3, 23);
-            doctorController.deleteRequest("TestPacient");//delete the test request
+            doctorController.deleteRequest("TestPacient");
+            //delete the test request
         }
 
         [TestMethod]

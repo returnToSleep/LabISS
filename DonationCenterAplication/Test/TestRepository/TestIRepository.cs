@@ -15,10 +15,6 @@ namespace DonationCenterAplication.ORM
          */
         void Save(object obj);
 
-
-
-
-
         /*
          * Updates an object based on "obj.id"
          * Ex:
@@ -65,5 +61,7 @@ namespace DonationCenterAplication.ORM
          * 
         */
         IList<T> FindAll<T>() where T: class;
+
+        
     }
 }

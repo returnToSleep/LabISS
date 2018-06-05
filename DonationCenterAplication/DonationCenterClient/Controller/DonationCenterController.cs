@@ -399,7 +399,7 @@ namespace Client.Controller
         /*
          * Updates the component ammount based on "splitCompStr" 
          * Example of "splitCompStr":
-         *       {"Plasma", "12,100", "15,15", "200,02-02-2018"}"
+         *       {"Plasma", "12,100", "15,15", "02-02-2018"}"
          *       
          *  if the ammount of the component is 0 after the operation, it is removed fom the database
          */
@@ -511,6 +511,7 @@ namespace Client.Controller
         public IList<Tuple<string, DoctorRequest>> sendBlood(string compStr, DoctorRequest request)
         {
             string[] splitRequest = request.requestString.Split(',');
+
             string[] splitCompStr = compStr.Replace("\n", "").Split(';');
             splitCompStr = splitCompStr.Skip(1).ToArray();
             
