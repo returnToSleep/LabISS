@@ -28,7 +28,6 @@ namespace Test.Tests
             return new DonorController(testService, donor);
         }
 
-
         [TestMethod]
         public void Test_isDonorFit()
         {

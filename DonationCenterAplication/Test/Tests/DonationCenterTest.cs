@@ -239,13 +239,6 @@ namespace Test.Tests
             }
         }
 
-        /* Sterge blood component-urile din baza de date ca sa mearga ok
-        query:
-
-        delete from redbloodcell;
-        delete from plasma;
-        delete from trombocyte;
-        */
         [TestMethod]
         public void Test_updateAmmounts()
         {

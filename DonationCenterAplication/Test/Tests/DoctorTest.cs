@@ -46,7 +46,6 @@ namespace Test
             return new DoctorController(testService, doctor);
         }
 
-
         [TestMethod]
         public void Test_getBloodDonatedForPacient()
         {
@@ -101,6 +100,7 @@ namespace Test
         public void Test_getRequiredBloodForPacient()
         {
             var doctorController = this.doctorControllerFactory();
+            
             //doctorController.doctor = doctorController.service.GetOneFromDatabase<Doctor>(1);
             #region FillData
 
@@ -192,6 +192,8 @@ namespace Test
                 "Centrul Save-A-Life"
                 );
             #endregion
+
+
             var result = doctorController.getRequiredBloodForPacient("TestPacient");
             Assert.AreEqual(result.Item1, 41.5);
             Assert.AreEqual(result.Item2, 24);

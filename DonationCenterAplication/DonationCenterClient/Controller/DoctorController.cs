@@ -515,7 +515,7 @@ namespace Controller
 
         public void makeRequest(Location val, int priority, string patientName, string pacientName, string requestString, string donationCenterName)
         {
-            bool foundRequest = false;
+
             string donationCenterLocation = val.latitude.ToString() + ',' + val.longitude.ToString();
             DoctorRequest req = new DoctorRequest
             {
@@ -529,112 +529,8 @@ namespace Controller
                 donationCenterName = donationCenterName
 
             };
-            List<string> requestSplitted = requestString.Split(',').ToList();
-
-            IList<DoctorRequest> reqList = null;
-
-            try
-            {
-                reqList = this.service.GetAllFromDatabase<DoctorRequest>();
-            }
-            catch (RemotingException)
-            {
-                service.AddToDatabase(req);
-                return;
-            }
-
-            switch (requestSplitted[0])
-            {
-                case "Red":
-                    {
-                        foreach (var dbRequest in reqList)
-                        {
-                            if (dbRequest.donationCenter_id == donationCenterLocation && dbRequest.isBeeingDelivered == false)
-                            {
-                                List<string> dbRequestSplitted = dbRequest.requestString.Split(',').ToList();
-                                if (dbRequestSplitted[0] == requestSplitted[0] && dbRequestSplitted[1] == requestSplitted[1] && dbRequestSplitted[2] == requestSplitted[2])
-                                {
-                                    string newRequestString = dbRequestSplitted[0] + ',' + dbRequestSplitted[1] + ',' + dbRequestSplitted[2] + ',';
-                                    double amount = Convert.ToDouble(dbRequestSplitted[3]);
-                                    amount += Convert.ToDouble(requestSplitted[3]);
-                                    newRequestString += amount.ToString();
-                                    dbRequest.requestString = newRequestString;
-                                    foundRequest = true;
-                                    try
-                                    {
-                                        this.service.UpdateOneFromDatabase(dbRequest);
-                                    }
-                                    catch (RemotingException rmE)
-                                    {
-                                        throw new ControllerException("An error has occured!", rmE);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    }
-                case "Plasma":
-                    {
-                        foreach (var dbRequest in reqList)
-                        {
-                            if (dbRequest.donationCenter_id == donationCenterLocation && dbRequest.isBeeingDelivered == false)
-                            {
-                                List<string> dbRequestSplitted = dbRequest.requestString.Split(',').ToList<string>();
-                                if (dbRequestSplitted[0] == requestSplitted[0] && dbRequestSplitted[1] == requestSplitted[1])
-                                {
-                                    string newRequestString = dbRequestSplitted[0] + ',' + dbRequestSplitted[1] + ',';
-                                    double amount = Convert.ToDouble(dbRequestSplitted[2]);
-                                    amount += Convert.ToDouble(requestSplitted[2]);
-                                    newRequestString += amount.ToString();
-                                    dbRequest.requestString = newRequestString;
-                                    foundRequest = true;
-                                    try
-                                    {
-                                        this.service.UpdateOneFromDatabase(dbRequest);
-                                    }
-                                    catch (RemotingException rmE)
-                                    {
-                                        throw new ControllerException("An error has occured", rmE);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    }
-                case "Tromb":
-                    {
-
-                        foreach (var dbRequest in reqList)
-                        {
-                            if (dbRequest.donationCenter_id == donationCenterLocation && dbRequest.isBeeingDelivered == false)
-                            {
-                                List<string> dbRequestSplitted = dbRequest.requestString.Split(',').ToList<string>();
-                                if (dbRequestSplitted[0] == requestSplitted[0])
-                                {
-                                    string newRequestString = dbRequestSplitted[0] + ',';
-                                    double amount = Convert.ToDouble(dbRequestSplitted[1]);
-                                    amount += Convert.ToDouble(requestSplitted[1]);
-                                    newRequestString += amount.ToString();
-                                    dbRequest.requestString = newRequestString;
-                                    foundRequest = true;
-                                    try
-                                    {
-                                        this.service.UpdateOneFromDatabase(dbRequest);
-                                    }
-                                    catch (RemotingException rmE)
-                                    {
-                                        throw new ControllerException("An error has occured!", rmE);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    }
-                default:
-                    break;
-            }
-            if (foundRequest == false)
-                this.service.AddToDatabase(req);
+        
+            service.AddToDatabase(req);
 
         }
         #endregion

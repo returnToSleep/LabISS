@@ -146,12 +146,6 @@
     <Compile Include="Controller\DoctorController.cs" />
     <Compile Include="Controller\DonationCenterController.cs" />
     <Compile Include="Controller\DonorController.cs" />
-    <Compile Include="Client.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Client.Designer.cs">
-      <DependentUpon>Client.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controller\LogInController.cs" />
     <Compile Include="GUIs\DoctorGUI\DoctorGUI.cs">
       <SubType>Form</SubType>
@@ -237,9 +231,6 @@
     <Compile Include="Utils\SafeNishBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <EmbeddedResource Include="Client.resx">
-      <DependentUpon>Client.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUIs\DoctorGUI\DoctorGUI.resx">
       <DependentUpon>DoctorGUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -289,7 +280,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
