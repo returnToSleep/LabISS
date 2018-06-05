@@ -83,10 +83,10 @@ namespace Client.Controller
         */
         public double getDistanceFromDonationCenter(Donor donor)
         {
-            double exp1 = donor.location.latitude - float.Parse(this.donationCenter.id.Split(',')[0]);
-            double exp2 = donor.location.longitude - float.Parse(this.donationCenter.id.Split(',')[1]);
+            double exp1 = donor.location.latitude - double.Parse(this.donationCenter.id.Split(',')[0]);
+            double exp2 = donor.location.longitude - double.Parse(this.donationCenter.id.Split(',')[1]);
 
-            return Math.Sqrt(Math.Pow(exp1, 2) - Math.Pow(exp2, 2));
+            return Math.Sqrt(Math.Pow(exp1, 2) + Math.Pow(exp2, 2));
         }
 
         /*
@@ -103,7 +103,7 @@ namespace Client.Controller
                 distanceList.Add(new Tuple<double, Donor>(getDistanceFromDonationCenter(d), d));
             }
 
-            return distanceList.OrderByDescending(x => x.Item1)
+            return distanceList.OrderBy(x => x.Item1)
                 .Select(x => x.Item2)
                 .ToList();
         }
@@ -200,13 +200,15 @@ namespace Client.Controller
         /*
          * Creates a priority queue from the doctor requests, based on the request's importance 
         */
-        private PriorityQueue<DoctorRequest> sortRequests()
+        public IList<DoctorRequest> sortRequests()
         {
-            PriorityQueue<DoctorRequest> priorityQueueRequests = new PriorityQueue<DoctorRequest>();
+            IList<DoctorRequest> priorityQueueRequests = new List<DoctorRequest>();
             try
             {
                 IList<DoctorRequest> doctorRequest = this.service.GetAllFromDatabase<DoctorRequest>();
-                doctorRequest.ToList().ForEach(request => priorityQueueRequests.Enqueue(request));
+                doctorRequest.OrderByDescending(x => x.priority)
+                .Select(x => x)
+                .ToList().ForEach(request => priorityQueueRequests.Add(request));
             }
             catch (RemotingException rmE)
             {

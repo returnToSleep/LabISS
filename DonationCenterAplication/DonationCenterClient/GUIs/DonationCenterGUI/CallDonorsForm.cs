@@ -17,7 +17,7 @@ namespace Client.GUIs.DonationCenter
 {
     public partial class CallDonorsForm : Form
     {
-
+        private Donor lastSelectedDonor;
         private IList<Donor> availableDonors;
         private DoctorRequest req;
 
@@ -26,6 +26,7 @@ namespace Client.GUIs.DonationCenter
         {
             this.availableDonors = availableDonors;
             req = request;
+
 
             InitializeComponent();
 
@@ -54,7 +55,8 @@ namespace Client.GUIs.DonationCenter
 
         private void contactButton_Click(object sender, EventArgs e)
         {
-            Donor d = (Donor)donorList.SelectedItem;
+            Donor d = this.lastSelectedDonor;
+
             donorList.Items.Remove(d);
 
             Thread th = new Thread(unsused => EmailService.sendNotEnoughtBloodMail(d, req));
@@ -70,13 +72,15 @@ namespace Client.GUIs.DonationCenter
         private void donorList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (donorList.Items.Count == 0)
+            if (donorList.Items.Count == 0 || (Donor)donorList.SelectedItem == null)
             {
                 return;
             }
 
 
             Donor d = (Donor)donorList.SelectedItem;
+
+            this.lastSelectedDonor = d;
 
             double lat = d.location.latitude;
             double lon = d.location.longitude;
@@ -87,6 +91,11 @@ namespace Client.GUIs.DonationCenter
         }
 
         private void gMapAvailableDonors_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }
