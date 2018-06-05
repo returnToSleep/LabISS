@@ -89,7 +89,7 @@ namespace Client.GUIs.DonorGUI
             }
             catch (FormatException)
             {
-                err += "Data nasterii este completata gresit";
+                err += "Incorrect date of birth";
             }
             if (cnp != controller.donor.cnp)
             {
@@ -97,7 +97,7 @@ namespace Client.GUIs.DonorGUI
                 {
                     returnCnp = controller.donor.cnp;
                     Donor search = controller.service.GetOneFromDatabase<Donor>(cnp);
-                    MessageBox.Show("Ati introdus CNP-ul unei alte persoane", "CNP invalid");
+                    MessageBox.Show("The CNP you entered is already in use", "Invalid CNP");
                     return;
                 }
                 catch (RemotingException) { }
@@ -134,7 +134,7 @@ namespace Client.GUIs.DonorGUI
             }
             else
             {
-                MessageBox.Show(err, "Date invalide");
+                MessageBox.Show(err, "Invalide data");
                 return;
             }
 

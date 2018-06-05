@@ -27,14 +27,14 @@ namespace Client.GUIs.DonorGUI
 
             string bloodType = controller.donor.bloodType == null ? "?" : controller.donor.bloodType;
 
-            string rh = controller.donor.rh ? " Pozitiv" : " Negativ";
+            string rh = controller.donor.rh ? " Pozitive" : " Negative";
 
             string[] splitAddr = controller.donor.location.addressString.Split(',');
 
             #region Donor Data
             donorNameLabel.Text += " " + controller.donor.name;
             cnpLabel.Text += " " + controller.donor.cnp;
-            residenceLabel.Text += " " + splitAddr[0] + ", Strada " + splitAddr[1] + " Nr. " + splitAddr[2];
+            residenceLabel.Text += " " + splitAddr[0] + ", Street " + splitAddr[1] + " No. " + splitAddr[2];
             emailLabel.Text += " " + controller.donor.email;
             donorBloodTypeLabel.Text += bloodType == "?" ? "?" : " " + bloodType + rh;
             #endregion
@@ -49,25 +49,25 @@ namespace Client.GUIs.DonorGUI
         {
             string noDon = controller.getDonationHistory().Count == 0 ? "0" : controller.getDonationHistory().Count.ToString();
 
-            noOfDonationsLabel.Text = "Numar donatii: " + noDon.ToString();
+            noOfDonationsLabel.Text = "Number of donations: " + noDon.ToString();
 
             string bloodType = controller.donor.bloodType == null ? "?" : controller.donor.bloodType;
 
-            string rh = controller.donor.rh ? " Pozitiv" : " Negativ";
+            string rh = controller.donor.rh ? " Pozitive" : " Negative";
 
             string concreteBloodType = bloodType == "?" ? "?" : (bloodType + rh);
 
-            donorBloodTypeLabel.Text = "Grupa sanguina: " + concreteBloodType;
+            donorBloodTypeLabel.Text = "Blood type: " + concreteBloodType;
 
             emailLabel.Text = "Email: " + controller.donor.email;
 
             string[] splitAddr = controller.donor.location.addressString.Split(',');
 
 
-            residenceLabel.Text = "Resedinta: " + splitAddr[0] + ", Strada " + splitAddr[1] + " Nr. " + splitAddr[2];
+            residenceLabel.Text = "Residence: " + splitAddr[0] + ", Street " + splitAddr[1] + " No. " + splitAddr[2];
             emailLabel.Text = "Email: " + controller.donor.email;
 
-            donorNameLabel.Text = "Nume: " + controller.donor.name;
+            donorNameLabel.Text = "Name: " + controller.donor.name;
         }
 
         private void populateDonationHistory()
@@ -99,7 +99,7 @@ namespace Client.GUIs.DonorGUI
         {
             string donationInfoString = controller.isDonorFit();
 
-            fillFormButton.Enabled = donationInfoString == "Puteti dona!";
+            fillFormButton.Enabled = donationInfoString == "You can donate!";
 
             donationInformationLabel.Text = donationInfoString;
         }
@@ -135,7 +135,7 @@ namespace Client.GUIs.DonorGUI
             if (dataEdit.DialogResult == DialogResult.OK)
             {
                 controller.service.UpdateOneFromDatabase(dataEdit.returnDonor);
-                MessageBox.Show("Datele au fost salvate!", "Suces!");
+                MessageBox.Show("The Changes have been saved.", "Great succes!");
                 refreshData();
             }
             else

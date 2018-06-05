@@ -64,7 +64,7 @@ namespace Client.GUIs.DonorGUI
                 return;
             } catch (SocketException)
             {
-                MessageBox.Show("Nu se poate efectua conexiunea la server!\nIncercati din nou mai tarziu", "Oops!");
+                MessageBox.Show("Can not establish a connection to the server!\nPlease try again later", "Oops!");
                 return;
             }
             try
@@ -78,7 +78,7 @@ namespace Client.GUIs.DonorGUI
 
             if (usernameTaken != null)
             {
-                MessageBox.Show("Numele de utilizator este luat deja", "Date incorecte");
+                MessageBox.Show("The username is already in use", "Invalid data");
                 userTextBox.Clear();
                 pass1TextBox.Clear();
                 pass2TextBox.Clear();

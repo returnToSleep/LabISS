@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DonationCenterClient.Client" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACBAAAAAACIAAQAAAACAAABCIABAAEAAEAAAAAAAAAA=</HashCode>
+      <FileName>Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonationCenterClient.Program" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.DoctorController" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAEAACECIIAAAICAAAAQABAAAAAAABEAAIBIAAAA=</HashCode>
+      <FileName>Controller\DoctorController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.Controller.DonationCenterController" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABBABAAAIABIgAAACQAAAAAAAEBARAAAAEAACAAAAQA=</HashCode>
+      <FileName>Controller\DonationCenterController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.GUIs.DoctorGUIs.DoctorGUI" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>/ySUUA48gGRmSLMaAm7BwGyOzoxCKJSjAOqeAIhAcXo=</HashCode>
+      <FileName>GUIs\DoctorGUI\DoctorGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.GUIs.DoctorGUIs.SmartRequestDialog" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAADQAAAAAAACIAAACAIAAAAAAAAARAAAAAAA=</HashCode>
+      <FileName>GUIs\DoctorGUI\SmartRequestDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.GUIs.DonationCenter.BloodInput" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAgBAGSADBAIAAKAEIICAEAIAAACAWDQIEBAAAA=</HashCode>
+      <FileName>GUIs\DonationCenterGUI\BloodInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.GUIs.DonationCenter.CallDonorsForm" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAGIEAQAACQAQBAAAAKAQAACQAAAAAAACCAgAAAACAA=</HashCode>
+      <FileName>GUIs\DonationCenterGUI\CallDonorsForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.GUIs.DonationCenter.EMailForm" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAACQAABAAAEGCAAACAAAAAAAgAQQQAAAAAAA=</HashCode>
+      <FileName>GUIs\DonationCenterGUI\EMailForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.GUIs.DonationCenterGUI" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAA3AgwACAiIBWABASFwAAiSwEADYQgBKJgBBIAAAQ=</HashCode>
+      <FileName>GUIs\DonationCenterGUI\DonationCenterGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.GUIs.DonorGUI.AccountWindow" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAACQQBBAAABCABCACAAAAAAAAAGAAAAAIAQA=</HashCode>
+      <FileName>GUIs\DonorGUI\AccountWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.GUIs.DonorGUI.CreateAccountWindow" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>cAAAAAQAACQIABAAAASAIAACAAAgAAAAAMAQAAAgAIA=</HashCode>
+      <FileName>GUIs\DonorGUI\CreateAccountWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.GUIs.DonorGUI.dataEditWindow" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>+yAgYBAACCQAAAEgABDAJACCAAAIEBAAACAQQAAABDQ=</HashCode>
+      <FileName>GUIs\DonorGUI\dataEditWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.GUIs.DonorGUI.doneWindow" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQBBAAAACAAAACAAAAAAAAAAAAAAAAAAU=</HashCode>
+      <FileName>GUIs\DonorGUI\doneWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.GUIs.DonorGUI.DonorMainGUI" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAECQogCACABEABISFACADAAAIAIAAAGMAAYAEAAA=</HashCode>
+      <FileName>GUIs\DonorGUI\DonorMainGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.Properties.Resources" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.Properties.Settings" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.Utils.EmailService" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQBAAAAAAAAAAAAAAAAQAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utils\EmailService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client.Utils.SafeNishBox" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAIAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Utils\SafeNishBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

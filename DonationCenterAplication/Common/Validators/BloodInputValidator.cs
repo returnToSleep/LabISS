@@ -21,7 +21,7 @@ namespace Common.Validators
             }
             catch
             {
-                err += "Cantitatea de plasma este invalida\n";
+                err += "The plasma quantity is invalid\n";
             }
             try
             {
@@ -29,7 +29,7 @@ namespace Common.Validators
             }
             catch
             {
-                err += "Cantitatea de trombotire este invalida\n";
+                err += "The trombocyte quantity is invalid\n";
             }
             try
             {
@@ -37,7 +37,7 @@ namespace Common.Validators
             }
             catch
             {
-                err += "Cantitatea de celule rosii este invalida\n";
+                err += "The red cells quantity is invalid\n";
             }
 
             return err;
@@ -54,11 +54,11 @@ namespace Common.Validators
 
                 if (sum > 500)
                 {
-                    err += "Cantitatea totala de sange nu poate sa depaseasca 500ml";
+                    err += "The combined quantities must not exceed 500ml";
                 }
                 if (sum < 450)
                 {
-                    err += "Cantitate totala de sange nu poate fii mai mica de 450ml";
+                    err += "The combined quantities must not be below 450ml";
                 }
 
                 return err;
@@ -77,7 +77,7 @@ namespace Common.Validators
             }
             catch
             {
-                err += "Pulsul este invalid\n";
+                err += "The pulse is invalid\n";
             }
             try
             {
@@ -85,7 +85,7 @@ namespace Common.Validators
             }
             catch
             {
-                err += "Presiunea este invalida\n";
+                err += "The pressure is invalid\n";
             }
 
             return err;
@@ -104,22 +104,22 @@ namespace Common.Validators
 
                 if (pressInt < 100)
                 {
-                    err += "Presiunea sistolica este prea mica pentru ca donatorul sa fie apt\n";
+                    err += "The sistolic pressure is too low for the donor to be fit\n";
                 }
 
                 if (pressInt > 180)
                 {
-                    err += "Presiunea sistolica este prea mare pentru ca donatorul sa fie apt\n";
+                    err += "The sistolic pressure is to high for the donor to be fit\n";
                 }
 
                 if (pulseInt > 160)
                 {
-                    err += "Pulsul este prea mare ptrnu ca donatorul sa fie apt\n";
+                    err += "The pulse is to high for the donor to be apt\n";
                 }
 
                 if (pulseInt < 0)
                 {
-                    err += "Donatorun nu are puls!\n";
+                    err += "The donor does not have a pulse!\n";
                 }
 
                 return err;

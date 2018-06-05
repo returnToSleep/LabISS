@@ -39,7 +39,7 @@ namespace Common.Model
         public override string ToString()
         {
 
-            string status = isBeeingDelivered ? "In curs de livrare" : "In asteptare";
+            string status = isBeeingDelivered ? "Is beeing delivered" : "Pending";
 
             return "Status: " + status +"\nPriority: " + priority + "\nDoctor: " + doctor_name + "\nPatient name: " + pacientName + "\n" + requestString + "\nHospital: " + hospital + "\nDonation Center: " + donationCenterName + "\nPacient: " + pacientName;
 

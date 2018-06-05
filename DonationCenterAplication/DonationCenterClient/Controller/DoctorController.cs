@@ -734,9 +734,9 @@ namespace Controller
             }
         }
 
-        public void sortRequests()
+        public List<DoctorRequest> sortRequests(List<DoctorRequest> lst)
         {
-            doctor.requests = doctor.requests.OrderBy(x => x.isBeeingDelivered).ToList();
+            return lst.OrderBy(x => x.isBeeingDelivered).ToList();
         }
 
 

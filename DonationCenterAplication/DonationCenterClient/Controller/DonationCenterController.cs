@@ -50,15 +50,12 @@ namespace Client.Controller
         {
           
             if ( l == null ){ return;  }
-            
-            foreach(T bloodCompoenent in l)
-            {
-                if (DateTime.Compare(bloodCompoenent.getExpirationDate(), DateTime.Now) <= 0)
-                {
-                    service.DeleteFromDatabase(bloodCompoenent);
-                }
-            }
-        
+
+            l.ToList()
+                .Where(x => DateTime.Compare(x.getExpirationDate(), DateTime.Now) <= 0)
+                .ToList()
+                .ForEach(x => service.DeleteFromDatabase(x));
+
         }
 
 

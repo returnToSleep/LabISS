@@ -25,33 +25,32 @@ namespace Client.GUIs.DonationCenter
             InitializeComponent();
 
             emailTextBox.Text = donor.email;
-            subjectTextBox.Text = isFit ? "Multumim pentur donatie!" : "Rezultate analize";
+            subjectTextBox.Text = isFit ? "Thank you for your donation!" : "Medical exam results";
+            
+            string missMister = (donor.cnp[0] == '1') ? "mister " : "miss ";
 
-            string missMister1 = (donor.cnp[0] == '1') ? "Stimate " : "Stimata ";
-            string missMister2 = (donor.cnp[0] == '1') ? "domn " : "doamna ";
-
-            string bloodType = bloodTypeIsUnknown ? "Grupa dumneavoastra de sange este " + donor.bloodType + ".\n" : "";
+            string bloodType = bloodTypeIsUnknown ? "Your blood type is " + donor.bloodType + ".\n" : "";
 
             if (isFit)
             {
-                eMailBox.Text = missMister1 + missMister2 + donor.name + ",\n\n\n"
-                    + "Va aducem la cunostinta faptul ca rezultatele analizelor sunt pozitive.\n"
-                    + "Puteti vedea detataliile legate de donatia pe profilul dumneavoastra."
+                eMailBox.Text = "Dear " + missMister + donor.name + ",\n\n\n"
+                    + "We would like to inform you that the results of the medical exam are pozitive.\n"
+                    + "You may see the details of your donation on your profile."
                     + bloodType
-                    + "Sangele recoltat ureamaza sa fie adaugat in stoc si va fii livrat catre un spital\n"
-                    + "atunci cand este nevoie.\n" 
-                    + "Multumim pentru donatia dumneavoastra!\n\n" 
-                    + "Va dorim o zi buna in continoare, \n"
-                    + "Centrul de donatii " + donationCenterName;
+                    + "The harvested blood will be added to our stocks and will be delivered to a hospital\n"
+                    + "when needed.\n" 
+                    + "Thank you for your donation!\n\n" 
+                    + "We wish you a good day!, \n"
+                    + "Respectfully, " + donationCenterName;
             }
             else
             {
-                eMailBox.Text = missMister1 + missMister2 + donor.name + ",\n\n\n"
-                    + "Cu parare de rau, trebuie sa va anuntam ca rezultatele analizelor sunt negative.\n"
+                eMailBox.Text = "Dear " +missMister + donor.name + ",\n\n\n"
+                    + "We regret to inform you that you have been deemed unfit to donate blood.\n"
                     + bloodType
-                    + "Multumim pentru ca v-ati facut timp pentru a dona sange.\n\n"
-                    + "Toate cele bune, \n"
-                    + "Centrul de donatii " + donationCenterName;
+                    + "Thank you for making time for a donation.\n\n"
+                    + "Best regards, \n"
+                    + donationCenterName;
             }
 
         }

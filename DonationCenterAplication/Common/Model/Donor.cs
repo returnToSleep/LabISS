@@ -70,7 +70,7 @@ namespace Common.Model{
         public override string ToString()
         {
             string bt = (bloodType == null) ? "?" : bloodType;
-            string rhStr = (rh) ? " pozitiv" : " negativ";
+            string rhStr = (rh) ? " pozitive" : " negative";
             string donatesFor = donatedFor == null && ! isPending ? "" : "Doneaza pentru: " + donatedFor;
 
             return "Name: " + name + "\nCNP: " + cnp + "\nBlood type: " + bt + rhStr + "\nBirthdate: " + birthdate.Date.ToString()

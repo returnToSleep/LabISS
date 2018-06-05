@@ -77,11 +77,11 @@ namespace Client.GUIs.DonorGUI
 
             if (isFirstTime)
             {
-                stepLabel.Text = "Pasul 2 din 3";
+                stepLabel.Text = "Step 2 out of 3";
             }
             else
             {
-                stepLabel.Text = "Completare formular";
+                stepLabel.Text = "Fill in form";
                 
                 donorNameTextBox.Text = controller.donor.name;
 
@@ -170,7 +170,7 @@ namespace Client.GUIs.DonorGUI
                     new PointLatLng(donorLat, donorLon),
                     GMarkerGoogleType.blue);
 
-                donorMarker.ToolTipText = "Dumneavoastra!";
+                donorMarker.ToolTipText = "You!";
 
 
                 donorMarker.ToolTip.Stroke.Color = Color.White;
@@ -213,10 +213,10 @@ namespace Client.GUIs.DonorGUI
         
             if (!disseaseCheckBox.Checked)
             {
-                MessageBox.Show("Nu ati confirmat ca nu suferiti sau" + " ati suferit de afeciunile mentionate.\n\n" +
-                    "In cazul in care suferiti de una sau mai" + " multe dintre afectiunile precizate\n" + 
-                    "sangele dumneavoastra ar pune in pericol" + " vietiile celor care necesita transfuzii.\n\n" +
-                    "Multumim pentru intelegere.", "Formular incomplet");
+                MessageBox.Show("You did not confirm that you do not suffer or have suffered from the mentiond afflictions.\n\n" +
+                    "If you have suffered from one one of the mentiond afflictions\n" + 
+                    "your blood might endanger those who are in need of transfusions.\n\n" +
+                    "Thank you for your understanding.", "Inclomplete for");
                 return;
             }
 
@@ -247,7 +247,7 @@ namespace Client.GUIs.DonorGUI
             }
             catch
             {
-                err += "\nNumarul strazii in adresa este invalid";
+                err += "\nThe street nuber you have entered is invalid";
             }
 
             try
@@ -256,7 +256,7 @@ namespace Client.GUIs.DonorGUI
             }
             catch
             {
-                err += "Numarul strazii in adresa de resedinta este invalid";
+                err += "The street number from the residence address id invalid";
             }
 
 
@@ -270,7 +270,7 @@ namespace Client.GUIs.DonorGUI
                 birthday = new DateTime(year, month, day);
             }
             catch (Exception) {
-                err += "\nData nasterii este completata gresit";
+                err += "\nDate of birth invalid";
             }
 
             if (isFirstTime || cnp != controller.donor.cnp)
@@ -278,7 +278,7 @@ namespace Client.GUIs.DonorGUI
                 try
                 {
                     Donor search = service.GetOneFromDatabase<Donor>(cnp);
-                    MessageBox.Show("Ati introdus CNP-ul unei alte persoane", "CNP invalid");
+                    MessageBox.Show("The CNP you have entered is already in use", "Invalid CNP");
                     return;
                 }
                 catch (Exception){}
@@ -302,7 +302,7 @@ namespace Client.GUIs.DonorGUI
             if (donatedForCheckBox.Checked)
             {
                 string donatedFor = donatedForTextBox.Text;
-                err += donatedFor == "" ? "\nAti ales optiunea \"Donez pentru cineva anume\" fara sa precizati numele persoanei" : "";
+                err += donatedFor == "" ? "\nYou have choosen the option \"I wish to danted for someone\" without specifying the persons's name" : "";
                 returnDonor.donatedFor = donatedFor;
             }
 
@@ -326,14 +326,14 @@ namespace Client.GUIs.DonorGUI
 
                     returnDonor.isPending = true;
                     returnDonor.bloodType = controller.donor.bloodType;
-                    MessageBox.Show("Formularul a fost trimis!\nVa asteptam in decursul saptamanii viitoare la: " + donationCenter.name, "Multumim!");
+                    MessageBox.Show("The form has been sent!\nYou are invited to come at the: " + donationCenter.name + " \nduring next week", "Thank you!");
                     DialogResult = DialogResult.Yes;
                     Close();
                 }
             }
             else
             {
-                MessageBox.Show(err, "Date invalide");
+                MessageBox.Show(err, "Invalid data");
                 return;
             }
 

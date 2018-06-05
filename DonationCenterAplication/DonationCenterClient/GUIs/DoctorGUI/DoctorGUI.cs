@@ -94,6 +94,8 @@ namespace Client.GUIs.DoctorGUIs
 
             IList<DoctorRequest> reqList = controller.doctor.requests.OrderBy(x => x.priority).ToList();
 
+            reqList = controller.sortRequests(reqList.ToList());
+
             foreach (DoctorRequest r in reqList)
             {
                 requestList.Items.Add(r);
@@ -168,7 +170,7 @@ namespace Client.GUIs.DoctorGUIs
                    new PointLatLng(controller.doctor.location.latitude, controller.doctor.location.longitude),
                    GMarkerGoogleType.blue);
 
-            doctorMarker.ToolTipText = "Spitalul dumneavoastra";
+            doctorMarker.ToolTipText = "Your hospital";
             doctorMarker.ToolTip.Stroke.Color = Color.White;
             doctorMarker.ToolTip.Foreground = Brushes.Black;
 
@@ -320,7 +322,7 @@ namespace Client.GUIs.DoctorGUIs
                 controller.acceptBlood(dR, (Trombocyte)deliveredBloodList.Items[0], true);
             }
 
-            MessageBox.Show("Comanda a fost acceptata!", "Suces!");
+            MessageBox.Show("The package has been accepted!", "Succes!");
 
             RefreshLists();
 
@@ -666,7 +668,7 @@ namespace Client.GUIs.DoctorGUIs
 
         private void gMapStocks_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
-            if (item.ToolTipText != "Spitalul dumneavoastra")
+            if (item.ToolTipText != "Your hospital")
             {
                 foreach (object donationCenter in comboBox4.Items)
                 {
@@ -684,7 +686,7 @@ namespace Client.GUIs.DoctorGUIs
 
         private void gMapDoctors_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
-            if (item.ToolTipText != "Spitalul dumneavoastra")
+            if (item.ToolTipText != "Your hospital")
             {
                 foreach (object donationCenter in comboBox4.Items)
                 {
@@ -952,8 +954,12 @@ namespace Client.GUIs.DoctorGUIs
 
         private void showOnlyForAComponentntToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            controller.sortRequests();
             RefreshLists();
+        }
+
+        private void requestManagementMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }

@@ -17,26 +17,26 @@ namespace Common.Validators
         {
             string err = "";
 
-            err += month > 12 ? "Data nasterii " + specifier + "este introdusa gresit/n" : "";
+            err += month > 12 ? "Date of birth " + specifier + "is not valid/n" : "";
 
             if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
             {
-                err += day > 31 ? "Data nasterii " + specifier + "este introdusa gresit/n" : "";
+                err += day > 31 ? "Date of birth " + specifier + "is not valid/n" : "";
             }
 
             if (month == 4 || month == 6 || month == 9 || month == 11)
             {
-                err += day > 30 ? "Data nasterii " + specifier + "este introdusa gresit/n" : "";
+                err += day > 30 ? "Date of birth " + specifier + "is invalid/n" : "";
             }
 
             if (month == 2 && year % 4 == 0)
             {
-                err += day > 29 ? "Data nasterii " + specifier + "este introdusa gresit/n" : "";
+                err += day > 29 ? "Date of birth " + specifier + "is invalid/n" : "";
             }
 
             if (month == 2 && year % 4 != 0)
             {
-                err += day > 28 ? "Data nasterii " + specifier + "este introdusa gresit/n" : "";
+                err += day > 28 ? "Date of birth " + specifier + "is invalid/n" : "";
             }
 
 
@@ -48,9 +48,9 @@ namespace Common.Validators
             string err = "";
 
             var regexItem = new Regex("^[0-9\\s]*$");
-            err += regexItem.IsMatch(cnp) ? "CNP-ul nu poate contine litere\n" : "";
+            err += regexItem.IsMatch(cnp) ? "The CNP can not contail letters\n" : "";
 
-            err += cnp[0] != '1' && cnp[0] != '2' ? "Prima cifra din CNP trebuie sa fie 1 sau 2\n" : "";
+            err += cnp[0] != '1' && cnp[0] != '2' ? "The first digit of the CNP should be 1 or 2" : "";
 
             string[] splitCnp = cnp.Split(' ');
 
@@ -79,17 +79,17 @@ namespace Common.Validators
         {
             string err = "";
 
-            err += donor.name == "" ? "Numele trebuie sa fie completat\n" : "";
-            err += donor.cnp == "         " ? "CNP-ul trebuie sa fie completat\n" : "";
-            err += donor.email == "" ? "E-mail-ul trebuie sa fie completat\n" : "";
+            err += donor.name == "" ? "The name field must be filled in\n" : "";
+            err += donor.cnp == "         " ? "The CNP filed must be filled in\n" : "";
+            err += donor.email == "" ? "The e-mail filed must be filled in\n" : "";
 
             var regexItem = new Regex("^[a-zA-Z\\s]*$");
-            err += regexItem.IsMatch(donor.name) ? "" : "Numele pot contine doar litere\n";
+            err += regexItem.IsMatch(donor.name) ? "" : "Names can contain only letters\n";
 
            
-            err += donor.email.Contains("@") && donor.email.Contains(".") ? "": "E-mail-ul este invalid\n";
+            err += donor.email.Contains("@") && donor.email.Contains(".") ? "": "The e-mail is invalid\n";
 
-            err += validateDate(donor.birthdate.Year, donor.birthdate.Month, donor.birthdate.Day, "data de nastere");
+            err += validateDate(donor.birthdate.Year, donor.birthdate.Month, donor.birthdate.Day, "Date of birth fields");
             return err;
         }
     }

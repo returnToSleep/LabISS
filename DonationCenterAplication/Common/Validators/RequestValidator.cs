@@ -21,7 +21,7 @@ namespace Common.Validators
                 float.Parse(quantity);
             }
             catch {
-                err += "Cantitate invailda\n";
+                err += "Invalid quantity\n";
             }
             return err;
         } 
@@ -30,7 +30,7 @@ namespace Common.Validators
         {
             string err = "";
             var regexItem = new Regex("^[a-zA-Z\\s]*$");
-            err += regexItem.IsMatch(name) ? "" : "Numele pot contine doar litere\n";
+            err += regexItem.IsMatch(name) ? "" : "Names can only contain letters\n";
 
             return err;
         }

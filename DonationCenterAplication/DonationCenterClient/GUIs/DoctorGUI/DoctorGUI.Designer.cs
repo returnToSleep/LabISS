@@ -91,14 +91,16 @@
             this.deliveredComponentsGroupBox = new System.Windows.Forms.GroupBox();
             this.acceptBloodButton = new System.Windows.Forms.Button();
             this.noAcceptBloodButton = new System.Windows.Forms.Button();
+            this.deliveredBloodList = new Client.Utils.SafeNishBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.requestManagementMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteSingleRequestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllRequests = new System.Windows.Forms.ToolStripMenuItem();
-            this.showOnlyForAComponentntToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.requestList = new Client.Utils.SafeNishBox();
             this.label14 = new System.Windows.Forms.Label();
             this.pacientStatusTab = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.pacientMultiList = new Client.Utils.SafeNishBox();
             this.pacientStatusGroupBox = new System.Windows.Forms.GroupBox();
             this.avaialbeGroupBox = new System.Windows.Forms.GroupBox();
             this.label42 = new System.Windows.Forms.Label();
@@ -137,9 +139,6 @@
             this.logOutButton = new System.Windows.Forms.Button();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.label33 = new System.Windows.Forms.Label();
-            this.deliveredBloodList = new Client.Utils.SafeNishBox();
-            this.requestList = new Client.Utils.SafeNishBox();
-            this.pacientMultiList = new Client.Utils.SafeNishBox();
             this.bloodStockPage.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -907,6 +906,19 @@
             this.noAcceptBloodButton.UseVisualStyleBackColor = false;
             this.noAcceptBloodButton.Click += new System.EventHandler(this.noAcceptBloodButton_Click);
             // 
+            // deliveredBloodList
+            // 
+            this.deliveredBloodList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.deliveredBloodList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.deliveredBloodList.FormattingEnabled = true;
+            this.deliveredBloodList.Location = new System.Drawing.Point(6, 53);
+            this.deliveredBloodList.Name = "deliveredBloodList";
+            this.deliveredBloodList.ScrollAlwaysVisible = true;
+            this.deliveredBloodList.Size = new System.Drawing.Size(678, 214);
+            this.deliveredBloodList.TabIndex = 1;
+            // 
             // groupBox6
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -927,10 +939,10 @@
             this.requestManagementMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.requestManagementMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteSingleRequestMenuItem,
-            this.deleteAllRequests,
-            this.showOnlyForAComponentntToolStripMenuItem});
+            this.deleteAllRequests});
             this.requestManagementMenu.Name = "requestManagementMenu";
-            this.requestManagementMenu.Size = new System.Drawing.Size(362, 76);
+            this.requestManagementMenu.Size = new System.Drawing.Size(362, 80);
+            this.requestManagementMenu.Opening += new System.ComponentModel.CancelEventHandler(this.requestManagementMenu_Opening);
             // 
             // deleteSingleRequestMenuItem
             // 
@@ -946,12 +958,22 @@
             this.deleteAllRequests.Text = "Delete all requests for the selected pacient";
             this.deleteAllRequests.Click += new System.EventHandler(this.deleteAllRequests_Click);
             // 
-            // showOnlyForAComponentntToolStripMenuItem
+            // requestList
             // 
-            this.showOnlyForAComponentntToolStripMenuItem.Name = "showOnlyForAComponentntToolStripMenuItem";
-            this.showOnlyForAComponentntToolStripMenuItem.Size = new System.Drawing.Size(361, 24);
-            this.showOnlyForAComponentntToolStripMenuItem.Text = "Bring non-pending on top";
-            this.showOnlyForAComponentntToolStripMenuItem.Click += new System.EventHandler(this.showOnlyForAComponentntToolStripMenuItem_Click);
+            this.requestList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.requestList.ContextMenuStrip = this.requestManagementMenu;
+            this.requestList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.requestList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.requestList.FormattingEnabled = true;
+            this.requestList.Location = new System.Drawing.Point(6, 53);
+            this.requestList.Name = "requestList";
+            this.requestList.ScrollAlwaysVisible = true;
+            this.requestList.Size = new System.Drawing.Size(432, 586);
+            this.requestList.TabIndex = 0;
+            this.requestList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.requestList_MouseClick);
+            this.requestList.SelectedIndexChanged += new System.EventHandler(this.requestList_SelectedIndexChanged);
+            this.requestList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.requestList_MouseUp);
             // 
             // label14
             // 
@@ -987,6 +1009,21 @@
             this.groupBox8.TabIndex = 7;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Pacients";
+            // 
+            // pacientMultiList
+            // 
+            this.pacientMultiList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pacientMultiList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.pacientMultiList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pacientMultiList.FormattingEnabled = true;
+            this.pacientMultiList.Location = new System.Drawing.Point(6, 53);
+            this.pacientMultiList.Name = "pacientMultiList";
+            this.pacientMultiList.ScrollAlwaysVisible = true;
+            this.pacientMultiList.Size = new System.Drawing.Size(432, 586);
+            this.pacientMultiList.TabIndex = 0;
+            this.pacientMultiList.SelectedIndexChanged += new System.EventHandler(this.multiLineListBox1_SelectedIndexChanged);
             // 
             // pacientStatusGroupBox
             // 
@@ -1432,51 +1469,6 @@
             this.label33.Text = "NB! All ammounts are measured in mililiters";
             this.label33.Click += new System.EventHandler(this.label33_Click);
             // 
-            // deliveredBloodList
-            // 
-            this.deliveredBloodList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.deliveredBloodList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.deliveredBloodList.FormattingEnabled = true;
-            this.deliveredBloodList.Location = new System.Drawing.Point(6, 53);
-            this.deliveredBloodList.Name = "deliveredBloodList";
-            this.deliveredBloodList.ScrollAlwaysVisible = true;
-            this.deliveredBloodList.Size = new System.Drawing.Size(678, 214);
-            this.deliveredBloodList.TabIndex = 1;
-            // 
-            // requestList
-            // 
-            this.requestList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.requestList.ContextMenuStrip = this.requestManagementMenu;
-            this.requestList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.requestList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.requestList.FormattingEnabled = true;
-            this.requestList.Location = new System.Drawing.Point(6, 53);
-            this.requestList.Name = "requestList";
-            this.requestList.ScrollAlwaysVisible = true;
-            this.requestList.Size = new System.Drawing.Size(432, 586);
-            this.requestList.TabIndex = 0;
-            this.requestList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.requestList_MouseClick);
-            this.requestList.SelectedIndexChanged += new System.EventHandler(this.requestList_SelectedIndexChanged);
-            this.requestList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.requestList_MouseUp);
-            // 
-            // pacientMultiList
-            // 
-            this.pacientMultiList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pacientMultiList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.pacientMultiList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pacientMultiList.FormattingEnabled = true;
-            this.pacientMultiList.Location = new System.Drawing.Point(6, 53);
-            this.pacientMultiList.Name = "pacientMultiList";
-            this.pacientMultiList.ScrollAlwaysVisible = true;
-            this.pacientMultiList.Size = new System.Drawing.Size(432, 586);
-            this.pacientMultiList.TabIndex = 0;
-            this.pacientMultiList.SelectedIndexChanged += new System.EventHandler(this.multiLineListBox1_SelectedIndexChanged);
-            // 
             // DoctorGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1632,6 +1624,5 @@
         private System.Windows.Forms.ContextMenuStrip requestManagementMenu;
         private System.Windows.Forms.ToolStripMenuItem deleteSingleRequestMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteAllRequests;
-        private System.Windows.Forms.ToolStripMenuItem showOnlyForAComponentntToolStripMenuItem;
     }
 }

@@ -72,7 +72,7 @@ namespace Client.GUIs
             gMapPendingDonors.Position = new PointLatLng(controller.donationCenter.lat, controller.donationCenter.lon);
             gMapPendingDonors.Zoom = 15;
 
-            selectedComponent = "Celule Rosii";
+            selectedComponent = "Red cells";
             fillComponentList();
 
         }
@@ -363,6 +363,13 @@ namespace Client.GUIs
         {
             DoctorRequest selected = (DoctorRequest)doctorRequestList.SelectedItem;
 
+            sendBloodButton.Enabled = true;
+
+            if(selected.isBeeingDelivered == true)
+            {
+                sendBloodButton.Enabled = false;
+            }
+
             Doctor doctor = controller.service.GetOneFromDatabase<Doctor>(selected.doctor_id);
 
             double doctorLat = doctor.location.latitude;
@@ -395,7 +402,7 @@ namespace Client.GUIs
                    new PointLatLng(donationCenterLat, donationCenterLon),
                    GMarkerGoogleType.red);
 
-            donationCenterMarker.ToolTipText = "Centrul nostru!";
+            donationCenterMarker.ToolTipText = "Our center!";
 
             donationCenterMarker.ToolTip.Stroke.Color = Color.White;
             donationCenterMarker.ToolTip.Foreground = Brushes.Black;
@@ -430,7 +437,7 @@ namespace Client.GUIs
             #endregion
 
 
-            sendBloodButton.Enabled = !selected.isBeeingDelivered;
+            //sendBloodButton.Enabled = !selected.isBeeingDelivered;
             
 
             string type = selected.requestString.Split(',')[0];
@@ -451,14 +458,7 @@ namespace Client.GUIs
             {
                 comp = controller.getAvailableBloodForRequest(selected);
             }
-
-            sendBloodButton.Enabled = false;
-
-            if (comp != null)
-            {
-                sendBloodButton.Enabled = true;
-            }
-
+            
             getAvailableDonorsForRequest(comp, selected);
 
         }
@@ -467,9 +467,13 @@ namespace Client.GUIs
         private void sendBloodButton_Click(object sender, EventArgs e)
         {
 
-            MessageBox.Show("Comanda a fost expediata!", "Suces!");
+            sendBloodButton.Enabled = false;
 
-            var emailList = controller.sendBlood(ComponentForRequest, (DoctorRequest)doctorRequestList.SelectedItem);
+            MessageBox.Show("The package has been sent!", "Succes!");
+
+            DoctorRequest req = (DoctorRequest)doctorRequestList.SelectedItem;
+
+            var emailList = controller.sendBlood(ComponentForRequest, req);
 
             foreach(Tuple<string, DoctorRequest> tup in emailList)
             {
@@ -479,6 +483,10 @@ namespace Client.GUIs
 
                 th.Start();
             }
+
+            req.isBeeingDelivered = true;
+
+            controller.service.UpdateOneFromDatabase(req);
 
             RefreshLists();
         }
