@@ -575,40 +575,30 @@ namespace Controller
         public BloodComponent matchBloodWithRequest(DoctorRequest docReq)
         {
             string[] reqInfo = docReq.requestString.Split(',');
-            if(reqInfo[0] == "Red")
+
+            switch (reqInfo[0])
             {
 
-                foreach(var bloodCell in this.doctor.redBloodCellList)
-                {
-                    if(bloodCell.antigen == reqInfo[1] && bloodCell.rh == bool.Parse(reqInfo[2]) 
-                        && bloodCell.ammount == float.Parse(reqInfo[3]))
+                case "Red":
                     {
-                        return bloodCell;
+                        return doctor.redBloodCellList.First(bloodCell => bloodCell.antigen == reqInfo[1] && bloodCell.rh == bool.Parse(reqInfo[2])
+                            && bloodCell.ammount == float.Parse(reqInfo[3]));
                     }
-                }
-            }
-            if(reqInfo[0] == "Tromb")
-            {
-                foreach (var trombocyte in this.doctor.trombocyteList)
-                {
-                    if (trombocyte.ammount == float.Parse(reqInfo[1]))
+                case "Tromb":
                     {
-                        return trombocyte;
+                        return doctor.trombocyteList.First(trombocyte => trombocyte.ammount == float.Parse(reqInfo[1]));
                     }
-                }
-            }
-            if (reqInfo[0] == "Plasma")
-            {
-                foreach (var plasma in this.doctor.plasmaList)
-                {
-                    if (plasma.antibody == reqInfo[1] && plasma.ammount == float.Parse(reqInfo[2]))
+                case "Plasma":
                     {
-                        return plasma;
+                        return doctor.plasmaList.First(plasma => plasma.antibody == reqInfo[1] && plasma.ammount == float.Parse(reqInfo[2]));
                     }
-                }
-            }
 
-            return null;
+                default:
+                    {
+                        return null;
+                    }
+
+            }
         }
 
         /*

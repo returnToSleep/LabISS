@@ -203,18 +203,6 @@ namespace Test
         }
 
         [TestMethod]
-        public void Test_makeRequest()
-        {
-            //TODO Andi
-        }
-
-        [TestMethod]
-        public void Test_reviewBloodStocks()
-        {
-            //TODO Andi
-        }
-
-        [TestMethod]
         public void Test_matchBloodWithRequest()
         {
             /*
@@ -243,14 +231,16 @@ namespace Test
                 ammount = 100,
                 donatedFor = "TestDonatedFor",
                 donationDate = DateTime.Parse("2018-05-30"),
-                donationCenter_id = "1,1"
+                donationCenter_id = null,
+                doctor_id = doctorController.doctor.id
             };
             var red = new RedBloodCell
             {
-                ammount = 100,
+                ammount = 300,
                 donatedFor = "TestDonatedFor",
                 donationDate = DateTime.Parse("2018-05-30"),
-                donationCenter_id = "1,1",
+                donationCenter_id = null,
+                doctor_id = doctorController.doctor.id,
                 antigen = "B",
                 rh = false
             };
@@ -259,7 +249,8 @@ namespace Test
                 ammount = 100,
                 donatedFor = "TestDonatedFor",
                 donationDate = DateTime.Parse("2018-05-30"),
-                donationCenter_id = "1,1",
+                donationCenter_id = null,
+                doctor_id = doctorController.doctor.id,
                 antibody = "B"
             };
 
@@ -270,27 +261,28 @@ namespace Test
             doctorController.service.AddToDatabase(red);
             doctorController.service.AddToDatabase(plasma);
 
+            doctorController.refresh();
+
             #endregion
             //Tromb test
             var docReq = new DoctorRequest(1,"1,1",1,"testPacientName", "Tromb,100","test");
-            var result = doctorController.matchBloodWithRequest(docReq);
-            Assert.AreEqual(result.amount, 100);
+            Trombocyte result = (Trombocyte)doctorController.matchBloodWithRequest(docReq);
+            Assert.AreEqual(result.ammount, 100);
             Assert.IsTrue(result is Trombocyte);
 
             //Plasma test
-            var docReq = new DoctorRequest(1, "1,1", 1, "testPacientName", "Plasma,B,100", "test");
-            var result = doctorController.matchBloodWithRequest(docReq);
-            Assert.AreEqual(result.amount, 100);
-            Assert.AreEqual(result.antibody, "B");
-            Assert.IsTrue(result is Plasma);
+            docReq = new DoctorRequest(1, "1,1", 1, "testPacientName", "Plasma,B,100", "test");
+            Plasma plasmaResult = (Plasma)doctorController.matchBloodWithRequest(docReq);
+            Assert.AreEqual(plasmaResult.ammount, 100);
+            Assert.AreEqual(plasmaResult.antibody, "B");
+            Assert.IsTrue(plasmaResult is Plasma);
 
             //Red test
-            var docReq = new DoctorRequest(1, "1,1", 1, "testPacientName", "Red,AB,false,200", "test");
-            var result = doctorController.matchBloodWithRequest(docReq);
-            Assert.AreEqual(result.amount, 200);
-            Assert.IsTrue(result is RedBloodCell);
-            Assert.IsTrue(!result.rh);
-            Assert.AreEqual(result.antigen, "AB");
+            docReq = new DoctorRequest(1, "1,1", 1, "testPacientName", "Red,B,false,300", "test");
+            RedBloodCell redResult = (RedBloodCell)doctorController.matchBloodWithRequest(docReq);
+            Assert.AreEqual(redResult.ammount, 300);
+            Assert.IsTrue(!redResult.rh);
+            Assert.AreEqual(redResult.antigen, "B");
 
             //DELETE NEW DATA
             doctorController.service.DeleteFromDatabase(tromb);
@@ -351,29 +343,41 @@ namespace Test
             doctorController.service.AddToDatabase(plasma);
 
             #endregion
+           
             //Tromb test
             var docReq = new DoctorRequest(1, "1,1", 1, "testPacientName", "Tromb,100", "test");
-            int first = doctorController.service.GetAllFromDatabase<Trombocyte>();
+            int first = doctorController.service.GetAllFromDatabase<Trombocyte>().Count;
             doctorController.acceptBlood(docReq,tromb,true);
-            Assert.IsTrue(first > doctorController.service.GetAllFromDatabase<Trombocyte>());
+            Assert.IsTrue(first > doctorController.service.GetAllFromDatabase<Trombocyte>().Count);
 
             //Plasma test
-            var docReq = new DoctorRequest(1, "1,1", 1, "testPacientName", "Plasma,B,100", "test");
-            int first = doctorController.service.GetAllFromDatabase<Plasma>();
+            docReq = new DoctorRequest(1, "1,1", 1, "testPacientName", "Plasma,B,100", "test");
+            first = doctorController.service.GetAllFromDatabase<Plasma>().Count;
             doctorController.acceptBlood(docReq,plasma,true);
-            Assert.IsTrue(first > doctorController.service.GetAllFromDatabase<Plasma>());
+            Assert.IsTrue(first > doctorController.service.GetAllFromDatabase<Plasma>().Count);
 
             //Red test
-            var docReq = new DoctorRequest(1, "1,1", 1, "testPacientName", "Red,AB,false,200", "test");
-            int first = doctorController.service.GetAllFromDatabase<RedBloodCell>();
+            docReq = new DoctorRequest(1, "1,1", 1, "testPacientName", "Red,AB,false,200", "test");
+            first = doctorController.service.GetAllFromDatabase<RedBloodCell>().Count;
             doctorController.acceptBlood(docReq,red,true);
-            Assert.IsTrue(first > doctorController.service.GetAllFromDatabase<RedBloodCell>());
+            Assert.IsTrue(first > doctorController.service.GetAllFromDatabase<RedBloodCell>().Count);
 
             //DELETE NEW DATA
             doctorController.service.DeleteFromDatabase(don);
         }
 
 
+        [TestMethod]
+        public void Test_makeRequest()
+        {
+            //TODO Andi
+        }
+
+        [TestMethod]
+        public void Test_reviewBloodStocks()
+        {
+            //TODO Andi
+        }
 
     }
 }
