@@ -576,28 +576,34 @@ namespace Controller
         {
             string[] reqInfo = docReq.requestString.Split(',');
 
-            switch (reqInfo[0])
+            try
             {
+                switch (reqInfo[0])
+                {
 
-                case "Red":
-                    {
-                        return doctor.redBloodCellList.First(bloodCell => bloodCell.antigen == reqInfo[1] && bloodCell.rh == bool.Parse(reqInfo[2])
-                            && bloodCell.ammount == float.Parse(reqInfo[3]));
-                    }
-                case "Tromb":
-                    {
-                        return doctor.trombocyteList.First(trombocyte => trombocyte.ammount == float.Parse(reqInfo[1]));
-                    }
-                case "Plasma":
-                    {
-                        return doctor.plasmaList.First(plasma => plasma.antibody == reqInfo[1] && plasma.ammount == float.Parse(reqInfo[2]));
-                    }
+                    case "Red":
+                        {
+                            return doctor.redBloodCellList.First(bloodCell => bloodCell.antigen == reqInfo[1] && bloodCell.rh == bool.Parse(reqInfo[2])
+                                && bloodCell.ammount == float.Parse(reqInfo[3]));
+                        }
+                    case "Tromb":
+                        {
+                            return doctor.trombocyteList.First(trombocyte => trombocyte.ammount == float.Parse(reqInfo[1]));
+                        }
+                    case "Plasma":
+                        {
+                            return doctor.plasmaList.First(plasma => plasma.antibody == reqInfo[1] && plasma.ammount == float.Parse(reqInfo[2]));
+                        }
 
-                default:
-                    {
-                        return null;
-                    }
+                    default:
+                        {
+                            return null;
+                        }
 
+                }
+            } catch (InvalidOperationException)
+            {
+                return null;
             }
         }
 
