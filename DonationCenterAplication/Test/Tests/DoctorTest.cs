@@ -25,10 +25,6 @@ namespace Test
 
             List<DonationCenter> donList = testService.GetAllFromDatabase<DonationCenter>().ToList();
 
-
-            doctor.requests.ToList()
-                .ForEach(x => testService.DeleteFromDatabase(x));
-
             donList.ForEach(donationCenter =>
            {
                /*
@@ -43,6 +39,10 @@ namespace Test
                   */
                testService.DeleteFromDatabase(donationCenter);
            });
+
+            doctor.requests.ToList()
+                .ForEach(x => testService.DeleteFromDatabase(x));
+
             return new DoctorController(testService, doctor);
         }
 
@@ -370,13 +370,136 @@ namespace Test
         [TestMethod]
         public void Test_makeRequest()
         {
-            //TODO Andi
+            #region Fill data
+            var doctorController = this.doctorControllerFactory();
+            doctorController.service.AddToDatabase(new DonationCenter("1,1", "test"));
+
+            Location l = new Location
+            {
+                addressString = "Test",
+                id = 1001,
+                latitude = 1,
+                longitude = 1
+            };
+
+            int count = doctorController.service.GetAllFromDatabase<DoctorRequest>().Count;
+
+            doctorController.makeRequest(
+                l,
+                1,
+                "TestPacient",
+                "TestPacient",
+                "hello world",
+                "Centrul Save-A-Life"
+                );
+            #endregion
+
+            //count should have increased
+            Assert.IsTrue(doctorController.service.GetAllFromDatabase<DoctorRequest>().Count != count);
+            Assert.IsTrue(doctorController.service.GetAllFromDatabase<DoctorRequest>().Count == count + 1);
+
+            //the inserted request should have the same fields
+            DoctorRequest req = doctorController.service.GetOneFromDatabase<DoctorRequest>(count);
+            
+            Assert.IsTrue(req.pacientName == "TestPacient"
+                && req.requestString == "hello world"
+                && req.priority == 1
+                && req.hospital == "Centrul Save-A-Life",
+                "If this fails, it might be because of lazy initialization");
+
+            //the initial state should be true
+            Assert.IsTrue(req.isBeeingDelivered);
+
+            req.isBeeingDelivered = false;
+
+            doctorController.service.DeleteFromDatabase(req);
         }
 
         [TestMethod]
         public void Test_reviewBloodStocks()
         {
-            //TODO Andi
+            var doctorController = doctorControllerFactory();
+
+            #region Fill data
+            var d1 = new DonationCenter("1,1", "test");
+            var d2 = new DonationCenter("1000000,1000000", "test2");
+            doctorController.service.AddToDatabase(d1);
+            doctorController.service.AddToDatabase(d2);
+
+            var tromb = new Trombocyte
+            {
+                ammount = 100,
+                donatedFor = "TestDonatedFor",
+                donationDate = DateTime.Parse("2018-05-30"),
+                donationCenter_id = "1,1"
+            };
+            var red = new RedBloodCell
+            {
+                ammount = 100,
+                donatedFor = "TestDonatedFor",
+                donationDate = DateTime.Parse("2018-05-30"),
+                donationCenter_id = "1,1",
+                antigen = "B",
+                rh = false
+            };
+            var plasma = new Plasma
+            {
+                ammount = 100,
+                donatedFor = "bob",
+                donationDate = DateTime.Parse("2018-05-30"),
+                donationCenter_id = "1000000,1000000",
+                antibody = "B"
+            };
+
+            #endregion
+
+            //why do you need a location for this function, if the location is never used?
+            var init_bloodStocks = doctorController.reviewBloodStocks(new Location());
+
+            doctorController.service.AddToDatabase(tromb);
+            doctorController.service.AddToDatabase(red);
+            doctorController.service.AddToDatabase(plasma);
+
+            var after_bloodStocks = doctorController.reviewBloodStocks(new Location());
+
+            // count should have increased for all 3 lists
+            Assert.IsTrue(
+                init_bloodStocks.Item1.Count != after_bloodStocks.Item1.Count &&
+                init_bloodStocks.Item2.Count != after_bloodStocks.Item2.Count &&
+                init_bloodStocks.Item3.Count != after_bloodStocks.Item3.Count
+                );
+
+            //the items should be the same as the ones we inserted
+            Assert.IsTrue(
+                after_bloodStocks.Item1.Last().ammount == plasma.ammount &&
+                after_bloodStocks.Item1.Last().donatedFor == plasma.donatedFor &&
+                after_bloodStocks.Item1.Last().donationCenter_id == plasma.donationCenter_id &&
+                after_bloodStocks.Item1.Last().antibody == plasma.antibody &&
+
+                after_bloodStocks.Item2.Last().ammount == tromb.ammount &&
+                after_bloodStocks.Item2.Last().donatedFor == tromb.donatedFor &&
+                after_bloodStocks.Item2.Last().donationCenter_id == tromb.donationCenter_id &&
+
+                after_bloodStocks.Item3.Last().ammount == red.ammount &&
+                after_bloodStocks.Item3.Last().donatedFor == red.donatedFor &&
+                after_bloodStocks.Item3.Last().donationCenter_id == red.donationCenter_id &&
+                after_bloodStocks.Item3.Last().antigen == red.antigen
+                );
+
+            //this would be true if == operator was overloaded
+            //Assert.IsTrue(
+            //    after_bloodStocks.Item1.Last() == plasma &&
+            //    after_bloodStocks.Item2.Last() == tromb &&
+            //    after_bloodStocks.Item3.Last() == red
+            //    );
+            
+            #region Clear data
+            doctorController.service.DeleteFromDatabase(plasma);
+            doctorController.service.DeleteFromDatabase(red);
+            doctorController.service.DeleteFromDatabase(tromb);
+            doctorController.service.DeleteFromDatabase(d1);
+            doctorController.service.DeleteFromDatabase(d2);
+            #endregion
         }
 
     }
