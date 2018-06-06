@@ -172,7 +172,7 @@ namespace DonationCenterServer.Forms
                                     .Where(x => x.type == "Donation")
                                     .First(x => x.varId == selected.id);
 
-                clearTextBoxes();
+                donationCenterList.SelectedIndex = 0;
                 repo.Delete(selected);
                 repo.Delete(log);
                 update(repo);

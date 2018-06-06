@@ -131,13 +131,13 @@ namespace DonationCenterServer.Forms
                                         .Where(x => x.type == "Doctor")
                                         .First(x => x.intId == selected.id);
                     repo.Delete(log);
+                    doctorList.SelectedIndex = 0;
                 }
                 catch { }
 
                 repo.Delete(selected);
-               
+
                 update(repo);
-                clearTextBoxes();
             }
         }
 
