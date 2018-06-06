@@ -26,12 +26,18 @@ namespace Client.GUIs
         
         DonationCenterController controller;
         string selectedComponent;
+        int lastSelectedDonor;
+        int lastSelectedDonorPendingRequest;
+        int lastSelectedDoctor;
         
 
         string ComponentForRequest; 
     
         public DonationCenterGUI(DonationCenterController controller)
         {
+            lastSelectedDonor = 0;
+            lastSelectedDonorPendingRequest = 0;
+            lastSelectedDoctor = 0;
 
             controller.donationCenter.setLatLon();
 
@@ -202,6 +208,8 @@ namespace Client.GUIs
         private void donorList_SelectedIndexChanged(object sender, EventArgs e)
         {
             Donor selected = (Donor)donorList.SelectedItem;
+            lastSelectedDonor = donorList.SelectedIndex;
+
             Location l = selected.location;
 
             gMapDonors.Position = new PointLatLng(l.latitude, l.longitude);
@@ -211,7 +219,34 @@ namespace Client.GUIs
         private void refreshButton_Click(object sender, EventArgs e)
         {
             controller.service.Refresh(controller.donationCenter);
-            RefreshLists();
+
+            try
+            {
+                Console.WriteLine("Refresh Began");
+                RefreshLists();
+                Console.WriteLine("Refresh Ended");
+            }
+            catch(Exception exc)
+            {
+                Console.WriteLine("Exception thrown: " + exc.ToString() );
+            }
+
+
+            try
+            {
+                donorList.SelectedIndex = lastSelectedDonor;
+                donorList.Select();
+
+                pendingDonorList.SelectedIndex = lastSelectedDonorPendingRequest;
+                pendingDonorList.Select();
+
+                doctorRequestList.SelectedIndex = lastSelectedDoctor;
+                doctorRequestList.Select();
+            }
+            catch(Exception exc)
+            {
+                Console.WriteLine("Selected Index error: " + exc.ToString());
+            }
         }
 
         private void doctorRequestList_SelectedIndexChanged(object sender, EventArgs e)
@@ -224,6 +259,7 @@ namespace Client.GUIs
             if (pendingDonorList.Items.Count != 0)
             {
                 Donor selected = (Donor)pendingDonorList.SelectedItem;
+                lastSelectedDonorPendingRequest = pendingDonorList.SelectedIndex;
 
                 if (selected != null)
                 {
@@ -378,6 +414,7 @@ namespace Client.GUIs
         private void doctorRequestList_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             DoctorRequest selected = (DoctorRequest)doctorRequestList.SelectedItem;
+            lastSelectedDoctor = doctorRequestList.SelectedIndex;
 
             sendBloodButton.Enabled = true;
 

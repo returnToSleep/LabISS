@@ -310,22 +310,27 @@ namespace Client.GUIs.DoctorGUIs
         private void acceptBloodButton_Click(object sender, EventArgs e)
         {
             DoctorRequest dR = (DoctorRequest)requestList.SelectedItem;
-
-            if (dR.requestString.Split(',')[0] == "Plasma")
+            try
             {
-                controller.acceptBlood(dR, (Plasma)deliveredBloodList.Items[0], true);
-            }
-            if (dR.requestString.Split(',')[0] == "Red")
-            {
-                controller.acceptBlood(dR, (RedBloodCell)deliveredBloodList.Items[0], true);
-            }
-            if (dR.requestString.Split(',')[0] == "Tromb")
-            {
-                controller.acceptBlood(dR, (Trombocyte)deliveredBloodList.Items[0], true);
-            }
+                if (dR.requestString.Split(',')[0] == "Plasma")
+                {
+                    controller.acceptBlood(dR, (Plasma)deliveredBloodList.Items[0], true);
+                }
+                if (dR.requestString.Split(',')[0] == "Red")
+                {
+                    controller.acceptBlood(dR, (RedBloodCell)deliveredBloodList.Items[0], true);
+                }
+                if (dR.requestString.Split(',')[0] == "Tromb")
+                {
+                    controller.acceptBlood(dR, (Trombocyte)deliveredBloodList.Items[0], true);
+                }
 
-            MessageBox.Show("The package has been accepted!", "Succes!");
-
+                MessageBox.Show("The package has been accepted!", "Succes!");
+            }
+            catch(Exception exc)
+            {
+                Console.WriteLine("Exception:" + exc.ToString());
+            }
             RefreshLists();
 
         }
