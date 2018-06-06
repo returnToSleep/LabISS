@@ -20,9 +20,12 @@ namespace DonationCenterServer.Forms
         public DoctorCRUD()
         {
             InitializeComponent();
+
             gMapDoctorSelect.Manager.Mode = AccessMode.ServerOnly;
             gMapDoctorSelect.MapProvider = GMapProviders.BingMap;
             gMapDoctorSelect.Zoom = 15;
+            gMapDoctorSelect.DisableFocusOnMouseEnter = true;
+
             gMapDoctorSelect.SetPositionByKeywords("Cluj-Napoca");
             gMapDoctorSelect.DragButton = MouseButtons.Left;
             update(new RepositoryBase());
@@ -254,5 +257,24 @@ namespace DonationCenterServer.Forms
        
         }
 
+        private void locYTextbox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gMapDoctorSelect_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

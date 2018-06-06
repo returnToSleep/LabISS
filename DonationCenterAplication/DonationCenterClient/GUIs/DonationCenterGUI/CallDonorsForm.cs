@@ -33,6 +33,7 @@ namespace Client.GUIs.DonationCenter
             gMapAvailableDonors.Manager.Mode = AccessMode.ServerOnly;
             gMapAvailableDonors.MapProvider = GMapProviders.BingMap;
             gMapAvailableDonors.DragButton = MouseButtons.Left;
+            gMapAvailableDonors.DisableFocusOnMouseEnter = true;
 
             warningLabel.Text += " " + request.ToString();
             populateDonorList();

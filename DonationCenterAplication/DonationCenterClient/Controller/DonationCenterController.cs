@@ -1,14 +1,10 @@
-﻿using Client.Utils;
-using Common.Exceptions;
+﻿using Common.Exceptions;
 using Common.Model;
 using DonationCenterAplication.Remoting;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 
 
@@ -37,9 +33,9 @@ namespace Client.Controller
    */
         public void refreshBloodStock()
         {
-            removeFromList(this.donationCenter.redBloodCellList);
-            removeFromList(this.donationCenter.trombocyteList);
-            removeFromList(this.donationCenter.plasmaList);
+            removeFromList(donationCenter.redBloodCellList);
+            removeFromList(donationCenter.trombocyteList);
+            removeFromList(donationCenter.plasmaList);
             service.Refresh(donationCenter);
         }
 
@@ -83,8 +79,8 @@ namespace Client.Controller
         */
         public double getDistanceFromDonationCenter(Donor donor)
         {
-            double exp1 = donor.location.latitude - double.Parse(this.donationCenter.id.Split(',')[0]);
-            double exp2 = donor.location.longitude - double.Parse(this.donationCenter.id.Split(',')[1]);
+            double exp1 = donor.location.latitude - double.Parse(donationCenter.id.Split(',')[0]);
+            double exp2 = donor.location.longitude - double.Parse(donationCenter.id.Split(',')[1]);
 
             return Math.Sqrt(Math.Pow(exp1, 2) + Math.Pow(exp2, 2));
         }

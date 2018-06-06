@@ -33,10 +33,12 @@ namespace Client.GUIs.DoctorGUIs
             gMapDoctors.Manager.Mode = AccessMode.ServerOnly;
             gMapDoctors.MapProvider = GMapProviders.BingMap;
             gMapDoctors.DragButton = MouseButtons.Left;
+            gMapDoctors.DisableFocusOnMouseEnter = true;
 
             gMapStocks.Manager.Mode = AccessMode.ServerOnly;
             gMapStocks.MapProvider = GMapProviders.BingMap;
             gMapStocks.DragButton = MouseButtons.Left;
+            gMapStocks.DisableFocusOnMouseEnter = true;
 
             populateDonationCenterList();
             donatedForComboBox.SelectedIndex = 0;

@@ -32,7 +32,7 @@ namespace Model{
 
         public override string ToString()
         {
-            return "Anticorpi: " + antibody + "\nData expirarii: " + this.getExpirationDate().Date.ToString() + "\nCantitate" + ammount.ToString() + base.ToString();
+            return "Antibody: " + antibody + "\nExpires at: " + this.getExpirationDate().Date.ToString() + "\nQuantity: " + ammount.ToString() + base.ToString();
         }
     }
 }

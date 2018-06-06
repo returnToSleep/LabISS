@@ -54,14 +54,17 @@ namespace Client.GUIs
             gMapDonors.Manager.Mode = AccessMode.ServerOnly;
             gMapDonors.MapProvider = GMapProviders.BingMap;
             gMapDonors.DragButton = MouseButtons.Left;
+            gMapDonors.DisableFocusOnMouseEnter = true;
 
             gMapPendingDonors.Manager.Mode = AccessMode.ServerOnly;
             gMapPendingDonors.MapProvider = GMapProviders.BingMap;
             gMapPendingDonors.DragButton = MouseButtons.Left;
+            gMapPendingDonors.DisableFocusOnMouseEnter = true;
 
             gMapRouteToDoctor.Manager.Mode = AccessMode.ServerOnly;
             gMapRouteToDoctor.MapProvider = GMapProviders.BingMap;
             gMapRouteToDoctor.DragButton = MouseButtons.Left;
+            gMapRouteToDoctor.DisableFocusOnMouseEnter = true;
 
             populateDonorMarkers();
 
@@ -290,9 +293,10 @@ namespace Client.GUIs
                     string address = eMailForm.eMail;
                     string subject = eMailForm.eMailSubject;
                     string body = eMailForm.eMailText;
+                    List<string> attachedFiles = eMailForm.attachedFiles;
 
                     Thread th = new Thread(
-                        unused => EmailService.sendMail(controller.donationCenter.name, address, subject, body)
+                        unused => EmailService.sendMail(controller.donationCenter.name, address, subject, body, attachedFiles)
                         );
                     th.Start();
                 }
@@ -323,10 +327,10 @@ namespace Client.GUIs
                 string address = eMailForm.eMail;
                 string subject = eMailForm.eMailSubject;
                 string body = eMailForm.eMailText;
-                
-      
+                List<string> attachedFiles = eMailForm.attachedFiles;
+
                 Thread th = new Thread(
-                        unused => EmailService.sendMail(controller.donationCenter.name, address, subject, body)
+                        unused => EmailService.sendMail(controller.donationCenter.name, address, subject, body, attachedFiles)
                         );
                 th.Start();
             }
@@ -354,13 +358,17 @@ namespace Client.GUIs
 
                 if (availableDonors.Count == 0)
                 {
-                    fillPotentialBloodList("Nu exista suficient sange pe stoc si nu exista donatori disponibili");
+                    fillPotentialBloodList("There is not enough blood in stock and there are no available donors");
+                    sendBloodButton.Enabled = false;
                     return;
                 }
 
 
+                fillPotentialBloodList("There is not enough blood in stock");
+
                 CallDonorsForm callForm = new CallDonorsForm(availableDonors, selected);
                 callForm.ShowDialog();
+                sendBloodButton.Enabled = false;
                 return;
             }
             fillPotentialBloodList(comp);

@@ -37,7 +37,7 @@ namespace Model
 
             r = (rh) ? "positiv" : "negativ";
 
-            return "Antigen: " + antigen + "\nRh: " + r + "\nData Expirarii: " + getExpirationDate().Date.ToString() + "\nCantitate: " + ammount + base.ToString();
+            return "Antigen: " + antigen + "\nRh: " + r + "\nExpires at: " + getExpirationDate().Date.ToString() + "\nQuantity: " + ammount + base.ToString();
         }
     }
 }

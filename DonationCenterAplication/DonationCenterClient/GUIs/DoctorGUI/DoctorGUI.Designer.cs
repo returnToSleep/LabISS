@@ -941,7 +941,7 @@
             this.deleteSingleRequestMenuItem,
             this.deleteAllRequests});
             this.requestManagementMenu.Name = "requestManagementMenu";
-            this.requestManagementMenu.Size = new System.Drawing.Size(362, 80);
+            this.requestManagementMenu.Size = new System.Drawing.Size(362, 52);
             this.requestManagementMenu.Opening += new System.ComponentModel.CancelEventHandler(this.requestManagementMenu_Opening);
             // 
             // deleteSingleRequestMenuItem

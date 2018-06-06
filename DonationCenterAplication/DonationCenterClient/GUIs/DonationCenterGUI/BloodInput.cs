@@ -140,5 +140,10 @@ namespace Client.GUIs.DonationCenter
         {
 
         }
+
+        private void bloodPulse_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

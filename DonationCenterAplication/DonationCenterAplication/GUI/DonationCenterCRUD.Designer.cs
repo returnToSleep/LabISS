@@ -55,11 +55,11 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.DarkRed;
-            this.groupBox1.Location = new System.Drawing.Point(16, 15);
+            this.groupBox1.Location = new System.Drawing.Point(16, 13);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(464, 245);
+            this.groupBox1.Size = new System.Drawing.Size(464, 254);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Donation center management";
@@ -70,7 +70,7 @@
             this.deleteButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteButton.ForeColor = System.Drawing.Color.Black;
-            this.deleteButton.Location = new System.Drawing.Point(210, 202);
+            this.deleteButton.Location = new System.Drawing.Point(210, 211);
             this.deleteButton.Margin = new System.Windows.Forms.Padding(4);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(119, 35);
@@ -84,10 +84,10 @@
             this.locYTextbox.Enabled = false;
             this.locYTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.locYTextbox.ForeColor = System.Drawing.Color.Black;
-            this.locYTextbox.Location = new System.Drawing.Point(8, 113);
+            this.locYTextbox.Location = new System.Drawing.Point(94, 70);
             this.locYTextbox.Margin = new System.Windows.Forms.Padding(4);
             this.locYTextbox.Name = "locYTextbox";
-            this.locYTextbox.Size = new System.Drawing.Size(448, 24);
+            this.locYTextbox.Size = new System.Drawing.Size(362, 24);
             this.locYTextbox.TabIndex = 2;
             this.locYTextbox.TextChanged += new System.EventHandler(this.locYTextbox_TextChanged);
             // 
@@ -96,7 +96,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(8, 91);
+            this.label5.Location = new System.Drawing.Point(9, 73);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 18);
@@ -108,10 +108,10 @@
             this.locXTextbox.Enabled = false;
             this.locXTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.locXTextbox.ForeColor = System.Drawing.Color.Black;
-            this.locXTextbox.Location = new System.Drawing.Point(8, 63);
+            this.locXTextbox.Location = new System.Drawing.Point(94, 38);
             this.locXTextbox.Margin = new System.Windows.Forms.Padding(4);
             this.locXTextbox.Name = "locXTextbox";
-            this.locXTextbox.Size = new System.Drawing.Size(448, 24);
+            this.locXTextbox.Size = new System.Drawing.Size(362, 24);
             this.locXTextbox.TabIndex = 1;
             this.locXTextbox.TextChanged += new System.EventHandler(this.locXTextbox_TextChanged);
             // 
@@ -133,7 +133,7 @@
             this.addButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addButton.ForeColor = System.Drawing.Color.Black;
-            this.addButton.Location = new System.Drawing.Point(337, 202);
+            this.addButton.Location = new System.Drawing.Point(337, 211);
             this.addButton.Margin = new System.Windows.Forms.Padding(4);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(119, 35);
@@ -146,10 +146,10 @@
             // 
             this.nameTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameTextbox.ForeColor = System.Drawing.Color.Black;
-            this.nameTextbox.Location = new System.Drawing.Point(8, 165);
+            this.nameTextbox.Location = new System.Drawing.Point(94, 102);
             this.nameTextbox.Margin = new System.Windows.Forms.Padding(4);
             this.nameTextbox.Name = "nameTextbox";
-            this.nameTextbox.Size = new System.Drawing.Size(448, 24);
+            this.nameTextbox.Size = new System.Drawing.Size(362, 24);
             this.nameTextbox.TabIndex = 3;
             // 
             // label1
@@ -157,12 +157,12 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(8, 143);
+            this.label1.Location = new System.Drawing.Point(9, 105);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 18);
+            this.label1.Size = new System.Drawing.Size(48, 18);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Name:";
+            this.label1.Text = "Name";
             // 
             // gMapDonationCenterSelect
             // 
@@ -176,7 +176,7 @@
             this.gMapDonationCenterSelect.GrayScaleMode = false;
             this.gMapDonationCenterSelect.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapDonationCenterSelect.LevelsKeepInMemmory = 5;
-            this.gMapDonationCenterSelect.Location = new System.Drawing.Point(487, 25);
+            this.gMapDonationCenterSelect.Location = new System.Drawing.Point(486, 22);
             this.gMapDonationCenterSelect.MarkersEnabled = true;
             this.gMapDonationCenterSelect.MaxZoom = 15;
             this.gMapDonationCenterSelect.MinZoom = 15;
@@ -190,7 +190,7 @@
             this.gMapDonationCenterSelect.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapDonationCenterSelect.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapDonationCenterSelect.ShowTileGridLines = false;
-            this.gMapDonationCenterSelect.Size = new System.Drawing.Size(520, 652);
+            this.gMapDonationCenterSelect.Size = new System.Drawing.Size(520, 656);
             this.gMapDonationCenterSelect.TabIndex = 2;
             this.gMapDonationCenterSelect.Zoom = 0D;
             this.gMapDonationCenterSelect.LocationChanged += new System.EventHandler(this.gMapDonationCenterSelect_LocationChanged);
@@ -204,7 +204,7 @@
             this.donationCenterList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.donationCenterList.FormattingEnabled = true;
             this.donationCenterList.ItemHeight = 20;
-            this.donationCenterList.Location = new System.Drawing.Point(16, 265);
+            this.donationCenterList.Location = new System.Drawing.Point(16, 274);
             this.donationCenterList.Name = "donationCenterList";
             this.donationCenterList.Size = new System.Drawing.Size(464, 404);
             this.donationCenterList.TabIndex = 3;

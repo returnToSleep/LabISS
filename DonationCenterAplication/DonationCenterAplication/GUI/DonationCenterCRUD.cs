@@ -24,12 +24,12 @@ namespace DonationCenterServer.Forms
             gMapDonationCenterSelect.Manager.Mode = AccessMode.ServerOnly;
             gMapDonationCenterSelect.MapProvider = GMapProviders.BingMap;
             gMapDonationCenterSelect.Zoom = 15;
+            gMapDonationCenterSelect.DisableFocusOnMouseEnter = true;
+
             gMapDonationCenterSelect.SetPositionByKeywords("Cluj-Napoca");
             gMapDonationCenterSelect.DragButton = MouseButtons.Left;
 
-            //TODO Foarte faina card-urile dom DoctorCRUD
-            //Astea de aici mai putin
-            //Andi sau Emu (de preferat Emu) rezolvati va rog 
+            
         }
 
         private void DonationCenterCRUD_Load(object sender, EventArgs e)

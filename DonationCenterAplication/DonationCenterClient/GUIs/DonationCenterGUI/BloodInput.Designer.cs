@@ -264,10 +264,11 @@
             this.bloodPulse.Name = "bloodPulse";
             this.bloodPulse.Size = new System.Drawing.Size(126, 22);
             this.bloodPulse.TabIndex = 10;
+            this.bloodPulse.TextChanged += new System.EventHandler(this.bloodPulse_TextChanged);
             // 
             // bloodPressure
             // 
-            this.bloodPressure.Location = new System.Drawing.Point(328, 29);
+            this.bloodPressure.Location = new System.Drawing.Point(328, 31);
             this.bloodPressure.Name = "bloodPressure";
             this.bloodPressure.Size = new System.Drawing.Size(126, 22);
             this.bloodPressure.TabIndex = 9;
@@ -299,7 +300,7 @@
             // 
             this.redQuantity.Location = new System.Drawing.Point(328, 71);
             this.redQuantity.Name = "redQuantity";
-            this.redQuantity.Size = new System.Drawing.Size(125, 22);
+            this.redQuantity.Size = new System.Drawing.Size(126, 22);
             this.redQuantity.TabIndex = 8;
             // 
             // trombQuantity

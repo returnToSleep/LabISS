@@ -32,7 +32,7 @@ namespace Client.GUIs.DonorGUI
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DonorMainGUI));
-            this.donationHistoryList = new SafeNishBox();
+            this.donationHistoryList = new Client.Utils.SafeNishBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.noOfDonationsLabel = new System.Windows.Forms.Label();
             this.donorBloodTypeLabel = new System.Windows.Forms.Label();
@@ -129,7 +129,7 @@ namespace Client.GUIs.DonorGUI
             this.fillFormButton.ForeColor = System.Drawing.Color.DarkRed;
             this.fillFormButton.Location = new System.Drawing.Point(653, 26);
             this.fillFormButton.Name = "fillFormButton";
-            this.fillFormButton.Size = new System.Drawing.Size(238, 60);
+            this.fillFormButton.Size = new System.Drawing.Size(238, 43);
             this.fillFormButton.TabIndex = 4;
             this.fillFormButton.Text = "Fill in donation\r\nform\r\n";
             this.fillFormButton.UseVisualStyleBackColor = false;
@@ -142,7 +142,7 @@ namespace Client.GUIs.DonorGUI
             this.refreshButton.ForeColor = System.Drawing.Color.DarkRed;
             this.refreshButton.Location = new System.Drawing.Point(897, 26);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(190, 60);
+            this.refreshButton.Size = new System.Drawing.Size(190, 43);
             this.refreshButton.TabIndex = 5;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = false;
@@ -219,9 +219,9 @@ namespace Client.GUIs.DonorGUI
             this.groupBox3.Controls.Add(this.donationInformationLabel);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox3.ForeColor = System.Drawing.Color.DarkRed;
-            this.groupBox3.Location = new System.Drawing.Point(653, 92);
+            this.groupBox3.Location = new System.Drawing.Point(653, 75);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(434, 119);
+            this.groupBox3.Size = new System.Drawing.Size(434, 136);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Next donation";
@@ -231,7 +231,7 @@ namespace Client.GUIs.DonorGUI
             this.donationInformationLabel.AutoSize = true;
             this.donationInformationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.donationInformationLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.donationInformationLabel.Location = new System.Drawing.Point(6, 58);
+            this.donationInformationLabel.Location = new System.Drawing.Point(15, 67);
             this.donationInformationLabel.Name = "donationInformationLabel";
             this.donationInformationLabel.Size = new System.Drawing.Size(120, 18);
             this.donationInformationLabel.TabIndex = 0;

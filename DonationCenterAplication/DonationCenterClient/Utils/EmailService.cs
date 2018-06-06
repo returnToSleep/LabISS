@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using Common.Model;
+using System.Net.Mime;
+using System.IO;
 
 namespace Client.Utils
 {
     class EmailService
     {
 
-        public EmailService()
-        {
-        }
+        public EmailService(){}
 
-        public static void sendMail(string fromName, string toAddress, string subject, string body)
+        public static void sendMail(string fromName, string toAddress, string subject, string body, List<string> attachements = null)
         {
 
 
@@ -33,6 +29,24 @@ namespace Client.Utils
 
             var message = new MailMessage("donation.center0100@gmail.com", toAddress, subject, body);
 
+            if (attachements != null)
+            {
+
+                attachements.ForEach(fileName =>
+                {
+
+                    Attachment attachment = new Attachment(fileName, MediaTypeNames.Application.Octet);
+                    ContentDisposition disposition = attachment.ContentDisposition;
+                    disposition.CreationDate = File.GetCreationTime(fileName);
+                    disposition.ModificationDate = File.GetLastWriteTime(fileName);
+                    disposition.ReadDate = File.GetLastAccessTime(fileName);
+                    disposition.FileName = Path.GetFileName(fileName);
+                    disposition.Size = new FileInfo(fileName).Length;
+                    disposition.DispositionType = DispositionTypeNames.Attachment;
+                    message.Attachments.Add(attachment);
+
+                });
+            }
             smtp.Send(message);
         }
 

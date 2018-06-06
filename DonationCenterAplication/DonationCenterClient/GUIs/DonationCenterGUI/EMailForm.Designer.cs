@@ -37,6 +37,8 @@
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.subjectTextBox = new System.Windows.Forms.TextBox();
+            this.attachButton = new System.Windows.Forms.Button();
+            this.fileBrowser = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // label1
@@ -67,6 +69,7 @@
             this.eMailBox.Size = new System.Drawing.Size(838, 389);
             this.eMailBox.TabIndex = 2;
             this.eMailBox.Text = "";
+            this.eMailBox.MouseEnter += new System.EventHandler(this.eMailBox_MouseEnter);
             // 
             // sendButton
             // 
@@ -115,12 +118,29 @@
             this.subjectTextBox.Size = new System.Drawing.Size(759, 22);
             this.subjectTextBox.TabIndex = 7;
             // 
+            // attachButton
+            // 
+            this.attachButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.attachButton.Location = new System.Drawing.Point(17, 537);
+            this.attachButton.Name = "attachButton";
+            this.attachButton.Size = new System.Drawing.Size(145, 39);
+            this.attachButton.TabIndex = 8;
+            this.attachButton.Text = "Attach file";
+            this.attachButton.UseVisualStyleBackColor = false;
+            this.attachButton.Click += new System.EventHandler(this.attachButton_Click);
+            // 
+            // fileBrowser
+            // 
+            this.fileBrowser.FileName = "openFileDialog1";
+            this.fileBrowser.Filter = "TXT files|*.txt";
+            // 
             // EMailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(873, 584);
+            this.Controls.Add(this.attachButton);
             this.Controls.Add(this.subjectTextBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.emailTextBox);
@@ -147,5 +167,7 @@
         private System.Windows.Forms.TextBox emailTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox subjectTextBox;
+        private System.Windows.Forms.Button attachButton;
+        private System.Windows.Forms.OpenFileDialog fileBrowser;
     }
 }
