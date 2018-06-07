@@ -310,24 +310,27 @@ namespace Client.GUIs.DoctorGUIs
         private void acceptBloodButton_Click(object sender, EventArgs e)
         {
             DoctorRequest dR = (DoctorRequest)requestList.SelectedItem;
-
-            if (dR.requestString.Split(',')[0] == "Plasma")
+            try
             {
-                controller.acceptBlood(dR, (Plasma)deliveredBloodList.Items[0], true);
+                if (dR.requestString.Split(',')[0] == "Plasma")
+                {
+                    controller.acceptBlood(dR, (Plasma)deliveredBloodList.Items[0], true);
+                }
+                if (dR.requestString.Split(',')[0] == "Red")
+                {
+                    controller.acceptBlood(dR, (RedBloodCell)deliveredBloodList.Items[0], true);
+                }
+                if (dR.requestString.Split(',')[0] == "Tromb")
+                {
+                    controller.acceptBlood(dR, (Trombocyte)deliveredBloodList.Items[0], true);
+                }
+
+                MessageBox.Show("The package has been accepted!", "Succes!");
             }
-            if (dR.requestString.Split(',')[0] == "Red")
+            catch(Exception exc)
             {
-                controller.acceptBlood(dR, (RedBloodCell)deliveredBloodList.Items[0], true);
+                Console.WriteLine("Exception:" + exc.ToString());
             }
-            if (dR.requestString.Split(',')[0] == "Tromb")
-            {
-                controller.acceptBlood(dR, (Trombocyte)deliveredBloodList.Items[0], true);
-            }
-
-            deliveredBloodList.Items.Clear();
-
-            MessageBox.Show("The package has been accepted!", "Succes!");
-
             RefreshLists();
 
         }
@@ -348,8 +351,6 @@ namespace Client.GUIs.DoctorGUIs
             {
                 controller.acceptBlood(dR, (Trombocyte)deliveredBloodList.Items[0], false);
             }
-
-            deliveredBloodList.Items.Clear();
 
             RefreshLists();
 
@@ -552,7 +553,8 @@ namespace Client.GUIs.DoctorGUIs
                     }
                     if (reqDiag.DialogResult == DialogResult.No)
                     {
-                        smartRequestList = controller.getOriginalAmmountRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, float.Parse(quantity.Text));
+                        smartRequestList = controller.getBestRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, (float)gatheredAmmount);
+                        smartRequestList.AddRange(controller.getOriginalAmmountRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, float.Parse(quantity.Text) - (float)gatheredAmmount));
                     }
                 }
                 
