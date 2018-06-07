@@ -6,11 +6,6 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Channels.Tcp;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 
 namespace Controller
@@ -61,8 +56,12 @@ namespace Controller
         {
 
             List<DonationCenter> donList = service.GetAllFromDatabase<DonationCenter>().ToList();
-            List<Tuple<string, double, string>> returnList = new List<Tuple<string, double, string>>();
-            
+            List<Tuple<string, double, string>> returnList = getBestRequest(pacientName, component, type, rh, ammount).Where(x => x.Item2 != 0).ToList();
+
+            double gatheredAmmount = returnList.Select(x => x.Item2).Sum();
+
+            ammount -= (float)gatheredAmmount;
+
             switch (component)
             {
                 case "Plasma":
@@ -75,10 +74,21 @@ namespace Controller
                                         .Sum() - getDistanceFromDoctor(x))
                                         .ToList();
 
+                        try
+                        {
+                            Tuple<string, double, string> tup = returnList.First(x => x.Item1 == sortedList[0].name);
+                            returnList.Remove(tup);
+                            returnList.Add(Tuple.Create(sortedList[0].name, ammount + tup.Item2, sortedList[0].id));
+                            break;
 
-                        returnList.Add(Tuple.Create(sortedList[0].name, (double)ammount, sortedList[0].id));
-                        
-                        break;
+                        }
+                        catch (InvalidOperationException)
+                        {
+
+
+                            returnList.Add(Tuple.Create(sortedList[0].name, (double)ammount, sortedList[0].id));
+                            break;
+                        }
                     }
 
                 case "Red":
@@ -90,9 +100,21 @@ namespace Controller
                                 .Select(y => y.ammount)
                                 .Sum() - getDistanceFromDoctor(x))
                                 .ToList();
+                        try
+                        {
+                            Tuple<string, double, string> tup = returnList.First(x => x.Item1 == sortedList[0].name);
+                            returnList.Remove(tup);
+                            returnList.Add(Tuple.Create(sortedList[0].name, ammount + tup.Item2, sortedList[0].id));
+                            break;
 
-                        returnList.Add(Tuple.Create(sortedList[0].name, (double)ammount, sortedList[0].id));
-                        break;
+                        }
+                        catch (InvalidOperationException)
+                        {
+
+
+                            returnList.Add(Tuple.Create(sortedList[0].name, (double)ammount, sortedList[0].id));
+                            break;
+                        }
                     }
 
                 case "Tromb":
@@ -104,10 +126,25 @@ namespace Controller
                                 .Sum() - getDistanceFromDoctor(x))
                                 .ToList();
 
-                        returnList.Add(Tuple.Create(sortedList[0].name, (double)ammount, sortedList[0].id));
-                        break;
+
+                        try
+                        {
+                            Tuple<string, double, string> tup = returnList.First(x => x.Item1 == sortedList[0].name);
+                            returnList.Remove(tup);
+                            returnList.Add(Tuple.Create(sortedList[0].name, ammount + tup.Item2, sortedList[0].id));
+                            break;
+                            
+                        }
+                        catch (InvalidOperationException)
+                        {
+
+
+                            returnList.Add(Tuple.Create(sortedList[0].name, (double)ammount, sortedList[0].id));
+                            break;
+                        }
                     }
             }
+
             return returnList;
 
         }
@@ -137,7 +174,7 @@ namespace Controller
 
                         List<DonationCenter> sortedList = donList.ToList()
                                 .OrderByDescending(x => x.plasmaList
-                                        .Where(plasma => plasma.antibody == type)
+                                        .Where(plasma => plasma.antibody == type && (plasma.donatedFor == null || plasma.donatedFor == pacientName))
                                         .Select(y => y.ammount)
                                         .Sum() - getDistanceFromDoctor(x))
                                         .ToList();
@@ -171,7 +208,7 @@ namespace Controller
                             localAmmount = 0.0f;
 
                             localAmmount += donationCenter.plasmaList
-                                .Where(plasma => plasma.antibody == type && plasma.donatedFor != pacientName)
+                                .Where(plasma => plasma.antibody == type && plasma.donatedFor == null)
                                 .Select(plasma => plasma.ammount)
                                 .Sum();
 
@@ -194,7 +231,7 @@ namespace Controller
 
                         List<DonationCenter> sortedList = donList.ToList()
                            .OrderByDescending(x => x.redBloodCellList
-                                .Where(red => red.antigen == type && red.rh == rh)
+                                .Where(red => red.antigen == type && red.rh == rh && (red.donatedFor == null || red.donatedFor == pacientName))
                                 .Select(y => y.ammount)
                                 .Sum() - getDistanceFromDoctor(x))
                                 .ToList();
@@ -227,7 +264,7 @@ namespace Controller
                             localAmmount = 0.0f;
 
                             localAmmount += donationCenter.redBloodCellList
-                                .Where(red => red.antigen == type && red.rh == rh && red.donatedFor != pacientName)
+                                .Where(red => red.antigen == type && red.rh == rh && red.donatedFor == null)
                                 .Select(plasma => plasma.ammount)
                                 .Sum();
 
@@ -247,7 +284,8 @@ namespace Controller
                     {
 
                         List<DonationCenter> sortedList = donList.ToList()
-                           .OrderByDescending(x => x.redBloodCellList
+                           .OrderByDescending(x => x.trombocyteList
+                                .Where(tromb => tromb.donatedFor == null || tromb.donatedFor == pacientName)
                                 .Select(y => y.ammount)
                                 .Sum() - getDistanceFromDoctor(x))
                                 .ToList();
@@ -279,7 +317,7 @@ namespace Controller
                             localAmmount = 0.0f;
 
                             localAmmount += donationCenter.trombocyteList
-                                .Where(tromb => tromb.donatedFor != pacientName)
+                                .Where(tromb => tromb.donatedFor == null)
                                 .Select(tromb => tromb.ammount)
                                 .Sum();
 

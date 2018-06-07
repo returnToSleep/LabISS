@@ -300,15 +300,17 @@ namespace Client.Controller
          */     
         public string getAvailableBloodGreedy<T>(List<T> componentList, double ammountNeeded) where T : BloodComponent
         {
-            IEnumerable<T> orderedList = componentList.OrderByDescending(x => x.ammount);
+            IEnumerable<T> orderedList = componentList.OrderByDescending(x => x.donatedFor);
             string combinedBlood = "";
             double gatheredAmount = 0f;
             DateTime maxDate = new DateTime(1, 1, 1);
 
             foreach (T comp in orderedList)
             {
+
                 if (gatheredAmount + comp.ammount >= ammountNeeded)
                 {
+
                     if (comp.donationDate.CompareTo(maxDate) > 0)
                     {
                         maxDate = comp.donationDate;
@@ -367,25 +369,53 @@ namespace Client.Controller
 
             if (splitRequest[0].Equals("Plasma"))
             {
-                return getAvailableBloodGreedy(donationCenter.plasmaList
-                    .Where(x => x.antibody == splitRequest[1])
-                    .ToList(), double.Parse(splitRequest[2]));
+                if (request.pacientName == null)
+                {
+                    return getAvailableBloodGreedy(donationCenter.plasmaList
+                        .Where(x => x.antibody == splitRequest[1] && x.donatedFor == null)
+                        .ToList(), double.Parse(splitRequest[2]));
+                }
+                else
+                {
+                    return getAvailableBloodGreedy(donationCenter.plasmaList
+                        .Where(x => x.antibody == splitRequest[1] && x.donatedFor == null || x.donatedFor == request.pacientName)
+                        .ToList(), double.Parse(splitRequest[2]));
+                }
             
             }
 
             if (splitRequest[0].Equals("Red"))
             {
-            
-                return getAvailableBloodGreedy(donationCenter.redBloodCellList
-                    .Where(x => x.antigen == splitRequest[1] && x.rh == bool.Parse(splitRequest[2]))
-                    .ToList(), double.Parse(splitRequest[3]));
+
+                if (request.pacientName == null)
+                {
+                    return getAvailableBloodGreedy(donationCenter.redBloodCellList
+                        .Where(x => x.antigen == splitRequest[1] && x.rh == bool.Parse(splitRequest[2]) && x.donatedFor == null)
+                        .ToList(), double.Parse(splitRequest[3]));
+                }
+                else
+                {
+                    return getAvailableBloodGreedy(donationCenter.redBloodCellList
+                        .Where(x => x.antigen == splitRequest[1] && x.rh == bool.Parse(splitRequest[2]) && x.donatedFor == null || x.donatedFor == request.pacientName)
+                        .ToList(), double.Parse(splitRequest[3]));
+                }
 
             }
 
             if (splitRequest[0].Equals("Tromb"))
             {
-                return getAvailableBloodGreedy(donationCenter.trombocyteList
-                   .ToList(), double.Parse(splitRequest[1]));
+                if (request.pacientName == null)
+                {
+                    return getAvailableBloodGreedy(donationCenter.trombocyteList
+                        .Where(x => x.donatedFor == null)
+                        .ToList(), double.Parse(splitRequest[1]));
+                }
+                else
+                {
+                    return getAvailableBloodGreedy(donationCenter.trombocyteList
+                        .Where(x => x.donatedFor == null || x.donatedFor == request.pacientName)
+                        .ToList(), double.Parse(splitRequest[1]));
+                }
             }
 
             return null;

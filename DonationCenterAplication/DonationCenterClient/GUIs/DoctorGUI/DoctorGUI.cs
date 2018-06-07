@@ -324,6 +324,8 @@ namespace Client.GUIs.DoctorGUIs
                 controller.acceptBlood(dR, (Trombocyte)deliveredBloodList.Items[0], true);
             }
 
+            deliveredBloodList.Items.Clear();
+
             MessageBox.Show("The package has been accepted!", "Succes!");
 
             RefreshLists();
@@ -346,6 +348,8 @@ namespace Client.GUIs.DoctorGUIs
             {
                 controller.acceptBlood(dR, (Trombocyte)deliveredBloodList.Items[0], false);
             }
+
+            deliveredBloodList.Items.Clear();
 
             RefreshLists();
 
@@ -548,8 +552,7 @@ namespace Client.GUIs.DoctorGUIs
                     }
                     if (reqDiag.DialogResult == DialogResult.No)
                     {
-                        smartRequestList = controller.getBestRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, (float)gatheredAmmount);
-                        smartRequestList.AddRange(controller.getOriginalAmmountRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, float.Parse(quantity.Text) - (float)gatheredAmmount));
+                        smartRequestList = controller.getOriginalAmmountRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, float.Parse(quantity.Text));
                     }
                 }
                 

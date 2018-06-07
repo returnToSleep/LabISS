@@ -49,7 +49,7 @@ namespace Client.GUIs.LogIn
             TcpClientChannel channel = new TcpClientChannel();
             ChannelServices.RegisterChannel(channel, false);
             service = (IService)(Activator.GetObject(typeof(IService),
-                "tcp://25.56.133.78:9999/IService"
+                "tcp://192.168.100.3:9999/IService"
                 ));
 
 
@@ -204,7 +204,7 @@ namespace Client.GUIs.LogIn
             TcpClientChannel channel = new TcpClientChannel();
             ChannelServices.RegisterChannel(channel, false);
             service = (IService)(Activator.GetObject(typeof(IService),
-                "tcp://25.56.133.78:9999/IService"
+                "tcp://192.168.100.3:9999/IService"
                 ));
             CreateAccountWindow a = new CreateAccountWindow(service);
             Hide();
