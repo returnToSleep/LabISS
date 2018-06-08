@@ -90,7 +90,9 @@ namespace DonationCenterServer.ORM
     {
         public DoctorRequestMap()
         {
-         
+
+            Lazy(false);
+
             Property(x => x.doctor_id);
             Property(x => x.donationCenter_id);
             

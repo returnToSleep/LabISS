@@ -64,8 +64,10 @@
             // consoleCheckBox
             // 
             this.consoleCheckBox.AutoSize = true;
+            this.consoleCheckBox.Checked = true;
+            this.consoleCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.consoleCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.consoleCheckBox.Location = new System.Drawing.Point(17, 28);
+            this.consoleCheckBox.Location = new System.Drawing.Point(17, 30);
             this.consoleCheckBox.Name = "consoleCheckBox";
             this.consoleCheckBox.Size = new System.Drawing.Size(145, 24);
             this.consoleCheckBox.TabIndex = 3;

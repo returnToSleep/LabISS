@@ -227,7 +227,7 @@ namespace Test.Tests
                 res = dcc.getAvailableBloodGreedy(dcc.donationCenter.plasmaList.ToList(), 103);
 
                 Assert.AreEqual(res.Split(';')[0], "Plasma");
-                Assert.AreEqual(res.Split(';')[1].Split(',')[1], "103");
+                Assert.AreEqual(res.Split(';')[1].Split(',')[1], "100");
 
                 #endregion
 

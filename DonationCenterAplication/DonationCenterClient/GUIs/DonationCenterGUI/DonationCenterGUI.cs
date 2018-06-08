@@ -62,15 +62,24 @@ namespace Client.GUIs
             gMapDonors.DragButton = MouseButtons.Left;
             gMapDonors.DisableFocusOnMouseEnter = true;
 
+            gMapDonors.SetPositionByKeywords("Cluj-Napoca");
+            gMapDonors.Zoom = 15;
+
             gMapPendingDonors.Manager.Mode = AccessMode.ServerOnly;
             gMapPendingDonors.MapProvider = GMapProviders.BingMap;
             gMapPendingDonors.DragButton = MouseButtons.Left;
             gMapPendingDonors.DisableFocusOnMouseEnter = true;
 
+            gMapPendingDonors.SetPositionByKeywords("Cluj-Napoca");
+            gMapPendingDonors.Zoom = 15;
+
             gMapRouteToDoctor.Manager.Mode = AccessMode.ServerOnly;
             gMapRouteToDoctor.MapProvider = GMapProviders.BingMap;
             gMapRouteToDoctor.DragButton = MouseButtons.Left;
             gMapRouteToDoctor.DisableFocusOnMouseEnter = true;
+
+            gMapRouteToDoctor.SetPositionByKeywords("Cluj-Napoca");
+            gMapRouteToDoctor.Zoom = 15;
 
             populateDonorMarkers();
 
@@ -127,7 +136,7 @@ namespace Client.GUIs
             donorOkButton.Enabled = pendingDonorList.Items.Count != 0;
             donorNotOkButton.Enabled = donorOkButton.Enabled;
 
-
+      
         }
 
 
@@ -226,26 +235,21 @@ namespace Client.GUIs
                 RefreshLists();
                 Console.WriteLine("Refresh Ended");
             }
-            catch(Exception exc)
+            catch
             {
-                Console.WriteLine("Exception thrown: " + exc.ToString() );
+
             }
 
 
             try
             {
                 donorList.SelectedIndex = lastSelectedDonor;
-                donorList.Select();
-
                 pendingDonorList.SelectedIndex = lastSelectedDonorPendingRequest;
-                pendingDonorList.Select();
-
                 doctorRequestList.SelectedIndex = lastSelectedDoctor;
-                doctorRequestList.Select();
+   
             }
-            catch(Exception exc)
+            catch
             {
-                Console.WriteLine("Selected Index error: " + exc.ToString());
             }
         }
 
@@ -631,5 +635,7 @@ namespace Client.GUIs
         {
             RefreshLists();
         }
+
+    
     }
 }

@@ -43,7 +43,7 @@ namespace DonationCenterAplication
         public Form1()
         {
             InitializeComponent();
-
+            
             doctorForm = new DoctorCRUD();
             donationCenterForm = new DonationCenterCRUD();
 

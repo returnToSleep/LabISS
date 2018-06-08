@@ -374,6 +374,11 @@ namespace Test
             var doctorController = this.doctorControllerFactory();
             doctorController.service.AddToDatabase(new DonationCenter("1,1", "test"));
 
+
+            doctorController.doctor.requests.ToList()
+                .ForEach(x => doctorController.service.DeleteFromDatabase(x));
+
+
             Location l = new Location
             {
                 addressString = "Test",
@@ -399,16 +404,14 @@ namespace Test
             Assert.IsTrue(doctorController.service.GetAllFromDatabase<DoctorRequest>().Count == count + 1);
 
             //the inserted request should have the same fields
-            DoctorRequest req = doctorController.service.GetOneFromDatabase<DoctorRequest>(count);
+            DoctorRequest req = doctorController.service.GetAllFromDatabase<DoctorRequest>().First(x => x.pacientName == "TestPacient");
             
             Assert.IsTrue(req.pacientName == "TestPacient"
                 && req.requestString == "hello world"
-                && req.priority == 1
-                && req.hospital == "Centrul Save-A-Life",
-                "If this fails, it might be because of lazy initialization");
+                && req.priority == 1);
 
-            //the initial state should be true
-            Assert.IsTrue(req.isBeeingDelivered);
+            //the initial state should be false
+            Assert.IsFalse(req.isBeeingDelivered);
 
             req.isBeeingDelivered = false;
 

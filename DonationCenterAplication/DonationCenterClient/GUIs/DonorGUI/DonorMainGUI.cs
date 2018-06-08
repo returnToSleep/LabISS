@@ -31,12 +31,16 @@ namespace Client.GUIs.DonorGUI
 
             string[] splitAddr = controller.donor.location.addressString.Split(',');
 
+            refreshLabels();
+
             #region Donor Data
+            /*
             donorNameLabel.Text += " " + controller.donor.name;
             cnpLabel.Text += " " + controller.donor.cnp;
             residenceLabel.Text += " " + splitAddr[0] + ", Street " + splitAddr[1] + " No. " + splitAddr[2];
             emailLabel.Text += " " + controller.donor.email;
             donorBloodTypeLabel.Text += bloodType == "?" ? "?" : " " + bloodType + rh;
+            */
             #endregion
 
             populateDonationHistory();
@@ -50,6 +54,8 @@ namespace Client.GUIs.DonorGUI
             string noDon = controller.getDonationHistory().Count == 0 ? "0" : controller.getDonationHistory().Count.ToString();
 
             noOfDonationsLabel.Text = "Number of donations: " + noDon.ToString();
+
+            cnpLabel.Text = "CNP: " + controller.donor.cnp;
 
             string bloodType = controller.donor.bloodType == null ? "?" : controller.donor.bloodType;
 
@@ -99,7 +105,7 @@ namespace Client.GUIs.DonorGUI
         {
             string donationInfoString = controller.isDonorFit();
 
-            fillFormButton.Enabled = donationInfoString == "You can donate!";
+            fillFormButton.Enabled = donationInfoString == "Good to go!";
 
             donationInformationLabel.Text = donationInfoString;
         }

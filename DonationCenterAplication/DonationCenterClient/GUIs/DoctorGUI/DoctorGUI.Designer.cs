@@ -884,6 +884,7 @@
             // 
             this.acceptBloodButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.acceptBloodButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.acceptBloodButton.Enabled = false;
             this.acceptBloodButton.ForeColor = System.Drawing.Color.DarkRed;
             this.acceptBloodButton.Location = new System.Drawing.Point(6, 273);
             this.acceptBloodButton.Name = "acceptBloodButton";
@@ -897,6 +898,7 @@
             // 
             this.noAcceptBloodButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.noAcceptBloodButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.noAcceptBloodButton.Enabled = false;
             this.noAcceptBloodButton.ForeColor = System.Drawing.Color.DarkRed;
             this.noAcceptBloodButton.Location = new System.Drawing.Point(186, 273);
             this.noAcceptBloodButton.Name = "noAcceptBloodButton";

@@ -137,7 +137,6 @@ namespace Client.GUIs.DoctorGUIs
             this.donatedForComboBox.Items.Clear();
             this.avaibleComponentsDonationCenterComboBox.Items.Clear();
 
-
             GMapOverlay markersStock = new GMapOverlay("markersStock");
             GMapOverlay markersRequest = new GMapOverlay("markersRequest");
 
@@ -181,6 +180,8 @@ namespace Client.GUIs.DoctorGUIs
 
             gMapDoctors.Overlays.Add(markersRequest);
             gMapStocks.Overlays.Add(markersStock);
+
+
         }
         private void RefreshLists()
         {
@@ -553,8 +554,8 @@ namespace Client.GUIs.DoctorGUIs
                     }
                     if (reqDiag.DialogResult == DialogResult.No)
                     {
-                        smartRequestList = controller.getBestRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, (float)gatheredAmmount);
-                        smartRequestList.AddRange(controller.getOriginalAmmountRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, float.Parse(quantity.Text) - (float)gatheredAmmount));
+
+                        smartRequestList = controller.getOriginalAmmountRequest(name, comp, (string)antigen.SelectedItem, rh.Checked, float.Parse(quantity.Text));
                     }
                 }
                 

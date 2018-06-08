@@ -2,6 +2,8 @@
 using Common.Model;
 using Common.Validators;
 using Controller;
+using GMap.NET;
+using GMap.NET.MapProviders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,6 +29,11 @@ namespace Client.GUIs.DonorGUI
             InitializeComponent();
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
+
+            gMapDonationCenter.Manager.Mode = AccessMode.ServerOnly;
+            gMapDonationCenter.MapProvider = GMapProviders.BingMap;
+
+
         }
 
         private void dataEditWindow_Load(object sender, EventArgs e)

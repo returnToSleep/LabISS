@@ -52,14 +52,16 @@ namespace Client.GUIs.DonationCenter
             // 
             // donorList
             // 
+            this.donorList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.donorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.donorList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.donorList.FormattingEnabled = true;
-            this.donorList.Location = new System.Drawing.Point(6, 34);
+            this.donorList.Location = new System.Drawing.Point(6, 24);
             this.donorList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.donorList.Name = "donorList";
             this.donorList.ScrollAlwaysVisible = true;
-            this.donorList.Size = new System.Drawing.Size(378, 488);
+            this.donorList.Size = new System.Drawing.Size(378, 436);
             this.donorList.TabIndex = 1;
             this.donorList.SelectedIndexChanged += new System.EventHandler(this.donorList_SelectedIndexChanged);
             // 
@@ -68,7 +70,7 @@ namespace Client.GUIs.DonationCenter
             this.contactButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.contactButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contactButton.ForeColor = System.Drawing.Color.Black;
-            this.contactButton.Location = new System.Drawing.Point(834, 661);
+            this.contactButton.Location = new System.Drawing.Point(835, 663);
             this.contactButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.contactButton.Name = "contactButton";
             this.contactButton.Size = new System.Drawing.Size(204, 44);
@@ -79,15 +81,18 @@ namespace Client.GUIs.DonationCenter
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.gMapAvailableDonors);
             this.groupBox1.Controls.Add(this.donorList);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.DarkRed;
-            this.groupBox1.Location = new System.Drawing.Point(12, 117);
+            this.groupBox1.Location = new System.Drawing.Point(12, 182);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(1027, 538);
+            this.groupBox1.Size = new System.Drawing.Size(1027, 473);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Available donors";
@@ -95,13 +100,16 @@ namespace Client.GUIs.DonationCenter
             // 
             // gMapAvailableDonors
             // 
+            this.gMapAvailableDonors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gMapAvailableDonors.Bearing = 0F;
             this.gMapAvailableDonors.CanDragMap = true;
             this.gMapAvailableDonors.EmptyTileColor = System.Drawing.Color.Navy;
             this.gMapAvailableDonors.GrayScaleMode = false;
             this.gMapAvailableDonors.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapAvailableDonors.LevelsKeepInMemmory = 5;
-            this.gMapAvailableDonors.Location = new System.Drawing.Point(390, 34);
+            this.gMapAvailableDonors.Location = new System.Drawing.Point(390, 24);
             this.gMapAvailableDonors.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gMapAvailableDonors.MarkersEnabled = true;
             this.gMapAvailableDonors.MaxZoom = 15;
@@ -116,21 +124,23 @@ namespace Client.GUIs.DonationCenter
             this.gMapAvailableDonors.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapAvailableDonors.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapAvailableDonors.ShowTileGridLines = false;
-            this.gMapAvailableDonors.Size = new System.Drawing.Size(628, 487);
+            this.gMapAvailableDonors.Size = new System.Drawing.Size(628, 436);
             this.gMapAvailableDonors.TabIndex = 2;
             this.gMapAvailableDonors.Zoom = 0D;
             this.gMapAvailableDonors.Load += new System.EventHandler(this.gMapAvailableDonors_Load);
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(13, 661);
+            this.label1.Location = new System.Drawing.Point(9, 675);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(524, 20);
+            this.label1.Size = new System.Drawing.Size(454, 18);
             this.label1.TabIndex = 6;
-            this.label1.Text = "*Available donors are sorted by the distance from the donation center";
+            this.label1.Text = "Available donors are sorted by the distance from the donation center";
+            this.label1.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // CallDonorsForm
             // 

@@ -35,14 +35,17 @@ namespace Client.GUIs
             this.selectionTab = new System.Windows.Forms.TabControl();
             this.donorPage = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.donorList = new Client.Utils.SafeNishBox();
             this.gMapDonors = new GMap.NET.WindowsForms.GMapControl();
             this.pendingPage = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.pendingDonorList = new Client.Utils.SafeNishBox();
             this.donorNotOkButton = new System.Windows.Forms.Button();
             this.donorOkButton = new System.Windows.Forms.Button();
             this.gMapPendingDonors = new GMap.NET.WindowsForms.GMapControl();
             this.doctorPage = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.doctorRequestList = new Client.Utils.SafeNishBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gMapRouteToDoctor = new GMap.NET.WindowsForms.GMapControl();
             this.sendBloodButton = new System.Windows.Forms.Button();
@@ -59,9 +62,6 @@ namespace Client.GUIs
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.label33 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.donorList = new Client.Utils.SafeNishBox();
-            this.pendingDonorList = new Client.Utils.SafeNishBox();
-            this.doctorRequestList = new Client.Utils.SafeNishBox();
             this.selectionTab.SuspendLayout();
             this.donorPage.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -116,6 +116,20 @@ namespace Client.GUIs
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Donors";
+            // 
+            // donorList
+            // 
+            this.donorList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.donorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.donorList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.donorList.FormattingEnabled = true;
+            this.donorList.Location = new System.Drawing.Point(6, 39);
+            this.donorList.Name = "donorList";
+            this.donorList.ScrollAlwaysVisible = true;
+            this.donorList.Size = new System.Drawing.Size(438, 495);
+            this.donorList.TabIndex = 1;
+            this.donorList.SelectedIndexChanged += new System.EventHandler(this.donorList_SelectedIndexChanged);
             // 
             // gMapDonors
             // 
@@ -173,6 +187,20 @@ namespace Client.GUIs
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Pending persons";
+            // 
+            // pendingDonorList
+            // 
+            this.pendingDonorList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.pendingDonorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.pendingDonorList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.pendingDonorList.FormattingEnabled = true;
+            this.pendingDonorList.Location = new System.Drawing.Point(6, 71);
+            this.pendingDonorList.Name = "pendingDonorList";
+            this.pendingDonorList.ScrollAlwaysVisible = true;
+            this.pendingDonorList.Size = new System.Drawing.Size(438, 462);
+            this.pendingDonorList.TabIndex = 4;
+            this.pendingDonorList.SelectedIndexChanged += new System.EventHandler(this.pendingDonorList_SelectedIndexChanged);
             // 
             // donorNotOkButton
             // 
@@ -253,6 +281,20 @@ namespace Client.GUIs
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Requests from doctors";
+            // 
+            // doctorRequestList
+            // 
+            this.doctorRequestList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.doctorRequestList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.doctorRequestList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.doctorRequestList.FormattingEnabled = true;
+            this.doctorRequestList.Location = new System.Drawing.Point(6, 37);
+            this.doctorRequestList.Name = "doctorRequestList";
+            this.doctorRequestList.ScrollAlwaysVisible = true;
+            this.doctorRequestList.Size = new System.Drawing.Size(438, 493);
+            this.doctorRequestList.TabIndex = 0;
+            this.doctorRequestList.SelectedIndexChanged += new System.EventHandler(this.doctorRequestList_SelectedIndexChanged_1);
             // 
             // groupBox1
             // 
@@ -450,48 +492,6 @@ namespace Client.GUIs
             this.label33.Size = new System.Drawing.Size(275, 17);
             this.label33.TabIndex = 10;
             this.label33.Text = "NB! All quantities are measured in mililiters";
-            // 
-            // donorList
-            // 
-            this.donorList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.donorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.donorList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.donorList.FormattingEnabled = true;
-            this.donorList.Location = new System.Drawing.Point(6, 39);
-            this.donorList.Name = "donorList";
-            this.donorList.ScrollAlwaysVisible = true;
-            this.donorList.Size = new System.Drawing.Size(438, 495);
-            this.donorList.TabIndex = 1;
-            this.donorList.SelectedIndexChanged += new System.EventHandler(this.donorList_SelectedIndexChanged);
-            // 
-            // pendingDonorList
-            // 
-            this.pendingDonorList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.pendingDonorList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.pendingDonorList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.pendingDonorList.FormattingEnabled = true;
-            this.pendingDonorList.Location = new System.Drawing.Point(6, 71);
-            this.pendingDonorList.Name = "pendingDonorList";
-            this.pendingDonorList.ScrollAlwaysVisible = true;
-            this.pendingDonorList.Size = new System.Drawing.Size(438, 462);
-            this.pendingDonorList.TabIndex = 4;
-            this.pendingDonorList.SelectedIndexChanged += new System.EventHandler(this.pendingDonorList_SelectedIndexChanged);
-            // 
-            // doctorRequestList
-            // 
-            this.doctorRequestList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.doctorRequestList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.doctorRequestList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.doctorRequestList.FormattingEnabled = true;
-            this.doctorRequestList.Location = new System.Drawing.Point(6, 37);
-            this.doctorRequestList.Name = "doctorRequestList";
-            this.doctorRequestList.ScrollAlwaysVisible = true;
-            this.doctorRequestList.Size = new System.Drawing.Size(438, 493);
-            this.doctorRequestList.TabIndex = 0;
-            this.doctorRequestList.SelectedIndexChanged += new System.EventHandler(this.doctorRequestList_SelectedIndexChanged_1);
             // 
             // DonationCenterGUI
             // 

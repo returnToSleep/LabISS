@@ -24,7 +24,7 @@ namespace Client.GUIs.DonationCenter
 
         public CallDonorsForm(IList<Donor> availableDonors, DoctorRequest request)
         {
-            this.availableDonors = availableDonors;
+            this.availableDonors = availableDonors.Reverse().ToList();
             req = request;
 
 
@@ -35,7 +35,7 @@ namespace Client.GUIs.DonationCenter
             gMapAvailableDonors.DragButton = MouseButtons.Left;
             gMapAvailableDonors.DisableFocusOnMouseEnter = true;
 
-            warningLabel.Text += " " + request.ToString();
+            warningLabel.Text += "\n" + request.ToString();
             populateDonorList();
 
         }
@@ -97,6 +97,11 @@ namespace Client.GUIs.DonationCenter
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
         {
 
         }
